@@ -24,25 +24,15 @@ export const RootNavigation = {
 
 export const navigationRef = createNavigationContainerRef()
 
-/**
- * Gets the current screen from any navigation state.
- */
 export function getActiveRouteName(state: NavigationState | PartialState<NavigationState>) {
   const route = state.routes[state.index]
 
-  // Found the active route -- return the name
   if (!route.state) return route.name
 
-  // Recursive call to deal with nested routers
   return getActiveRouteName(route.state)
 }
 
-/**
- * Hook that handles Android back button presses and forwards those on to
- * the navigation or allows exiting the app.
- */
 export function useBackButtonHandler(canExit: (routeName: string) => boolean) {
-  // ignore if iOS ... no back button!
   if (Platform.OS === "ios") return
 
   // The reason we're using a ref here is because we need to be able
@@ -79,30 +69,20 @@ export function useBackButtonHandler(canExit: (routeName: string) => boolean) {
       return false
     }
 
-    // Subscribe when we come to life
     BackHandler.addEventListener("hardwareBackPress", onBackPress)
 
-    // Unsubscribe when we're done
     return () => BackHandler.removeEventListener("hardwareBackPress", onBackPress)
   }, [])
 }
 
-/**
- * This helper function will determine whether we should enable navigation persistence
- * based on a config setting and the __DEV__ environment (dev or prod).
- */
 function navigationRestoredDefaultState(persistNavigation: PersistNavigationConfig) {
   if (persistNavigation === "always") return false
   if (persistNavigation === "dev" && __DEV__) return false
   if (persistNavigation === "prod" && !__DEV__) return false
 
-  // all other cases, disable restoration by returning true
   return true
 }
 
-/**
- * Custom hook for persisting navigation state.
- */
 export function useNavigationPersistence(storage: any, persistenceKey: string) {
   const [initialNavigationState, setInitialNavigationState] = useState()
   const isMounted = useIsMounted()
@@ -123,10 +103,8 @@ export function useNavigationPersistence(storage: any, persistenceKey: string) {
       }
     }
 
-    // Save the current route name for later comparision
     routeNameRef.current = currentRouteName
 
-    // Persist state to storage
     storage.save(persistenceKey, state)
   }
 
@@ -146,11 +124,6 @@ export function useNavigationPersistence(storage: any, persistenceKey: string) {
   return { onNavigationStateChange, restoreState, isRestored, initialNavigationState }
 }
 
-/**
- * use this to navigate without the navigation
- * prop. If you have access to the navigation prop, do not use this.
- * More info: https://reactnavigation.org/docs/navigating-without-navigation-prop/
- */
 export function navigate(name: any, params?: any) {
   if (navigationRef.isReady()) {
     navigationRef.navigate(name as never, params as never)
