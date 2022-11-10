@@ -13,7 +13,7 @@ import Config from "./config"
 
 setupReactotron({
   clearOnLoad: true,
-  host: "localhost",
+  host: "192.168.1.201",
   useAsyncStorage: true,
   logInitialState: true,
   logSnapshots: false,
