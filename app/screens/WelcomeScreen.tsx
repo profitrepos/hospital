@@ -1,42 +1,37 @@
 import { observer } from "mobx-react-lite"
-import React, {
-  FC,
-} from "react"
+import React, { FC } from "react"
 import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
-import {
-  Text,
-} from "../components"
+import { Text, Screen } from "../components"
 import { isRTL } from "../i18n"
 import { colors, spacing } from "../theme"
 
 const welcomeLogo = require("../../assets/images/logo.png")
 const welcomeFace = require("../../assets/images/welcome-face.png")
 
-
-export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeScreen(
-) {
-
+export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeScreen() {
   return (
-    <View style={$container}>
-      <View style={$topContainer}>
-        <Image style={$welcomeLogo} source={welcomeLogo} resizeMode="contain" />
-        <Text
-          testID="welcome-heading"
-          style={$welcomeHeading}
-          tx="welcomeScreen.readyForLaunch"
-          preset="heading"
-        />
-        <Text tx="welcomeScreen.exciting" preset="subheading" />
-        <Image style={$welcomeFace} source={welcomeFace} resizeMode="contain" />
-      </View>
-
-      <SafeAreaView style={$bottomContainer} edges={["bottom"]}>
-        <View style={$bottomContentContainer}>
-          <Text tx="welcomeScreen.postscript" size="md" />
+    <Screen preset="auto">
+      <View style={$container}>
+        <View style={$topContainer}>
+          <Image style={$welcomeLogo} source={welcomeLogo} resizeMode="contain" />
+          <Text
+            testID="welcome-heading"
+            style={$welcomeHeading}
+            tx="welcomeScreen.readyForLaunch"
+            preset="heading"
+          />
+          <Text tx="welcomeScreen.exciting" preset="subheading" />
+          <Image style={$welcomeFace} source={welcomeFace} resizeMode="contain" />
         </View>
-      </SafeAreaView>
-    </View>
+
+        <SafeAreaView style={$bottomContainer} edges={["bottom"]}>
+          <View style={$bottomContentContainer}>
+            <Text tx="welcomeScreen.postscript" size="md" />
+          </View>
+        </SafeAreaView>
+      </View>
+    </Screen>
   )
 })
 
@@ -55,7 +50,7 @@ const $topContainer: ViewStyle = {
 
 const $bottomContainer: ViewStyle = {
   flexShrink: 1,
-  flexGrow: 0,
+  flexGrow: 1,
   flexBasis: "43%",
   backgroundColor: colors.palette.neutral100,
   borderTopLeftRadius: 16,

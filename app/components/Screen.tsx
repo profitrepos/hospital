@@ -13,7 +13,7 @@ import {
 import { StatusBar, StatusBarProps } from "expo-status-bar"
 import { Edge, useSafeAreaInsets } from "react-native-safe-area-context"
 import { useScrollToTop } from "@react-navigation/native"
-import { colors } from "../theme"
+import { LinearGradient } from "expo-linear-gradient"
 
 interface BaseScreenProps {
   /**
@@ -32,10 +32,6 @@ interface BaseScreenProps {
    * Override the default edges for the safe area.
    */
   safeAreaEdges?: Edge[]
-  /**
-   * Background color
-   */
-  backgroundColor?: string
   /**
    * Status bar setting. Defaults to dark.
    */
@@ -137,7 +133,7 @@ function useAutoPreset(props: AutoScreenProps) {
   }
 }
 
-function useSafeAreaInsetPadding(safeAreaEdges?: Edge[]) {
+function useSafeAreaInsetPadding(safeAreaEdges: Edge[] = ["top"]) {
   const insets = useSafeAreaInsets()
 
   const insetStyles: ViewStyle = {}
@@ -193,6 +189,7 @@ function ScreenWithScrolling(props: ScreenProps) {
         ScrollViewProps?.contentContainerStyle,
         contentContainerStyle,
       ]}
+      showsVerticalScrollIndicator={false}
     >
       {children}
     </ScrollView>
@@ -201,7 +198,6 @@ function ScreenWithScrolling(props: ScreenProps) {
 
 export function Screen(props: ScreenProps) {
   const {
-    backgroundColor = colors.background,
     KeyboardAvoidingViewProps,
     keyboardOffset = 0,
     safeAreaEdges,
@@ -212,22 +208,34 @@ export function Screen(props: ScreenProps) {
   const insetPadding = useSafeAreaInsetPadding(safeAreaEdges)
 
   return (
-    <View style={[$containerStyle, { backgroundColor }, insetPadding]}>
-      <StatusBar style={statusBarStyle} {...StatusBarProps} />
-
-      <KeyboardAvoidingView
-        behavior={isIos ? "padding" : undefined}
-        keyboardVerticalOffset={keyboardOffset}
-        {...KeyboardAvoidingViewProps}
-        style={[$keyboardAvoidingViewStyle, KeyboardAvoidingViewProps?.style]}
-      >
-        {isNonScrolling(props.preset) ? (
-          <ScreenWithoutScrolling {...props} />
-        ) : (
-          <ScreenWithScrolling {...props} />
-        )}
-      </KeyboardAvoidingView>
-    </View>
+    <LinearGradient
+      colors={[
+        "rgba(102, 135, 252, 0.2)",
+        "rgba(136, 157, 210, 0.2)",
+        "rgba(136, 157, 210, 0.2)",
+        "rgba(136, 157, 210, 0.2)",
+      ]}
+      locations={[0.01, 0.25, 0.7, 0.9]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={$containerStyle}
+    >
+      <View style={[$containerStyle, insetPadding]}>
+        <StatusBar style={statusBarStyle} {...StatusBarProps} />
+        <KeyboardAvoidingView
+          behavior={isIos ? "padding" : undefined}
+          keyboardVerticalOffset={keyboardOffset}
+          {...KeyboardAvoidingViewProps}
+          style={[$keyboardAvoidingViewStyle, KeyboardAvoidingViewProps?.style]}
+        >
+          {isNonScrolling(props.preset) ? (
+            <ScreenWithoutScrolling {...props} />
+          ) : (
+            <ScreenWithScrolling {...props} />
+          )}
+        </KeyboardAvoidingView>
+      </View>
+    </LinearGradient>
   )
 }
 
@@ -250,4 +258,5 @@ const $outerStyle: ViewStyle = {
 const $innerStyle: ViewStyle = {
   justifyContent: "flex-start",
   alignItems: "stretch",
+  flexGrow: 1,
 }
