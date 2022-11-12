@@ -1,274 +1,128 @@
-import React, { ComponentType, forwardRef, Ref, useImperativeHandle, useRef } from "react"
+import React from "react"
 import {
-  StyleProp,
   TextInput,
-  TextInputProps,
-  TextStyle,
-  TouchableOpacity,
   View,
+  TouchableOpacity,
+  StyleProp,
   ViewStyle,
+  TextStyle,
+  TextInputProps,
 } from "react-native"
-import { translate } from "../../i18n"
-import { COLORS, spacing, typography } from "../../theme"
-import { Text, TextProps } from "./Text"
+import { SVGPropsType } from "../../interfaces/Common"
+import { COLORS, typography } from "../../theme"
+import { ClearSVG, PasswordEyeSVG } from "../svg"
+import { Text } from "./Text"
 
-export interface TextFieldAccessoryProps {
-  style: StyleProp<any>
-  status: TextFieldProps["status"]
-  multiline: boolean
-  editable: boolean
-}
-
-export interface TextFieldProps extends Omit<TextInputProps, "ref"> {
-  /**
-   * A style modifier for different input states.
-   */
-  status?: "error" | "disabled"
-  /**
-   * The label text to display if not using `labelTx`.
-   */
-  label?: TextProps["text"]
-  /**
-   * Label text which is looked up via i18n.
-   */
-  labelTx?: TextProps["tx"]
-  /**
-   * Optional label options to pass to i18n. Useful for interpolation
-   * as well as explicitly setting locale or translation fallbacks.
-   */
-  labelTxOptions?: TextProps["txOptions"]
-  /**
-   * Pass any additional props directly to the label Text component.
-   */
-  LabelTextProps?: TextProps
-  /**
-   * The helper text to display if not using `helperTx`.
-   */
-  helper?: TextProps["text"]
-  /**
-   * Helper text which is looked up via i18n.
-   */
-  helperTx?: TextProps["tx"]
-  /**
-   * Optional helper options to pass to i18n. Useful for interpolation
-   * as well as explicitly setting locale or translation fallbacks.
-   */
-  helperTxOptions?: TextProps["txOptions"]
-  /**
-   * Pass any additional props directly to the helper Text component.
-   */
-  HelperTextProps?: TextProps
-  /**
-   * The placeholder text to display if not using `placeholderTx`.
-   */
-  placeholder?: TextProps["text"]
-  /**
-   * Placeholder text which is looked up via i18n.
-   */
-  placeholderTx?: TextProps["tx"]
-  /**
-   * Optional placeholder options to pass to i18n. Useful for interpolation
-   * as well as explicitly setting locale or translation fallbacks.
-   */
-  placeholderTxOptions?: TextProps["txOptions"]
-  /**
-   * Optional input style override.
-   */
+interface TextFieldProps extends TextInputProps {
+  placeholder?: string
+  placeholderInner?: string
   style?: StyleProp<TextStyle>
-  /**
-   * Style overrides for the container
-   */
-  containerStyle?: StyleProp<ViewStyle>
-  /**
-   * Style overrides for the input wrapper
-   */
-  inputWrapperStyle?: StyleProp<ViewStyle>
-  /**
-   * An optional component to render on the right side of the input.
-   * Example: `RightAccessory={(props) => <Icon icon="ladybug" containerStyle={props.style} color={props.editable ? colors.textDim : colors.text} />}`
-   * Note: It is a good idea to memoize this.
-   */
-  RightAccessory?: ComponentType<TextFieldAccessoryProps>
-  /**
-   * An optional component to render on the left side of the input.
-   * Example: `LeftAccessory={(props) => <Icon icon="ladybug" containerStyle={props.style} color={props.editable ? colors.textDim : colors.text} />}`
-   * Note: It is a good idea to memoize this.
-   */
-  LeftAccessory?: ComponentType<TextFieldAccessoryProps>
+  onChangeText: (text: string) => void
+  value: string
+  errorMessage?: string | null
+  LeftIcon?: React.FC<SVGPropsType>
+  secureType?: boolean
+  wrapperStyle?: StyleProp<ViewStyle>
+  RightIcon?: React.FC<SVGPropsType>
+  onPressRightIcon?: () => void
 }
 
-/**
- * A component that allows for the entering and editing of text.
- *
- * - [Documentation and Examples](https://github.com/infinitered/ignite/blob/master/docs/Components-TextField.md)
- */
-export const TextField = forwardRef(function TextField(props: TextFieldProps, ref: Ref<TextInput>) {
-  const {
-    labelTx,
-    label,
-    labelTxOptions,
-    placeholderTx,
-    placeholder,
-    placeholderTxOptions,
-    helper,
-    helperTx,
-    helperTxOptions,
-    status,
-    RightAccessory,
-    LeftAccessory,
-    HelperTextProps,
-    LabelTextProps,
-    style: $inputStyleOverride,
-    containerStyle: $containerStyleOverride,
-    inputWrapperStyle: $inputWrapperStyleOverride,
-    ...TextInputProps
-  } = props
-  const input = useRef<TextInput>()
-
-  const disabled = TextInputProps.editable === false || status === "disabled"
-
-  const placeholderContent = placeholderTx
-    ? translate(placeholderTx, placeholderTxOptions)
-    : placeholder
-
-  const $containerStyles = [$containerStyleOverride]
-
-  const $labelStyles = [$labelStyle, LabelTextProps?.style]
-
-  const $inputWrapperStyles = [
-    $inputWrapperStyle,
-    status === "error" && { borderColor: COLORS.error },
-    TextInputProps.multiline && { minHeight: 112 },
-    LeftAccessory && { paddingStart: 0 },
-    RightAccessory && { paddingEnd: 0 },
-    $inputWrapperStyleOverride,
-  ]
-
-  const $inputStyles = [
-    $inputStyle,
-    disabled && { color: COLORS.disabled },
-    TextInputProps.multiline && { height: "auto" },
-    $inputStyleOverride,
-  ]
-
-  const $helperStyles = [
-    $helperStyle,
-    status === "error" && { color: COLORS.error },
-    HelperTextProps?.style,
-  ]
-
-  function focusInput() {
-    if (disabled) return
-
-    input.current?.focus()
-  }
-
-  useImperativeHandle(ref, () => input.current)
+export const TextField: React.FC<TextFieldProps> = ({
+  placeholder,
+  placeholderInner,
+  style,
+  onChangeText,
+  value,
+  errorMessage,
+  LeftIcon,
+  secureType = false,
+  wrapperStyle,
+  RightIcon,
+  onPressRightIcon,
+  ...props
+}) => {
+  const [secure, setSecure] = React.useState<boolean>(secureType)
 
   return (
-    <TouchableOpacity
-      activeOpacity={1}
-      style={$containerStyles}
-      onPress={focusInput}
-      accessibilityState={{ disabled }}
-    >
-      {!!(label || labelTx) && (
-        <Text
-          preset="formLabel"
-          text={label}
-          tx={labelTx}
-          txOptions={labelTxOptions}
-          {...LabelTextProps}
-          style={$labelStyles}
-        />
+    <View style={[$wrapper, wrapperStyle]}>
+      {placeholder && (
+        <Text style={$placeholder} size="xs">
+          {placeholder}
+        </Text>
       )}
-
-      <View style={$inputWrapperStyles}>
-        {!!LeftAccessory && (
-          <LeftAccessory
-            style={$leftAccessoryStyle}
-            status={status}
-            editable={!disabled}
-            multiline={TextInputProps.multiline}
-          />
-        )}
-
+      <View style={[$inputWrapper, { borderWidth: errorMessage ? 1 : 0 }]}>
+        {LeftIcon && <LeftIcon style={$leftIcon} />}
         <TextInput
-          ref={input}
-          // underlineColorAndroid={COLORS}
-          textAlignVertical="top"
-          placeholder={placeholderContent}
-          placeholderTextColor={COLORS.subtitleGray}
-          {...TextInputProps}
-          editable={!disabled}
-          style={$inputStyles}
+          style={[$input, { letterSpacing: secureType ? 4 : 1 }, style]}
+          onChangeText={onChangeText}
+          value={value}
+          secureTextEntry={secure}
+          placeholder={placeholderInner}
+          {...props}
         />
-
-        {!!RightAccessory && (
-          <RightAccessory
-            style={$rightAccessoryStyle}
-            status={status}
-            editable={!disabled}
-            multiline={TextInputProps.multiline}
-          />
+        {secureType ? (
+          <TouchableOpacity onPress={() => setSecure(!secure)} style={$rightIcon}>
+            <PasswordEyeSVG width={20} height={14} />
+          </TouchableOpacity>
+        ) : RightIcon && onPressRightIcon ? (
+          <TouchableOpacity onPress={() => onPressRightIcon()} style={$rightIcon}>
+            <RightIcon width={18} height={18} />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={() => onChangeText("")} style={$rightIcon}>
+            <ClearSVG />
+          </TouchableOpacity>
         )}
       </View>
-
-      {!!(helper || helperTx) && (
-        <Text
-          preset="formHelper"
-          text={helper}
-          tx={helperTx}
-          txOptions={helperTxOptions}
-          {...HelperTextProps}
-          style={$helperStyles}
-        />
-      )}
-    </TouchableOpacity>
+      {errorMessage ? (
+        <Text style={$error} size="xs">
+          {errorMessage}
+        </Text>
+      ) : null}
+    </View>
   )
-})
-
-const $labelStyle: TextStyle = {
-  marginBottom: spacing.extraSmall,
 }
 
-const $inputWrapperStyle: ViewStyle = {
-  flexDirection: "row",
-  alignItems: "flex-start",
-  borderWidth: 1,
-  borderRadius: 4,
-  // backgroundColor: colors.palette.neutral200,
-  // borderColor: colors.palette.neutral400,
-  overflow: "hidden",
+const $wrapper: ViewStyle = {
+  width: "100%",
 }
-
-const $inputStyle: TextStyle = {
-  flex: 1,
-  alignSelf: "stretch",
-  // fontFamily: typography.primary.normal,
-  color: COLORS.mainTextBlack,
-  fontSize: 16,
-  height: 24,
-  // https://github.com/facebook/react-native/issues/21720#issuecomment-532642093
-  paddingVertical: 0,
-  paddingHorizontal: 0,
-  marginVertical: spacing.extraSmall,
-  marginHorizontal: spacing.small,
+const $inputWrapper: ViewStyle = {
+  position: "relative",
+  borderColor: COLORS.error,
+  borderWidth: 0,
+  width: "100%",
+  backgroundColor: COLORS.iconsBG,
+  borderRadius: 8,
 }
-
-const $helperStyle: TextStyle = {
-  marginTop: spacing.extraSmall,
+const $input: TextStyle = {
+  height: 44,
+  paddingLeft: 15,
+  paddingRight: 55,
+  width: "100%",
+  color: COLORS.blackLight2,
+  borderRadius: 8,
+  fontFamily: typography.medium,
 }
-
-const $rightAccessoryStyle: ViewStyle = {
-  marginEnd: spacing.extraSmall,
-  height: 40,
-  justifyContent: "center",
+const $placeholder: TextStyle = {
+  color: COLORS.lightGray3,
+  marginBottom: 12,
+}
+const $error: TextStyle = {
+  textAlign: "center",
+  color: COLORS.error,
+  marginTop: 8,
+}
+const $leftIcon: ViewStyle = {
+  position: "absolute",
+  left: 20,
+  bottom: 15,
+}
+const $rightIcon: ViewStyle = {
+  position: "absolute",
+  right: 8,
+  top: 8,
+  width: 30,
+  height: 30,
   alignItems: "center",
-}
-const $leftAccessoryStyle: ViewStyle = {
-  marginStart: spacing.extraSmall,
-  height: 40,
   justifyContent: "center",
-  alignItems: "center",
 }
