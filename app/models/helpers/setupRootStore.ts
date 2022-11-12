@@ -1,17 +1,7 @@
-/**
- * This file is where we do "rehydration" of your RootStore from AsyncStorage.
- * This lets you persist your state between app launches.
- *
- * Navigation state persistence is handled in navigationUtilities.tsx.
- *
- * Note that Fast Refresh doesn't play well with this file, so if you edit this,
- * do a full refresh of your app instead.
- *
- * @refresh reset
- */
 import { applySnapshot, IDisposer, onSnapshot } from "mobx-state-tree"
 import type { RootStore } from "../RootStore"
 import * as storage from "../../utils/storage"
+import { setLocale, STORAGE_LANGUAGES_KEY } from "../../i18n"
 
 const ROOT_STATE_STORAGE_KEY = "STORE"
 
@@ -21,6 +11,9 @@ export async function setupRootStore(rootStore: RootStore) {
 
   try {
     restoredState = (await storage.load(ROOT_STATE_STORAGE_KEY)) || {}
+    const selectedLanguages = (await storage.load(STORAGE_LANGUAGES_KEY)) || "ru"
+
+    setLocale(selectedLanguages)
     applySnapshot(rootStore, restoredState)
   } catch (e) {
     if (__DEV__) {

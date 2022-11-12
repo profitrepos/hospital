@@ -1,33 +1,15 @@
-import * as Localization from "expo-localization"
 import i18n from "i18n-js"
-import { I18nManager } from "react-native"
 
-// if English isn't your default language, move Translations to the appropriate language file.
-import en, { Translations } from "./en"
-import ar from "./ar"
-import ko from "./ko"
+import ru, { Translations } from "./ru"
+import kz from "./kz"
 
 i18n.fallbacks = true
-/**
- * we need always include "*-US" for some valid language codes because when you change the system language,
- * the language code is the suffixed with "-US". i.e. if a device is set to English ("en"),
- * if you change to another language and then return to English language code is now "en-US".
- */
-i18n.translations = { ar, en, "en-US": en, ko }
 
-i18n.locale = Localization.locale
+i18n.translations = { kz, ru }
 
-// handle RTL languages
-export const isRTL = Localization.isRTL
-I18nManager.allowRTL(isRTL)
-I18nManager.forceRTL(isRTL)
-
-/**
- * Builds up valid keypaths for translations.
- */
 export type TxKeyPath = RecursiveKeyOf<Translations>
+export const STORAGE_LANGUAGES_KEY = "LANGUAGES"
 
-// via: https://stackoverflow.com/a/65333050
 type RecursiveKeyOf<TObj extends object> = {
   [TKey in keyof TObj & (string | number)]: RecursiveKeyOfHandleValue<TObj[TKey], `${TKey}`>
 }[keyof TObj & (string | number)]

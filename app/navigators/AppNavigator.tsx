@@ -5,11 +5,23 @@ import { observer } from "mobx-react-lite"
 import React from "react"
 import { useColorScheme } from "react-native"
 import Config from "../config"
-import { WelcomeScreen } from "../screens"
+import {
+  HomeScreen,
+  AuthScreen,
+  PatientsScreen,
+  ConsultationsScreen,
+  EmergencyRoomScreen,
+  SettingsScreen,
+} from "../screens"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 
 export type AppStackParamList = {
-  Welcome: undefined
+  Home: undefined
+  Auth: undefined
+  Patients: undefined
+  Consultations: undefined
+  EmergencyRoom: undefined
+  Settings: undefined
 }
 
 const exitRoutes = Config.exitRoutes
@@ -22,9 +34,20 @@ export type AppStackScreenProps<T extends keyof AppStackParamList> = StackScreen
 const Stack = createNativeStackNavigator<AppStackParamList>()
 
 const AppStack = observer(function AppStack() {
+  const isAuth = true
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Welcome" component={WelcomeScreen} />
+      {isAuth ? (
+        <>
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Patients" component={PatientsScreen} />
+          <Stack.Screen name="Consultations" component={ConsultationsScreen} />
+          <Stack.Screen name="EmergencyRoom" component={EmergencyRoomScreen} />
+          <Stack.Screen name="Settings" component={SettingsScreen} />
+        </>
+      ) : (
+        <Stack.Screen name="Auth" component={AuthScreen} />
+      )}
     </Stack.Navigator>
   )
 })

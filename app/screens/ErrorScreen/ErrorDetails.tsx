@@ -1,7 +1,7 @@
 import React, { ErrorInfo } from "react"
 import { ScrollView, TextStyle, View, ViewStyle } from "react-native"
-import { Button, Icon, Screen, Text } from "../../components"
-import { colors, spacing } from "../../theme"
+import { Button, Screen, Text } from "../../components/ui"
+import { COLORS, spacing } from "../../theme"
 
 export interface ErrorDetailsProps {
   error: Error
@@ -17,9 +17,8 @@ export function ErrorDetails(props: ErrorDetailsProps) {
       contentContainerStyle={$contentContainer}
     >
       <View style={$topSection}>
-        <Icon icon="ladybug" size={64} />
-        <Text style={$heading} preset="subheading" tx="errorScreen.title" />
-        <Text tx="errorScreen.friendlySubtitle" />
+        {/* <Text style={$heading} preset="subheading" tx="errorScreen.title" /> */}
+        {/* <Text tx="errorScreen.friendlySubtitle" /> */}
       </View>
 
       <ScrollView style={$errorSection} contentContainerStyle={$errorSectionContentContainer}>
@@ -44,7 +43,7 @@ export function ErrorDetails(props: ErrorDetailsProps) {
 const $contentContainer: ViewStyle = {
   alignItems: "center",
   paddingHorizontal: spacing.large,
-  paddingTop: spacing.extraLarge,
+  paddingVertical: spacing.extraLarge,
   flex: 1,
 }
 
@@ -54,13 +53,13 @@ const $topSection: ViewStyle = {
 }
 
 const $heading: TextStyle = {
-  color: colors.error,
+  color: COLORS.error,
   marginBottom: spacing.medium,
 }
 
 const $errorSection: ViewStyle = {
   flex: 2,
-  backgroundColor: colors.separator,
+  backgroundColor: COLORS.grayBase,
   marginVertical: spacing.medium,
   borderRadius: 6,
 }
@@ -70,15 +69,15 @@ const $errorSectionContentContainer: ViewStyle = {
 }
 
 const $errorContent: TextStyle = {
-  color: colors.error,
+  color: COLORS.error,
 }
 
 const $errorBacktrace: TextStyle = {
   marginTop: spacing.medium,
-  color: colors.textDim,
+  color: COLORS.subtitleGray,
 }
 
 const $resetButton: ViewStyle = {
-  backgroundColor: colors.error,
+  backgroundColor: COLORS.error,
   paddingHorizontal: spacing.huge,
 }

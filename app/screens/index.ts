@@ -1,3 +1,7 @@
-export * from "./WelcomeScreen"
 export * from "./ErrorScreen/ErrorBoundary"
-// export other screens here
+export * from "./HomeScreen"
+export * from "./AuthScreen"
+export * from "./PatientsScreen"
+export * from "./ConsultationsScreen"
+export * from "./EmergencyRoomScreen"
+export * from "./SettingsScreen"
