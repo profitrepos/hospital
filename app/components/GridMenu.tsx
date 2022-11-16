@@ -20,11 +20,9 @@ const MenuItem: FC<MenuItemPropsType> = ({ item, style }) => {
   }
   return (
     <TouchableOpacity onPress={handlePress} style={[$wrapper, style]} activeOpacity={0.7}>
-      <AppBox cardStyle={$item}>
+      <AppBox style={$item} containerStyle={$itemContainer}>
         <Icon width={55} height={55} style={$icon} />
-        <Text size="xs" style={$title}>
-          {item.title}
-        </Text>
+        <Text size="xs" style={$title} tx={item.title} />
       </AppBox>
     </TouchableOpacity>
   )
@@ -33,14 +31,16 @@ const MenuItem: FC<MenuItemPropsType> = ({ item, style }) => {
 type MenuPropsType = {
   list: IHomeMenuItem[]
   style?: StyleProp<ViewStyle>
+  containerStyle?: StyleProp<ViewStyle>
+  itemStyle?: StyleProp<ViewStyle>
 }
 
-const GridMenu: FC<MenuPropsType> = ({ list, style = {} }) => {
+export const GridMenu: FC<MenuPropsType> = ({ list, style, containerStyle, itemStyle }) => {
   return (
-    <View style={[$container, style]}>
-      <View style={$menu}>
+    <View style={[$container, containerStyle]}>
+      <View style={[$menu, style]}>
         {list.map((i) => (
-          <MenuItem item={i} key={i.title} />
+          <MenuItem item={i} key={i.title} style={itemStyle} />
         ))}
       </View>
     </View>
@@ -50,27 +50,33 @@ const GridMenu: FC<MenuPropsType> = ({ list, style = {} }) => {
 const $container: ViewStyle = {
   flex: 1,
   marginVertical: SIZES.height * 0.02,
+  alignItems: "center",
 }
 
 const $menu: ViewStyle = {
+  width: SIZES.width * 0.8,
   flexDirection: "row",
   flexWrap: "wrap",
   justifyContent: "space-between",
 }
 const $wrapper: ViewStyle = {
   width: 140,
+  minHeight: 100,
   marginBottom: 14,
 }
 const $item: ViewStyle = {
   alignItems: "center",
   justifyContent: "center",
 }
-
+const $itemContainer: ViewStyle = {
+  flex: 1,
+}
 const $title: TextStyle = {
   color: COLORS.blackLight3,
   lineHeight: 18,
   textAlign: "center",
   marginTop: -23,
+  width: "100%",
 }
 
 const $icon: ViewStyle = {
@@ -84,5 +90,3 @@ const $icon: ViewStyle = {
 
   elevation: 4,
 }
-
-export default GridMenu

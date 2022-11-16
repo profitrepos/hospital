@@ -6,8 +6,14 @@ const kz: Translations = {
     cancel: "Cancel",
     back: "Back",
   },
+  menu: {
+    patients: "Пациенты",
+    consultations: "Консультации",
+    emergencyRoom: "Приемный покой",
+    settings: "Настройки",
+  },
   errorScreen: {
-    reset: "Перезагрузить приложение KZ",
+    reset: "Перезагрузить приложение",
   },
 }
 

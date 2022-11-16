@@ -7,9 +7,9 @@ import React from "react"
 import { AppRegistry } from "react-native"
 import RNBootSplash from "react-native-bootsplash"
 
-function IgniteApp() {
+function HospitalApp() {
   return <App hideSplashScreen={RNBootSplash.hide} />
 }
 
-AppRegistry.registerComponent("hospital", () => IgniteApp)
+AppRegistry.registerComponent("hospital", () => HospitalApp)
 export default App

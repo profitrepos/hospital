@@ -12,6 +12,7 @@ import {
   ConsultationsScreen,
   EmergencyRoomScreen,
   SettingsScreen,
+  OtpScreen,
 } from "../screens"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 
@@ -22,6 +23,7 @@ export type AppStackParamList = {
   Consultations: undefined
   EmergencyRoom: undefined
   Settings: undefined
+  Otp: undefined
 }
 
 const exitRoutes = Config.exitRoutes
@@ -46,7 +48,10 @@ const AppStack = observer(function AppStack() {
           <Stack.Screen name="Settings" component={SettingsScreen} />
         </>
       ) : (
-        <Stack.Screen name="Auth" component={AuthScreen} />
+        <>
+          <Stack.Screen name="Auth" component={AuthScreen} />
+          <Stack.Screen name="Otp" component={OtpScreen} />
+        </>
       )}
     </Stack.Navigator>
   )

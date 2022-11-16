@@ -16,11 +16,6 @@ export function ErrorDetails(props: ErrorDetailsProps) {
       safeAreaEdges={["top", "bottom"]}
       contentContainerStyle={$contentContainer}
     >
-      <View style={$topSection}>
-        {/* <Text style={$heading} preset="subheading" tx="errorScreen.title" /> */}
-        {/* <Text tx="errorScreen.friendlySubtitle" /> */}
-      </View>
-
       <ScrollView style={$errorSection} contentContainerStyle={$errorSectionContentContainer}>
         <Text style={$errorContent} weight="bold" text={`${props.error}`.trim()} />
         <Text
@@ -30,12 +25,7 @@ export function ErrorDetails(props: ErrorDetailsProps) {
         />
       </ScrollView>
 
-      <Button
-        preset="reversed"
-        style={$resetButton}
-        onPress={props.onReset}
-        tx="errorScreen.reset"
-      />
+      <Button style={$resetButton} onPress={props.onReset} tx="errorScreen.reset" />
     </Screen>
   )
 }
@@ -47,18 +37,8 @@ const $contentContainer: ViewStyle = {
   flex: 1,
 }
 
-const $topSection: ViewStyle = {
-  flex: 1,
-  alignItems: "center",
-}
-
-const $heading: TextStyle = {
-  color: COLORS.error,
-  marginBottom: spacing.medium,
-}
-
 const $errorSection: ViewStyle = {
-  flex: 2,
+  flex: 1,
   backgroundColor: COLORS.grayBase,
   marginVertical: spacing.medium,
   borderRadius: 6,

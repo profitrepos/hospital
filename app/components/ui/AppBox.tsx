@@ -5,36 +5,31 @@ import { spacing } from "../../theme"
 
 type AppBoxPropsType = {
   children: React.ReactNode
-  cardStyle?: StyleProp<ViewStyle>
-  backgroundStyle?: StyleProp<ViewStyle>
+  style?: StyleProp<ViewStyle>
+  containerStyle?: StyleProp<ViewStyle>
 }
 
-export const AppBox: React.FC<AppBoxPropsType> = ({
-  children,
-  cardStyle = {},
-  backgroundStyle = {},
-}) => {
+export const AppBox: React.FC<AppBoxPropsType> = ({ children, style, containerStyle }) => {
   return (
     <LinearGradient
-      colors={["rgba(255, 255, 255, 0.7)", "rgba(255, 255, 255, 0.9)"]}
-      style={[$background, backgroundStyle]}
+      colors={["rgba(255, 255, 255, 0.3)", "rgba(255, 255, 255, 0.7)"]}
+      style={[$background, containerStyle]}
       locations={[0.5, 0.8]}
       start={{ x: 0, y: 0.5 }}
       end={{ x: 1, y: 0.5 }}
     >
-      <View style={[$card, cardStyle]}>{children}</View>
+      <View style={[$box, style]}>{children}</View>
     </LinearGradient>
   )
 }
 
-const $card: ViewStyle = {
-  alignItems: "center",
-  justifyContent: "center",
-  paddingHorizontal: spacing.medium,
+const $box: ViewStyle = {
   borderRadius: 12,
+  width: "100%",
+  flex: 1,
 }
 const $background: ViewStyle = {
   borderRadius: 12,
   width: "100%",
-  paddingVertical: spacing.medium,
+  padding: spacing.medium,
 }

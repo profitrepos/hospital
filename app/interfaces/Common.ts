@@ -1,4 +1,5 @@
 import { StyleProp, ViewStyle } from "react-native"
+import { TxKeyPath } from "../i18n"
 import { AppStackParamList } from "../navigators"
 
 export interface SVGPropsType {
@@ -11,7 +12,7 @@ export interface SVGPropsType {
 export type MainNavigatorScreenNamesType = keyof AppStackParamList
 
 export interface IGridMenuItem<T> {
-  title: string
+  title: TxKeyPath
   icon: React.FC<SVGPropsType>
   navigateTo: T
 }

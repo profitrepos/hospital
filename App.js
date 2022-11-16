@@ -5,9 +5,9 @@ import * as SplashScreen from "expo-splash-screen"
 
 SplashScreen.preventAutoHideAsync()
 
-function HostelApp() {
+function HospitalApp() {
   return <App hideSplashScreen={SplashScreen.hideAsync} />
 }
 
-registerRootComponent(HostelApp)
-export default HostelApp
+registerRootComponent(HospitalApp)
+export default HospitalApp
