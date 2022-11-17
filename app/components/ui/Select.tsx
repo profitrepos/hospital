@@ -1,9 +1,9 @@
 import React, { PropsWithChildren } from "react"
 import RNPickerSelect, { Item, PickerStyle } from "react-native-picker-select"
+import Icon from "react-native-vector-icons/MaterialIcons"
 
-import { StyleSheet } from "react-native"
+import { StyleSheet, TextStyle } from "react-native"
 import { COLORS, spacing } from "../../theme"
-import { ArrowBottomSVG } from "../svg"
 
 interface SelectPropsType<T> {
   placeholder: string
@@ -34,7 +34,7 @@ export const Select = <T,>({
       useNativeAndroidPickerStyle={false}
       style={{ ...pickerSelectStyles, ...style }}
       doneText="Выбрать"
-      Icon={() => <ArrowBottomSVG width={25} height={30} />}
+      Icon={() => <Icon name="arrow-drop-down" style={$icon} color={COLORS.mainBlue} />}
     />
   )
 }
@@ -80,3 +80,7 @@ const pickerSelectStyles: PickerStyle = StyleSheet.create({
     backgroundColor: COLORS.iconsBG,
   },
 })
+
+const $icon: TextStyle = {
+  fontSize: 24,
+}

@@ -8,9 +8,9 @@ import {
   TextStyle,
   TextInputProps,
 } from "react-native"
+import Icon from "react-native-vector-icons/MaterialIcons"
 import { SVGPropsType } from "../../interfaces/Common"
 import { COLORS, typography } from "../../theme"
-import { ClearSVG, PasswordEyeSVG } from "../svg"
 import { Text } from "./Text"
 
 interface TextFieldProps extends TextInputProps {
@@ -62,7 +62,7 @@ export const TextField: React.FC<TextFieldProps> = ({
         />
         {secureType ? (
           <TouchableOpacity onPress={() => setSecure(!secure)} style={$rightIcon}>
-            <PasswordEyeSVG width={20} height={14} />
+            <Icon name="remove-red-eye" style={$passwordIcon} />
           </TouchableOpacity>
         ) : RightIcon && onPressRightIcon ? (
           <TouchableOpacity onPress={() => onPressRightIcon()} style={$rightIcon}>
@@ -70,7 +70,7 @@ export const TextField: React.FC<TextFieldProps> = ({
           </TouchableOpacity>
         ) : (
           <TouchableOpacity onPress={() => onChangeText("")} style={$rightIcon}>
-            <ClearSVG />
+            <Icon name="close" style={$clearIcon} />
           </TouchableOpacity>
         )}
       </View>
@@ -125,4 +125,13 @@ const $rightIcon: ViewStyle = {
   height: 30,
   alignItems: "center",
   justifyContent: "center",
+}
+const $clearIcon: TextStyle = {
+  fontSize: 20,
+  color: COLORS.lightGray3,
+}
+
+const $passwordIcon: TextStyle = {
+  fontSize: 20,
+  color: COLORS.icons,
 }
