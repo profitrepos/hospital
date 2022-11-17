@@ -8,7 +8,7 @@ import { OtpSVG } from "../components/svg"
 import { COLORS, spacing } from "../theme"
 
 export const OtpScreen: FC<StackScreenProps<AppStackParamList, "Otp">> = observer(
-  function OtpScreen() {
+  function OtpScreen({ navigation }) {
     const [code, setCode] = useState("")
     const [resendAllowed, setResendAllowed] = useState(false)
     const [time, setTime] = React.useState(300)
@@ -17,7 +17,7 @@ export const OtpScreen: FC<StackScreenProps<AppStackParamList, "Otp">> = observe
     const authError = false
 
     const otpHandler = () => {
-      // setIsAuth()
+      navigation.navigate("CreatePassword")
     }
 
     useEffect(() => {

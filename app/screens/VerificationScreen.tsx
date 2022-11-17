@@ -2,19 +2,22 @@ import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
 import { TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
+import PINCode from "@haskkor/react-native-pincode"
+
 import { AppStackParamList } from "../navigators"
 import { Screen, Button } from "../components/ui"
 import { COLORS } from "../theme"
 import { FingerPrint } from "../components/svg"
-import PINCode from "@haskkor/react-native-pincode"
 
 export const VerificationScreen: FC<StackScreenProps<AppStackParamList, "Verification">> = observer(
-  function VerificationScreen(props) {
+  function VerificationScreen({}) {
+    const localAuthHandler = () => {}
+
     const renderLeftComponent = () => {
       // if (supportedAuthTypes.length > 0) {
       if (true) {
         return (
-          <TouchableOpacity onPress={() => props.navigation.navigate("Home")} style={$fingerBtn}>
+          <TouchableOpacity onPress={localAuthHandler} style={$fingerBtn}>
             <FingerPrint width={40} height={40} />
           </TouchableOpacity>
         )
