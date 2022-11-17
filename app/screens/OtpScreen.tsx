@@ -1,30 +1,68 @@
-import React, { FC } from "react"
+import React, { FC, useEffect, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle } from "react-native"
+import { TextStyle, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { AppStackScreenProps } from "../navigators"
-import { Screen, Text } from "../components/ui"
-// import { useNavigation } from "@react-navigation/native"
-// import { useStores } from "../models"
+import { AppBox, Button, OtpInput, Screen, Text } from "../components/ui"
+import { AppStackParamList } from "../navigators"
+import { OtpSVG } from "../components/svg"
+import { COLORS, spacing } from "../theme"
 
-// STOP! READ ME FIRST!
-// To fix the TS error below, you'll need to add the following things in your navigation config:
-// - Add `Otp: undefined` to AppStackParamList
-// - Import your screen, and add it to the stack:
-//     `<Stack.Screen name="Otp" component={OtpScreen} />`
-// Hint: Look for the 🔥!
-
-// REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
-export const OtpScreen: FC<StackScreenProps<AppStackScreenProps<"Otp">>> = observer(
+export const OtpScreen: FC<StackScreenProps<AppStackParamList, "Otp">> = observer(
   function OtpScreen() {
-    // Pull in one of our MST stores
-    // const { someStore, anotherStore } = useStores()
+    const [code, setCode] = useState("")
+    const [resendAllowed, setResendAllowed] = useState(false)
+    const [time, setTime] = React.useState(300)
 
-    // Pull in navigation via hook
-    // const navigation = useNavigation()
+    const confirmError = false
+    const authError = false
+
+    const otpHandler = () => {
+      // setIsAuth()
+    }
+
+    useEffect(() => {
+      const interval = setInterval(() => {
+        if (time === 0) {
+          setResendAllowed(true)
+          return clearInterval(interval)
+        }
+        setTime((prev) => prev - 1)
+      }, 1000)
+
+      return () => clearInterval(interval)
+    }, [time])
+
     return (
-      <Screen style={$root} preset="scroll">
-        <Text text="otp" />
+      <Screen preset="scroll">
+        <View style={$root}>
+          <View style={$topSection}>
+            <AppBox containerStyle={$containerBox} style={$box}>
+              <OtpSVG height={120} width={133} style={$icon} />
+              <Text style={$title} size="xl" tx="otpScreen.smsConfirm" preset="semiBold" />
+              <Text style={$note} size="md" tx="otpScreen.note" />
+              <OtpInput
+                code={code}
+                onChange={setCode}
+                confirmCode={otpHandler}
+                error={confirmError || authError}
+              />
+              {confirmError && <Text style={$error} tx="otpScreen.1" />}
+              {authError && <Text style={$error} tx="otpScreen.2" />}
+            </AppBox>
+          </View>
+          <View style={$bottomSection}>
+            <Button
+              onPress={() => console.log("REPEAT")}
+              tx={resendAllowed ? "otpScreen.repeatWithoutTime" : "otpScreen.otpScreenWithTime"}
+              preset={resendAllowed ? "default" : "disabled"}
+              disabled={!resendAllowed}
+              txOptions={{
+                minutes: `${Math.floor(time / 60)}`,
+                seconds: `${time % 60 < 10 ? `0${time % 60}с` : `${time % 60}`}`,
+              }}
+            />
+          </View>
+        </View>
       </Screen>
     )
   },
@@ -32,4 +70,34 @@ export const OtpScreen: FC<StackScreenProps<AppStackScreenProps<"Otp">>> = obser
 
 const $root: ViewStyle = {
   flex: 1,
+}
+const $topSection: ViewStyle = {
+  flex: 1,
+  marginVertical: spacing.large,
+}
+const $bottomSection: ViewStyle = {
+  flex: 1,
+}
+const $containerBox: ViewStyle = {
+  flex: 1,
+}
+const $icon: ViewStyle = {
+  marginTop: spacing.large,
+}
+const $title: TextStyle = {
+  marginBottom: spacing.extraLarge,
+}
+const $note: TextStyle = {
+  color: COLORS.blackLight,
+  lineHeight: 21,
+  marginBottom: spacing.extraLarge,
+}
+const $box: ViewStyle = {
+  alignItems: "center",
+  padding: spacing.medium,
+}
+const $error: TextStyle = {
+  color: COLORS.error,
+  marginTop: spacing.small,
+  textAlign: "center",
 }

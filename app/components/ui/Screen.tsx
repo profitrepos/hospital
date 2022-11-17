@@ -14,6 +14,7 @@ import { StatusBar, StatusBarProps } from "expo-status-bar"
 import { Edge, useSafeAreaInsets } from "react-native-safe-area-context"
 import { useScrollToTop } from "@react-navigation/native"
 import { LinearGradient } from "expo-linear-gradient"
+import { spacing } from "../../theme"
 
 interface BaseScreenProps {
   children?: React.ReactNode
@@ -208,6 +209,9 @@ const $containerStyle: ViewStyle = {
   flex: 1,
   height: "100%",
   width: "100%",
+  paddingBottom: spacing.extraSmall,
+  paddingLeft: spacing.extraSmall,
+  paddingRight: spacing.extraSmall,
 }
 
 const $keyboardAvoidingViewStyle: ViewStyle = {

@@ -8,7 +8,7 @@ interface OtpInputProps {
   onChange: (code: string) => void
   confirmCode: (code: string) => void
   pinCount?: number
-  error?: string
+  error?: boolean
 }
 
 export const OtpInput: FC<OtpInputProps> = ({

@@ -60,6 +60,8 @@ const $presets = {
 
   bold: [$baseStyle, $fontWeightStyles.bold] as StyleProp<TextStyle>,
 
+  semiBold: [$baseStyle, $fontWeightStyles.semiBold] as StyleProp<TextStyle>,
+
   heading: [$baseStyle, $sizeStyles.xxl, $fontWeightStyles.semiBold] as StyleProp<TextStyle>,
 
   subheading: [$baseStyle, $sizeStyles.lg, $fontWeightStyles.medium] as StyleProp<TextStyle>,

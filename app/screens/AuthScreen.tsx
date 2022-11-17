@@ -1,30 +1,42 @@
-import React, { FC } from "react"
+import React, { FC, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle } from "react-native"
+import { TextStyle, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { AppStackScreenProps } from "../navigators"
-import { Screen, Text } from "../components/ui"
-// import { useNavigation } from "@react-navigation/native"
-// import { useStores } from "../models"
+import { AppBox, Button, Screen, TextField, Text } from "../components/ui"
+import { AppStackParamList } from "../navigators"
+import { AuthSVG, FlagSVG } from "../components/svg"
+import { spacing } from "../theme"
 
-// STOP! READ ME FIRST!
-// To fix the TS error below, you'll need to add the following things in your navigation config:
-// - Add `Auth: undefined` to AppStackParamList
-// - Import your screen, and add it to the stack:
-//     `<Stack.Screen name="Auth" component={AuthScreen} />`
-// Hint: Look for the 🔥!
+export const AuthScreen: FC<StackScreenProps<AppStackParamList, "Auth">> = observer(
+  function AuthScreen({ navigation }) {
+    const [phone, setPhone] = useState("")
 
-// REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
-export const AuthScreen: FC<StackScreenProps<AppStackScreenProps<"Auth">>> = observer(
-  function AuthScreen() {
-    // Pull in one of our MST stores
-    // const { someStore, anotherStore } = useStores()
+    const phoneHandler = () => {
+      navigation.navigate("Otp")
+    }
 
-    // Pull in navigation via hook
-    // const navigation = useNavigation()
     return (
-      <Screen style={$root} preset="scroll">
-        <Text text="auth" />
+      <Screen preset="scroll">
+        <View style={$root}>
+          <View style={$topSection}>
+            <AppBox containerStyle={$containerBox} style={$box}>
+              <AuthSVG height={188} width={204} style={$icon} />
+              <Text style={$title} size="xl" tx="authScreen.title" preset="semiBold" />
+              <TextField
+                value={phone}
+                onChangeText={setPhone}
+                LeftIcon={({ style }) => <FlagSVG height={16} width={24} style={style} />}
+                maxLength={12}
+                placeholder="authScreen.placeholder"
+                keyboardType="phone-pad"
+                autoFocus={true}
+              />
+            </AppBox>
+          </View>
+          <View style={$bottomSection}>
+            <Button onPress={phoneHandler} tx="authScreen.next" />
+          </View>
+        </View>
       </Screen>
     )
   },
@@ -32,4 +44,24 @@ export const AuthScreen: FC<StackScreenProps<AppStackScreenProps<"Auth">>> = obs
 
 const $root: ViewStyle = {
   flex: 1,
+}
+const $topSection: ViewStyle = {
+  flex: 1,
+  marginVertical: spacing.large,
+}
+const $bottomSection: ViewStyle = {
+  flex: 1,
+}
+const $containerBox: ViewStyle = {
+  flex: 1,
+}
+const $icon: ViewStyle = {
+  marginTop: spacing.large,
+}
+const $title: TextStyle = {
+  marginBottom: spacing.extraLarge,
+}
+const $box: ViewStyle = {
+  alignItems: "center",
+  padding: spacing.medium,
 }

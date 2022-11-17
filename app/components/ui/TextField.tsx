@@ -9,12 +9,13 @@ import {
   TextInputProps,
 } from "react-native"
 import Icon from "react-native-vector-icons/MaterialIcons"
+import { TxKeyPath } from "../../i18n"
 import { SVGPropsType } from "../../interfaces/Common"
 import { COLORS, typography } from "../../theme"
 import { Text } from "./Text"
 
 interface TextFieldProps extends TextInputProps {
-  placeholder?: string
+  placeholder?: TxKeyPath
   placeholderInner?: string
   style?: StyleProp<TextStyle>
   onChangeText: (text: string) => void
@@ -45,15 +46,15 @@ export const TextField: React.FC<TextFieldProps> = ({
 
   return (
     <View style={[$wrapper, wrapperStyle]}>
-      {placeholder && (
-        <Text style={$placeholder} size="xs">
-          {placeholder}
-        </Text>
-      )}
+      {placeholder && <Text style={$placeholder} size="xs" tx={placeholder} />}
       <View style={[$inputWrapper, { borderWidth: errorMessage ? 1 : 0 }]}>
         {LeftIcon && <LeftIcon style={$leftIcon} />}
         <TextInput
-          style={[$input, { letterSpacing: secureType ? 4 : 1 }, style]}
+          style={[
+            $input,
+            { letterSpacing: secureType ? 4 : 1, paddingLeft: LeftIcon ? 56 : 15 },
+            style,
+          ]}
           onChangeText={onChangeText}
           value={value}
           secureTextEntry={secure}
@@ -96,7 +97,6 @@ const $inputWrapper: ViewStyle = {
 }
 const $input: TextStyle = {
   height: 44,
-  paddingLeft: 15,
   paddingRight: 55,
   width: "100%",
   color: COLORS.blackLight2,

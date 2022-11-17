@@ -2,8 +2,8 @@ import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { AppStackScreenProps } from "../navigators"
 import { Screen, Text } from "../components/ui"
+import { AppStackParamList } from "../navigators"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../models"
 
@@ -15,7 +15,7 @@ import { Screen, Text } from "../components/ui"
 // Hint: Look for the 🔥!
 
 // REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
-export const ConsultationsScreen: FC<StackScreenProps<AppStackScreenProps<"Consultations">>> =
+export const ConsultationsScreen: FC<StackScreenProps<AppStackParamList, "Consultations">> =
   observer(function ConsultationsScreen() {
     // Pull in one of our MST stores
     // const { someStore, anotherStore } = useStores()

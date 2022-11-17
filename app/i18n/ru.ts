@@ -10,6 +10,19 @@ const ru = {
     emergencyRoom: "Приемный покой",
     settings: "Настройки",
   },
+  authScreen: {
+    title: "Вход в приложение",
+    placeholder: "Укажите ваш номер телефона",
+    next: "Далее",
+  },
+  otpScreen: {
+    smsConfirm: "SMS-подтверждение",
+    note: "Мы отправили на Ваш телефон SMS c кодом. Введите его в поле",
+    repeatWithoutTime: "Отправить повторно",
+    otpScreenWithTime: "Отправить повторно - %{minutes}м %{seconds}с",
+    "1": "Ошибка с кодом 1",
+    "2": "Ошибка с кодом 2",
+  },
   errorScreen: {
     reset: "Перезагрузить приложение",
   },

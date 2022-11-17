@@ -13,6 +13,7 @@ import {
   EmergencyRoomScreen,
   SettingsScreen,
   OtpScreen,
+  VerificationScreen,
 } from "../screens"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 
@@ -24,29 +25,30 @@ export type AppStackParamList = {
   EmergencyRoom: undefined
   Settings: undefined
   Otp: undefined
+  Verification: undefined
 }
 
 const exitRoutes = Config.exitRoutes
-
-export type AppStackScreenProps<T extends keyof AppStackParamList> = StackScreenProps<
-  AppStackParamList,
-  T
->
 
 const Stack = createNativeStackNavigator<AppStackParamList>()
 
 const AppStack = observer(function AppStack() {
   const isAuth = true
+  const isVerify = false
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {isAuth ? (
-        <>
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Patients" component={PatientsScreen} />
-          <Stack.Screen name="Consultations" component={ConsultationsScreen} />
-          <Stack.Screen name="EmergencyRoom" component={EmergencyRoomScreen} />
-          <Stack.Screen name="Settings" component={SettingsScreen} />
-        </>
+        isVerify ? (
+          <>
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Patients" component={PatientsScreen} />
+            <Stack.Screen name="Consultations" component={ConsultationsScreen} />
+            <Stack.Screen name="EmergencyRoom" component={EmergencyRoomScreen} />
+            <Stack.Screen name="Settings" component={SettingsScreen} />
+          </>
+        ) : (
+          <Stack.Screen name="Verification" component={VerificationScreen} />
+        )
       ) : (
         <>
           <Stack.Screen name="Auth" component={AuthScreen} />
