@@ -3,11 +3,12 @@ import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { AppStackScreenProps } from "../navigators"
-import { OtpInput, Screen, Tabs } from "../components/ui"
+import { Button, OtpInput, Screen, Select, Tabs } from "../components/ui"
 import { ConsultaionsSVG, EmergencyRoomSVG, PatientsSVG } from "../components/svg"
 import { IHomeMenuItem } from "../interfaces/Common"
 import { GridMenu } from "../components"
 import { SceneMap } from "react-native-tab-view"
+import PINCode from "@haskkor/react-native-pincode"
 
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../models"
@@ -65,6 +66,14 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps<"Home">>> = obs
         <View style={$root}>
           <Tabs renderScene={renderScene} routes={routes} />
           <GridMenu list={menuList} />
+          <PINCode status="choose" />
+
+          <Select
+            data={[]}
+            onValueChange={console.log}
+            value={{ label: "label", value: 1 }}
+            placeholder="placeholder"
+          />
         </View>
       </Screen>
     )

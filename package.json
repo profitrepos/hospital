@@ -77,7 +77,10 @@
     "react-native-tab-view": "^3.3.0",
     "reactotron-mst": "3.1.4",
     "reactotron-react-js": "^3.3.7",
-    "reactotron-react-native": "5.0.3"
+    "reactotron-react-native": "5.0.3",
+    "expo-secure-store": "~11.3.0",
+    "expo-local-authentication": "~12.3.0",
+    "@haskkor/react-native-pincode": "https://github.com/bektemirovkam/react-native-pincode.git#ed89d08f84bd462e07f6c342cce50d301b9acad9"
   },
   "devDependencies": {
     "@babel/core": "^7.18.0",
