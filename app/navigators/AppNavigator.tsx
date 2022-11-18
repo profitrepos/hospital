@@ -15,6 +15,7 @@ import {
   OtpScreen,
   VerificationScreen,
   CreatePasswordScreen,
+  ResetPasswordScreen,
 } from "../screens"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 
@@ -28,6 +29,7 @@ export type AppStackParamList = {
   Otp: undefined
   Verification: undefined
   CreatePassword: undefined
+  ResetPassword: undefined
 }
 
 const exitRoutes = Config.exitRoutes
@@ -36,12 +38,13 @@ const Stack = createNativeStackNavigator<AppStackParamList>()
 
 const AppStack = observer(function AppStack() {
   const isAuth = true
-  const isVerify = false
+  const isVerify = true
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{ headerShown: true }}>
       {isAuth ? (
         isVerify ? (
           <>
+            <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Patients" component={PatientsScreen} />
             <Stack.Screen name="Consultations" component={ConsultationsScreen} />

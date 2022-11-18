@@ -8,7 +8,6 @@ i18n.fallbacks = true
 i18n.translations = { kz, ru }
 
 export type TxKeyPath = RecursiveKeyOf<Translations>
-export const STORAGE_LANGUAGES_KEY = "LANGUAGES"
 
 type RecursiveKeyOf<TObj extends object> = {
   [TKey in keyof TObj & (string | number)]: RecursiveKeyOfHandleValue<TObj[TKey], `${TKey}`>

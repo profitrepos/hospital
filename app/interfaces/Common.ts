@@ -19,3 +19,9 @@ export interface IGridMenuItem<T> {
 
 export interface IHomeMenuItem
   extends IGridMenuItem<Exclude<MainNavigatorScreenNamesType, "Auth" | "Home">> {}
+
+export enum STORAGE_KEYS {
+  ROOT_STATE_STORAGE_KEY = "STORE",
+  STORAGE_LANGUAGES_KEY = "LANGUAGES",
+  PINCODE_KEY = "PINCODE",
+}

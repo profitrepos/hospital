@@ -58,7 +58,7 @@ export const OtpScreen: FC<StackScreenProps<AppStackParamList, "Otp">> = observe
               disabled={!resendAllowed}
               txOptions={{
                 minutes: `${Math.floor(time / 60)}`,
-                seconds: `${time % 60 < 10 ? `0${time % 60}с` : `${time % 60}`}`,
+                seconds: `${time % 60 < 10 ? `0${time % 60}` : `${time % 60}`}`,
               }}
             />
           </View>
