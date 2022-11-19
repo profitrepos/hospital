@@ -25,6 +25,7 @@ interface BaseScreenProps {
   keyboardOffset?: number
   StatusBarProps?: StatusBarProps
   KeyboardAvoidingViewProps?: KeyboardAvoidingViewProps
+  filled?: boolean
 }
 
 interface FixedScreenProps extends BaseScreenProps {
@@ -169,6 +170,7 @@ export function Screen(props: ScreenProps) {
     safeAreaEdges,
     StatusBarProps,
     statusBarStyle = "dark",
+    filled = false,
   } = props
 
   const insetPadding = useSafeAreaInsetPadding(safeAreaEdges)
@@ -184,7 +186,7 @@ export function Screen(props: ScreenProps) {
       locations={[0.01, 0.25, 0.7, 0.9]}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
-      style={$containerStyle}
+      style={[$containerStyle, !filled && $screenPadding]}
     >
       <View style={[$containerStyle, insetPadding]}>
         <StatusBar style={statusBarStyle} {...StatusBarProps} />
@@ -209,9 +211,11 @@ const $containerStyle: ViewStyle = {
   flex: 1,
   height: "100%",
   width: "100%",
-  paddingBottom: spacing.extraSmall,
-  paddingLeft: spacing.extraSmall,
-  paddingRight: spacing.extraSmall,
+}
+const $screenPadding: ViewStyle = {
+  paddingBottom: spacing.medium,
+  paddingLeft: spacing.medium,
+  paddingRight: spacing.medium,
 }
 
 const $keyboardAvoidingViewStyle: ViewStyle = {

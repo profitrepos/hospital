@@ -116,19 +116,30 @@ const $leftAccessoryStyle: ViewStyle = { marginEnd: spacing.extraSmall, zIndex: 
 const $viewPresets = {
   default: [$baseViewStyle] as StyleProp<ViewStyle>,
   disabled: [$baseViewStyle, { backgroundColor: COLORS.disabled }] as StyleProp<ViewStyle>,
+  outline: [
+    $baseViewStyle,
+    { backgroundColor: "transparent", borderWidth: 1, borderColor: COLORS.mainBlue },
+  ] as StyleProp<ViewStyle>,
+  text: [$baseViewStyle, { backgroundColor: "transparent" }] as StyleProp<ViewStyle>,
 }
 
 const $textPresets: Record<Presets, StyleProp<TextStyle>> = {
   default: $baseTextStyle,
   disabled: [$baseTextStyle, { color: COLORS.lightGrayAccept }],
+  outline: [$baseTextStyle, { color: COLORS.mainBlue }],
+  text: [$baseTextStyle, { color: COLORS.mainBlue }],
 }
 
 const $pressedViewPresets: Record<Presets, StyleProp<ViewStyle>> = {
   default: { opacity: 0.8 },
   disabled: { opacity: 0.9 },
+  outline: { opacity: 0.8 },
+  text: { opacity: 0.8 },
 }
 
 const $pressedTextPresets: Record<Presets, StyleProp<TextStyle>> = {
   default: { opacity: 0.7 },
   disabled: { opacity: 0.9 },
+  outline: { opacity: 0.7 },
+  text: { opacity: 0.7 },
 }

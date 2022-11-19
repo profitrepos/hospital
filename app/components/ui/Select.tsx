@@ -6,7 +6,7 @@ import { StyleSheet, TextStyle } from "react-native"
 import { COLORS, spacing } from "../../theme"
 
 interface SelectPropsType<T> {
-  placeholder: string
+  placeholder?: Item | {}
   value: T
   onValueChange: (value: T) => void
   data: Item[]
@@ -14,7 +14,7 @@ interface SelectPropsType<T> {
 }
 
 export const Select = <T,>({
-  placeholder,
+  placeholder = {},
   value,
   onValueChange,
   data,
@@ -23,11 +23,7 @@ export const Select = <T,>({
   return (
     <RNPickerSelect
       fixAndroidTouchableBug={true}
-      placeholder={{
-        label: placeholder,
-        value: null,
-        color: "#000",
-      }}
+      placeholder={placeholder}
       value={value}
       onValueChange={onValueChange}
       items={data}
