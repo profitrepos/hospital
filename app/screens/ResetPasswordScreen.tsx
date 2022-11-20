@@ -1,33 +1,22 @@
-import React, { FC, useEffect, useState } from "react"
+import React, { FC, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { AppStackParamList } from "../navigators"
-import { Button, Screen, Text } from "../components/ui"
-import PINCode from "@haskkor/react-native-pincode"
+import { Button, Screen } from "../components/ui"
+import PINCode, { resetPinCodeInternalStates } from "@haskkor/react-native-pincode"
 import { translate } from "../i18n"
 import { COLORS } from "../theme"
-import { loadString, remove, saveString } from "../utils/storage"
+import { remove, saveString } from "../utils/storage"
 import { STORAGE_KEYS } from "../interfaces/Common"
 import { useFocusEffect } from "@react-navigation/native"
 import { FingerPrint } from "../components/svg"
+import { useStores } from "../models"
 
 export const ResetPasswordScreen: FC<StackScreenProps<AppStackParamList, "ResetPassword">> =
   observer(function ResetPasswordScreen({ navigation }) {
+    const { app } = useStores()
     const [pinStatus, setPinStatus] = useState<"enter" | "choose">("enter")
-
-    // TODO: ложить в стор при закрузке (временный кода, еще в VerificationScreen)
-
-    const [pin, setPin] = useState<string | null>(null)
-
-    useEffect(() => {
-      const getPincode = async () => {
-        const pinCode = await loadString(STORAGE_KEYS.PINCODE_KEY, true)
-        setPin(pinCode)
-      }
-
-      getPincode()
-    }, [])
 
     useFocusEffect(
       React.useCallback(() => {
@@ -42,17 +31,19 @@ export const ResetPasswordScreen: FC<StackScreenProps<AppStackParamList, "ResetP
         setPinStatus("choose")
       } else {
         const result = await saveString(STORAGE_KEYS.PINCODE_KEY, code, true)
-        console.log("result ---> ", result)
-
         if (result) {
-          // navigation.goBack()
+          app.loadPincode()
+          navigation.goBack()
         }
       }
     }
 
     const resetPassword = async () => {
       remove(STORAGE_KEYS.PINCODE_KEY, true)
-      // dispatch(logout());
+      remove(STORAGE_KEYS.AUTH_KEY, true)
+      resetPinCodeInternalStates()
+      app.setIsAuth(false)
+      app.setIsVerify(false)
     }
 
     const renderResetButton = () => (
@@ -86,6 +77,9 @@ export const ResetPasswordScreen: FC<StackScreenProps<AppStackParamList, "ResetP
           touchIDSentence={translate("pincode.login")}
           textButtonLockedPage={translate("pincode.exit")}
           textCancelButtonTouchID={translate("pincode.cancel")}
+          textSubDescriptionLockedPage={translate("pincode.reset")}
+          textTitleLockedPage=" " // Достигнуто максимальное количество попыток
+          textDescriptionLockedPage={translate("pincode.lock")}
           finishProcess={setNewPinCode}
           stylePinCodeDeleteButtonText={$pincode}
           stylePinCodeColorSubtitle={COLORS.darkingBlue}
@@ -98,7 +92,7 @@ export const ResetPasswordScreen: FC<StackScreenProps<AppStackParamList, "ResetP
           delayBetweenAttempts={1000}
           buttonComponentLockedPage={renderResetButton}
           bottomLeftComponent={pinStatus === "enter" && renderLeftComponent}
-          storedPin={pin}
+          storedPin={app.pinCode}
         />
       </Screen>
     )

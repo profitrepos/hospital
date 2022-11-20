@@ -4,6 +4,7 @@ import { observer } from "mobx-react-lite"
 import React from "react"
 import { useColorScheme } from "react-native"
 import Config from "../config"
+import { useStores } from "../models"
 import {
   HomeScreen,
   AuthScreen,
@@ -36,8 +37,8 @@ const exitRoutes = Config.exitRoutes
 const Stack = createNativeStackNavigator<AppStackParamList>()
 
 const AppStack = observer(function AppStack() {
-  const isAuth = true
-  const isVerify = true
+  const { isAuth, isVerify } = useStores().app
+
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {isAuth ? (

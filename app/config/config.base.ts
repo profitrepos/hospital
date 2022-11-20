@@ -9,7 +9,7 @@ export type PersistNavigationConfig = ConfigBaseProps["persistNavigation"]
 const BaseConfig: ConfigBaseProps = {
   persistNavigation: "dev",
   catchErrors: __DEV__ ? "dev" : "prod",
-  exitRoutes: ["Welcome"],
+  exitRoutes: ["Home"],
 }
 
 export default BaseConfig

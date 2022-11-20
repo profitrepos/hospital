@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
-import { TextStyle, ViewStyle } from "react-native"
+import { BackHandler, TextStyle, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { AppStackParamList } from "../navigators"
 import { Screen } from "../components/ui"
@@ -9,15 +9,20 @@ import { COLORS } from "../theme"
 import { translate } from "../i18n"
 import { saveString } from "../utils/storage"
 import { STORAGE_KEYS } from "../interfaces/Common"
+import { useStores } from "../models"
 
 export const CreatePasswordScreen: FC<StackScreenProps<AppStackParamList, "CreatePassword">> =
   observer(function CreatePasswordScreen() {
-    const handleNext = async (code: string) => {
-      const result = await saveString(STORAGE_KEYS.PINCODE_KEY, code, true)
-      console.log("result ---> ", result)
+    const { app } = useStores()
 
-      if (result) {
-        // console.log("NEXT....")
+    const handleNext = async (code: string) => {
+      const pincodeSaved = await saveString(STORAGE_KEYS.PINCODE_KEY, code, true)
+      const authSaved = await saveString(STORAGE_KEYS.AUTH_KEY, "authorized", true)
+      console.log("result ---> ", authSaved, pincodeSaved)
+
+      if (pincodeSaved && authSaved) {
+        app.setIsAuth(true)
+        app.setIsVerify(true)
       }
     }
     return (
@@ -33,6 +38,10 @@ export const CreatePasswordScreen: FC<StackScreenProps<AppStackParamList, "Creat
           subtitleError={translate("pincode.again")}
           titleAttemptFailed={translate("pincode.fail")}
           titleValidationFailed={translate("pincode.unsafe")}
+          textSubDescriptionLockedPage={translate("pincode.reset")}
+          textTitleLockedPage=" " // Достигнуто максимальное количество попыток
+          textDescriptionLockedPage={translate("pincode.lock")}
+          onClickButtonLockedPage={BackHandler.exitApp}
           finishProcess={handleNext}
           stylePinCodeDeleteButtonText={$pincode}
           stylePinCodeColorSubtitle={COLORS.darkingBlue}

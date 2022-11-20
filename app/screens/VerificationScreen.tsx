@@ -8,25 +8,16 @@ import { AppStackParamList } from "../navigators"
 import { Screen, Button } from "../components/ui"
 import { COLORS } from "../theme"
 import { FingerPrint } from "../components/svg"
-import { loadString } from "../utils/storage"
-import { STORAGE_KEYS } from "../interfaces/Common"
 import { translate } from "../i18n"
+import { useStores } from "../models"
 
 export const VerificationScreen: FC<StackScreenProps<AppStackParamList, "Verification">> = observer(
   function VerificationScreen({}) {
-    const [pin, setPin] = useState<string | null>(null)
-
-    useEffect(() => {
-      const getPincode = async () => {
-        const pinCode = await loadString(STORAGE_KEYS.PINCODE_KEY, true)
-        setPin(pinCode)
-      }
-
-      getPincode()
-    }, [])
+    const { app } = useStores()
 
     const next = (pin: string) => {
-      console.log("NEXT...... ", pin)
+      console.log("pin ---> ", pin)
+      app.setIsVerify(true)
     }
 
     const renderLeftComponent = (launchTouchID: () => Promise<void>) => {
@@ -76,8 +67,7 @@ export const VerificationScreen: FC<StackScreenProps<AppStackParamList, "Verific
           stylePinCodeTextSubtitle={$text}
           delayBetweenAttempts={1000}
           bottomLeftComponent={renderLeftComponent}
-          storedPin={pin}
-          touchIDDisabled
+          storedPin={app.pinCode}
         />
       </Screen>
     )

@@ -6,7 +6,6 @@ import { setupRootStore } from "./setupRootStore"
 const _rootStore = RootStoreModel.create({})
 const RootStoreContext = createContext<RootStore>(_rootStore)
 
-/* for testing */
 export const RootStoreProvider = RootStoreContext.Provider
 
 export const useStores = () => useContext(RootStoreContext)
