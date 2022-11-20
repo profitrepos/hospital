@@ -39,6 +39,7 @@ export const Tabs: FC<TabsProps> = ({ routes, renderScene }) => {
 }
 const $tabBar: ViewStyle = {
   backgroundColor: COLORS.mainBlue,
+  zIndex: 1,
 }
 const $indicator: ViewStyle = {
   backgroundColor: COLORS.lightBlue,

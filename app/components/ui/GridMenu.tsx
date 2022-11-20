@@ -1,10 +1,10 @@
-import React, { FC, PropsWithChildren, ReactElement } from "react"
+import React, { FC } from "react"
 import { View, TouchableOpacity, StyleProp, ViewStyle, TextStyle } from "react-native"
-import { COLORS, SIZES } from "../theme"
+import { COLORS, SIZES } from "../../theme"
 
-import { AppBox, Text } from "./ui"
+import { AppBox, Text } from "."
 import { useNavigation } from "@react-navigation/native"
-import { IHomeMenuItem } from "../interfaces/Common"
+import { IHomeMenuItem } from "../../interfaces/Common"
 
 type MenuItemPropsType = {
   item: IHomeMenuItem

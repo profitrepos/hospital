@@ -6,7 +6,7 @@ import { Screen, Select } from "../components/ui"
 import { ConsultaionsSVG, EmergencyRoomSVG, PatientsSVG } from "../components/svg"
 import { IHomeMenuItem } from "../interfaces/Common"
 import { AppStackParamList } from "../navigators"
-import { GridMenu } from "../components"
+import { GridMenu } from "../components/ui/GridMenu"
 
 const menuList: IHomeMenuItem[] = [
   {
@@ -48,7 +48,6 @@ export const HomeScreen: FC<StackScreenProps<AppStackParamList, "Home">> = obser
       <Screen preset="scroll">
         <View style={$root}>
           <GridMenu list={menuList} />
-          <Select items={data} value={filter} onValueChange={setFilter} />
         </View>
       </Screen>
     )
@@ -59,6 +58,6 @@ const $root: ViewStyle = {
   flex: 1,
 }
 
-//TODO: header с фильтром и селектом - render function ? для каждого экрана
 //TODO: сделать минимальный store для навигации
+//TODO: refresh control
 //посмотреть ворнинг с клипбоардом

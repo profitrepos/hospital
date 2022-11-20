@@ -17,7 +17,8 @@ import { Text } from "./Text"
 interface TextFieldProps extends TextInputProps {
   placeholder?: TxKeyPath
   placeholderInner?: string
-  style?: StyleProp<TextStyle>
+  inputStyle?: StyleProp<TextStyle>
+  inputWrapperStyle?: StyleProp<ViewStyle>
   onChangeText: (text: string) => void
   value: string
   errorMessage?: string | null
@@ -31,7 +32,8 @@ interface TextFieldProps extends TextInputProps {
 export const TextField: React.FC<TextFieldProps> = ({
   placeholder,
   placeholderInner,
-  style,
+  inputStyle,
+  inputWrapperStyle,
   onChangeText,
   value,
   errorMessage,
@@ -47,13 +49,13 @@ export const TextField: React.FC<TextFieldProps> = ({
   return (
     <View style={[$wrapper, wrapperStyle]}>
       {placeholder && <Text style={$placeholder} size="xs" tx={placeholder} />}
-      <View style={[$inputWrapper, { borderWidth: errorMessage ? 1 : 0 }]}>
+      <View style={[$inputWrapper, inputWrapperStyle, { borderWidth: errorMessage ? 1 : 0 }]}>
         {LeftIcon && <LeftIcon style={$leftIcon} />}
         <TextInput
           style={[
             $input,
             { letterSpacing: secureType ? 4 : 1, paddingLeft: LeftIcon ? 56 : 15 },
-            style,
+            inputStyle,
           ]}
           onChangeText={onChangeText}
           value={value}
@@ -130,7 +132,6 @@ const $clearIcon: TextStyle = {
   fontSize: 20,
   color: COLORS.lightGray3,
 }
-
 const $passwordIcon: TextStyle = {
   fontSize: 20,
   color: COLORS.icons,
