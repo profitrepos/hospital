@@ -1,37 +1,33 @@
 import React, { PropsWithChildren } from "react"
-import RNPickerSelect, { Item, PickerStyle } from "react-native-picker-select"
+import RNPickerSelect, { Item, PickerSelectProps, PickerStyle } from "react-native-picker-select"
 import Icon from "react-native-vector-icons/MaterialIcons"
 
-import { StyleSheet, TextStyle } from "react-native"
+import { StyleSheet, TextStyle, View, ViewStyle } from "react-native"
 import { COLORS, spacing } from "../../theme"
 
-interface SelectPropsType<T> {
-  placeholder?: Item | {}
-  value: T
-  onValueChange: (value: T) => void
-  data: Item[]
+interface SelectPropsType extends PickerSelectProps {
   style?: PickerStyle
+  containerStyle?: ViewStyle
 }
 
-export const Select = <T,>({
+export const Select = ({
+  style,
   placeholder = {},
-  value,
-  onValueChange,
-  data,
-  style = {},
-}: PropsWithChildren<SelectPropsType<T>>) => {
+  containerStyle,
+  ...props
+}: PropsWithChildren<SelectPropsType>) => {
   return (
-    <RNPickerSelect
-      fixAndroidTouchableBug={true}
-      placeholder={placeholder}
-      value={value}
-      onValueChange={onValueChange}
-      items={data}
-      useNativeAndroidPickerStyle={false}
-      style={{ ...pickerSelectStyles, ...style }}
-      doneText="Выбрать"
-      Icon={() => <Icon name="arrow-drop-down" style={$icon} color={COLORS.mainBlue} />}
-    />
+    <View style={containerStyle}>
+      <RNPickerSelect
+        placeholder={placeholder}
+        fixAndroidTouchableBug={true}
+        useNativeAndroidPickerStyle={false}
+        style={{ ...pickerSelectStyles, ...style }}
+        doneText="Выбрать"
+        Icon={() => <Icon name="arrow-drop-down" style={$icon} color={COLORS.mainBlue} />}
+        {...props}
+      />
+    </View>
   )
 }
 

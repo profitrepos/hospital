@@ -1,5 +1,6 @@
-import React, { FC, useState } from "react"
+import React, { FC, useEffect, useState } from "react"
 import { TextStyle, View, ViewStyle } from "react-native"
+import { PickerStyle } from "react-native-picker-select"
 import Icon from "react-native-vector-icons/MaterialIcons"
 import { COLORS, spacing } from "../../theme"
 import { Button } from "./Button"
@@ -11,8 +12,32 @@ interface FilterProps {
 }
 
 export const Filter: FC<FilterProps> = ({ containerStyle }) => {
+  const [searchMode, setSearchMode] = useState<"show" | "input">("show")
+  const [filterMode, setFilterMode] = useState<"show" | "input">("show")
   const [filter, setFilter] = useState(null)
   const [search, setSearch] = useState("")
+
+  useEffect(() => {
+    if (data) {
+      setFilter(data[0])
+    }
+  }, [])
+
+  const hideSearchField = () => {
+    setSearchMode("show")
+  }
+
+  const showSearchField = () => {
+    setSearchMode("input")
+  }
+
+  const toggleFilterMode = () => {
+    if (filterMode === "input") {
+      setFilterMode("show")
+    } else {
+      setFilterMode("input")
+    }
+  }
 
   const data = [
     {
@@ -27,20 +52,48 @@ export const Filter: FC<FilterProps> = ({ containerStyle }) => {
   return (
     <View style={[$containerStyle, containerStyle]}>
       <View style={$searchContainer}>
-        <TextField value={search} onChangeText={setSearch} wrapperStyle={$searchFieldWrapper} />
-        <Button
-          style={[$btn, $searchBtn]}
-          LeftAccessory={() => <Icon name="search" style={$icon} />}
-        />
+        {searchMode === "input" ? (
+          <View style={$searchFieldWrapper}>
+            <Button
+              style={[$btn, $arrowBtn]}
+              LeftAccessory={() => <Icon name="arrow-back" style={$icon} />}
+              preset="text"
+              onPress={hideSearchField}
+            />
+            <TextField
+              value={search}
+              onChangeText={setSearch}
+              wrapperStyle={$textField}
+              autoFocus
+            />
+          </View>
+        ) : (
+          <Button
+            style={[$btn, $searchBtn]}
+            LeftAccessory={() => <Icon name="search" style={$icon} />}
+            onPress={showSearchField}
+            preset="text"
+          />
+        )}
       </View>
 
-      <View style={$filterContainer}>
-        <Button
-          style={[$btn, $filterBtn]}
-          LeftAccessory={() => <Icon name="filter-list" style={$icon} />}
+      <Button
+        style={[$btn, $filterBtn]}
+        LeftAccessory={() => (
+          <Icon name={filterMode === "input" ? "close" : "filter-list"} style={$icon} />
+        )}
+        onPress={toggleFilterMode}
+        preset="text"
+      />
+      {filterMode === "input" && (
+        <Select
+          items={data}
+          value={filter}
+          onValueChange={setFilter}
+          containerStyle={$filterSelect}
+          style={$selectStyle}
         />
-        <Select data={data} value={filter} onValueChange={setFilter} />
-      </View>
+      )}
     </View>
   )
 }
@@ -48,27 +101,46 @@ export const Filter: FC<FilterProps> = ({ containerStyle }) => {
 const $containerStyle: ViewStyle = {
   flexDirection: "row",
   justifyContent: "flex-end",
-  marginTop: spacing.medium,
-  paddingHorizontal: spacing.medium,
+  marginTop: spacing.extraSmall,
+  position: "relative",
 }
 const $searchContainer: ViewStyle = {
+  flex: 1,
   flexDirection: "row",
+  justifyContent: "flex-end",
 }
-const $filterContainer: ViewStyle = {
-  flexDirection: "row",
+const $textField: ViewStyle = {
+  width: "auto",
+  flex: 1,
+}
+
+const $filterSelect: ViewStyle = {
+  position: "absolute",
+  top: "100%",
+  width: "100%",
+}
+const $selectStyle: PickerStyle = {
+  headlessAndroidContainer: {
+    backgroundColor: COLORS.iconsBG,
+    borderRadius: 8,
+    paddingVertical: 10,
+    paddingLeft: spacing.medium,
+    justifyContent: "center",
+  },
 }
 const $btn: ViewStyle = {
   width: "auto",
   minHeight: 0,
 }
+const $arrowBtn: ViewStyle = {}
 const $filterBtn: ViewStyle = {}
-const $searchBtn: ViewStyle = {
-  marginRight: spacing.small,
-}
+const $searchBtn: ViewStyle = {}
 const $icon: TextStyle = {
-  color: "#fff",
+  color: COLORS.mainBlue,
   fontSize: 20,
 }
 const $searchFieldWrapper: ViewStyle = {
-  marginRight: spacing.small,
+  flex: 1,
+  flexDirection: "row",
+  alignItems: "center",
 }

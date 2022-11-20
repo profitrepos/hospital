@@ -8,7 +8,7 @@ import { AppStackParamList } from "../navigators"
 export const ConsultationsScreen: FC<StackScreenProps<AppStackParamList, "Consultations">> =
   observer(function ConsultationsScreen() {
     return (
-      <Screen style={$root} preset="scroll" filled>
+      <Screen style={$root} preset="scroll">
         <Filter />
       </Screen>
     )
