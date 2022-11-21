@@ -168,10 +168,10 @@ const $containerPresets: Record<Presets, StyleProp<ViewStyle>> = {
 }
 const $selectPresets: Record<Presets, PickerStyle> = {
   filled: $filledSelectStyle,
-  transparent: undefined,
+  transparent: $filledSelectStyle,
 }
 const $searchInutPresets: Record<Presets, StyleProp<ViewStyle>> = {
-  transparent: undefined,
+  transparent: { backgroundColor: "#EEF4FE" },
   filled: { backgroundColor: "#EEF4FE" },
 }
 const $iconPresets: Record<Presets, StyleProp<TextStyle>> = {

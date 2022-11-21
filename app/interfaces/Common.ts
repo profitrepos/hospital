@@ -25,9 +25,13 @@ export interface IHomeMenuItem
     >
   > {}
 
-export enum STORAGE_KEYS {
+export enum ASYNC_STORAGE_KEYS {
   ROOT_STATE_STORAGE_KEY = "STORE",
   STORAGE_LANGUAGES_KEY = "LANGUAGES",
+  NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE",
+}
+
+export enum SECURE_STORAGE_KEYS {
   PINCODE_KEY = "PINCODE",
   AUTH_KEY = "AUTH",
 }

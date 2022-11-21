@@ -1,6 +1,6 @@
-import React, { FC, useEffect, useState } from "react"
+import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
-import { TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
+import { BackHandler, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import PINCode from "@haskkor/react-native-pincode"
 
@@ -13,11 +13,10 @@ import { useStores } from "../models"
 
 export const VerificationScreen: FC<StackScreenProps<AppStackParamList, "Verification">> = observer(
   function VerificationScreen({}) {
-    const { app } = useStores()
+    const { resetPassword, setIsVerify, pinCode } = useStores().app
 
-    const next = (pin: string) => {
-      console.log("pin ---> ", pin)
-      app.setIsVerify(true)
+    const next = () => {
+      setIsVerify(true)
     }
 
     const renderLeftComponent = (launchTouchID: () => Promise<void>) => {
@@ -30,7 +29,7 @@ export const VerificationScreen: FC<StackScreenProps<AppStackParamList, "Verific
 
     const renderResetButton = () => (
       <View style={$footer}>
-        <Button onPress={() => console.log("RESET PASSWORD")} tx={"pincode.resetPwd"} />
+        <Button onPress={resetPassword} tx={"pincode.resetPwd"} />
       </View>
     )
 
@@ -51,6 +50,7 @@ export const VerificationScreen: FC<StackScreenProps<AppStackParamList, "Verific
           touchIDSentence={translate("pincode.login")}
           textButtonLockedPage={translate("pincode.exit")}
           textCancelButtonTouchID={translate("pincode.cancel")}
+          onClickButtonLockedPage={BackHandler.exitApp}
           maxAttempts={3}
           buttonComponentLockedPage={renderResetButton}
           finishProcess={next}
@@ -67,7 +67,7 @@ export const VerificationScreen: FC<StackScreenProps<AppStackParamList, "Verific
           stylePinCodeTextSubtitle={$text}
           delayBetweenAttempts={1000}
           bottomLeftComponent={renderLeftComponent}
-          storedPin={app.pinCode}
+          storedPin={pinCode}
         />
       </Screen>
     )

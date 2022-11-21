@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite"
 import { TextStyle, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { AppBox, Button, OtpInput, Screen, Text } from "../components/ui"
-import { AppStackParamList } from "../navigators"
+import { AppStackParamList, resetRoot } from "../navigators"
 import { OtpSVG } from "../components/svg"
 import { COLORS, spacing } from "../theme"
 
@@ -18,6 +18,7 @@ export const OtpScreen: FC<StackScreenProps<AppStackParamList, "Otp">> = observe
 
     const otpHandler = () => {
       navigation.navigate("CreatePassword")
+      resetRoot()
     }
 
     useEffect(() => {

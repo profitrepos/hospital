@@ -7,24 +7,16 @@ import { Screen } from "../components/ui"
 import PINCode from "@haskkor/react-native-pincode"
 import { COLORS } from "../theme"
 import { translate } from "../i18n"
-import { saveString } from "../utils/storage"
-import { STORAGE_KEYS } from "../interfaces/Common"
 import { useStores } from "../models"
 
 export const CreatePasswordScreen: FC<StackScreenProps<AppStackParamList, "CreatePassword">> =
   observer(function CreatePasswordScreen() {
-    const { app } = useStores()
+    const { finishAuth } = useStores().app
 
-    const handleNext = async (code: string) => {
-      const pincodeSaved = await saveString(STORAGE_KEYS.PINCODE_KEY, code, true)
-      const authSaved = await saveString(STORAGE_KEYS.AUTH_KEY, "authorized", true)
-      console.log("result ---> ", authSaved, pincodeSaved)
-
-      if (pincodeSaved && authSaved) {
-        app.setIsAuth(true)
-        app.setIsVerify(true)
-      }
+    const handleNext = (code: string) => {
+      finishAuth(code)
     }
+
     return (
       <Screen style={$root} preset="scroll">
         <PINCode

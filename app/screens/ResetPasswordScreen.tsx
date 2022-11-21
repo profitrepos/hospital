@@ -1,21 +1,19 @@
 import React, { FC, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
+import { BackHandler, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { AppStackParamList } from "../navigators"
 import { Button, Screen } from "../components/ui"
-import PINCode, { resetPinCodeInternalStates } from "@haskkor/react-native-pincode"
+import PINCode from "@haskkor/react-native-pincode"
 import { translate } from "../i18n"
 import { COLORS } from "../theme"
-import { remove, saveString } from "../utils/storage"
-import { STORAGE_KEYS } from "../interfaces/Common"
 import { useFocusEffect } from "@react-navigation/native"
 import { FingerPrint } from "../components/svg"
 import { useStores } from "../models"
 
 export const ResetPasswordScreen: FC<StackScreenProps<AppStackParamList, "ResetPassword">> =
   observer(function ResetPasswordScreen({ navigation }) {
-    const { app } = useStores()
+    const { savePincode, resetPassword, pinCode } = useStores().app
     const [pinStatus, setPinStatus] = useState<"enter" | "choose">("enter")
 
     useFocusEffect(
@@ -30,20 +28,9 @@ export const ResetPasswordScreen: FC<StackScreenProps<AppStackParamList, "ResetP
       if (pinStatus === "enter") {
         setPinStatus("choose")
       } else {
-        const result = await saveString(STORAGE_KEYS.PINCODE_KEY, code, true)
-        if (result) {
-          app.loadPincode()
-          navigation.goBack()
-        }
+        savePincode(code)
+        navigation.goBack()
       }
-    }
-
-    const resetPassword = async () => {
-      remove(STORAGE_KEYS.PINCODE_KEY, true)
-      remove(STORAGE_KEYS.AUTH_KEY, true)
-      resetPinCodeInternalStates()
-      app.setIsAuth(false)
-      app.setIsVerify(false)
     }
 
     const renderResetButton = () => (
@@ -90,9 +77,10 @@ export const ResetPasswordScreen: FC<StackScreenProps<AppStackParamList, "ResetP
           stylePinCodeTextTitle={$pincode}
           stylePinCodeTextSubtitle={$pincode}
           delayBetweenAttempts={1000}
+          onClickButtonLockedPage={BackHandler.exitApp}
           buttonComponentLockedPage={renderResetButton}
           bottomLeftComponent={pinStatus === "enter" && renderLeftComponent}
-          storedPin={app.pinCode}
+          storedPin={pinCode}
         />
       </Screen>
     )

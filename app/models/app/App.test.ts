@@ -1,4 +1,4 @@
-import { AppModel } from "./AppModel"
+import { AppModel } from "./App"
 
 test("can be created", () => {
   const instance = AppModel.create({})

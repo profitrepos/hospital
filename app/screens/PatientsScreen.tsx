@@ -2,29 +2,25 @@ import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { Screen, Text } from "../components/ui"
+import { Filter, Screen, Text } from "../components/ui"
 import { AppStackParamList } from "../navigators"
-// import { useNavigation } from "@react-navigation/native"
-// import { useStores } from "../models"
 
-// STOP! READ ME FIRST!
-// To fix the TS error below, you'll need to add the following things in your navigation config:
-// - Add `Patients: undefined` to AppStackParamList
-// - Import your screen, and add it to the stack:
-//     `<Stack.Screen name="Patients" component={PatientsScreen} />`
-// Hint: Look for the 🔥!
-
-// REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
 export const PatientsScreen: FC<StackScreenProps<AppStackParamList, "Patients">> = observer(
   function PatientsScreen() {
-    // Pull in one of our MST stores
-    // const { someStore, anotherStore } = useStores()
-
-    // Pull in navigation via hook
-    // const navigation = useNavigation()
     return (
       <Screen style={$root} preset="scroll">
-        <Text text="patients" />
+        <Filter />
+        <Text>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus possimus hic tempora ab,
+          soluta, facere ipsum voluptate similique, quod deleniti maxime qui. Impedit aut
+          consequatur, dignissimos porro odio maiores libero consequuntur nemo id ipsum molestiae
+          animi delectus natus officia debitis iure aliquam mollitia, architecto repudiandae odit
+          dicta tenetur enim! Tempora fugit voluptas accusantium. Voluptatem atque rerum, hic
+          incidunt eius et officiis consequuntur quas odio, error perferendis ad sit. Officia
+          mollitia corporis commodi amet dolorum, voluptates et nam enim dolores quibusdam
+          distinctio blanditiis reiciendis quisquam magnam? Modi sit mollitia eaque molestias enim
+          labore, quasi ea suscipit quae at blanditiis recusandae ex?
+        </Text>
       </Screen>
     )
   },
