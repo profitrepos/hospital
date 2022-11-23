@@ -70,3 +70,12 @@ export async function remove(key: string): Promise<void> {
     await SecureStore.deleteItemAsync(key)
   } catch {}
 }
+
+
+export default {
+  loadString,
+  saveString,
+  load,
+  save,
+  remove
+}

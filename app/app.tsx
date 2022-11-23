@@ -6,11 +6,11 @@ import { initialWindowMetrics, SafeAreaProvider } from "react-native-safe-area-c
 import { useInitialRootStore } from "./models"
 import { AppNavigator, useNavigationPersistence } from "./navigators"
 import { ErrorBoundary } from "./screens/ErrorScreen/ErrorBoundary"
-import * as asyncStorage from "./utils/async-storage"
 import { customFontsToLoad } from "./theme"
 import { setupReactotron } from "./services/reactotron"
 import Config from "./config"
 import { ASYNC_STORAGE_KEYS } from "./interfaces/Common"
+import { AsyncStorage } from "./utils/async-storage"
 
 setupReactotron({
   clearOnLoad: true,
@@ -30,7 +30,7 @@ function App(props: AppProps) {
     initialNavigationState,
     onNavigationStateChange,
     isRestored: isNavigationStateRestored,
-  } = useNavigationPersistence(asyncStorage, ASYNC_STORAGE_KEYS.NAVIGATION_PERSISTENCE_KEY)
+  } = useNavigationPersistence(AsyncStorage, ASYNC_STORAGE_KEYS.NAVIGATION_PERSISTENCE_KEY)
 
   const [areFontsLoaded] = useFonts(customFontsToLoad)
 

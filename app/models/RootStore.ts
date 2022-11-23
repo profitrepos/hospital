@@ -16,6 +16,7 @@ export const RootStoreModel = types
   })
   .actions((self) => ({
     afterCreate() {
+      console.log("<<<--- RootStoreModel afterCreateHook --->>>>")
       self.app.checkAuth()
       self.app.loadPincode()
       self.app.setLocale()

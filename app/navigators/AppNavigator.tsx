@@ -39,6 +39,8 @@ const Stack = createNativeStackNavigator<AppStackParamList>()
 const AppStack = observer(function AppStack() {
   const { isAuth, isVerify } = useStores().app
 
+  console.log("<<<---- ", {isAuth, isVerify}, " ---->>>")
+
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {isAuth ? (

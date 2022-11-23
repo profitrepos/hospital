@@ -1,1 +1,1 @@
-export * from "./secure-storage"
+export {default as SecureStore} from './secure-storage'

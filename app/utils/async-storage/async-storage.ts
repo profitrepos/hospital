@@ -5,6 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
  *
  * @param key The key to fetch.
  */
+
 export async function loadString(key: string): Promise<string | null> {
   try {
     return await AsyncStorage.getItem(key)
@@ -76,4 +77,14 @@ export async function clear(): Promise<void> {
   try {
     await AsyncStorage.clear()
   } catch {}
+}
+
+
+export default {
+  loadString,
+  saveString,
+  load,
+  save,
+  remove,
+  clear
 }
