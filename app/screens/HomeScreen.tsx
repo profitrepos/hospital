@@ -27,7 +27,7 @@ const menuList: IHomeMenuItem[] = [
   {
     title: "homeMenu.settings",
     icon: EmergencyRoomSVG,
-    navigateTo: "Settings",
+    navigateTo: "ResetPassword",
   },
 ]
 

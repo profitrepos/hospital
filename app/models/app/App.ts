@@ -1,13 +1,9 @@
-import { resetPinCodeInternalStates } from "@haskkor/react-native-pincode"
 import { Instance, SnapshotIn, SnapshotOut, types, flow } from "mobx-state-tree"
 import { setLocale } from "../../i18n"
 import { ASYNC_STORAGE_KEYS, SECURE_STORAGE_KEYS } from "../../interfaces/Common"
 import { AsyncStorage } from "../../utils/async-storage"
 import { SecureStore } from "../../utils/secure-storage"
 import { withSetPropAction } from "../helpers/withSetPropAction"
-
-
-
 
 export const AppModel = types
   .model("App")
@@ -35,24 +31,24 @@ export const AppModel = types
     resetPassword: flow(function* () {
       yield SecureStore.remove(SECURE_STORAGE_KEYS.PINCODE_KEY)
       yield SecureStore.remove(SECURE_STORAGE_KEYS.AUTH_KEY)
-      yield resetPinCodeInternalStates()
       self.isAuth = false
       self.isVerify = false
       self.pinCode = null
     }),
     setLocale: flow(function* () {
-      const selectedLanguages = (yield AsyncStorage.load(ASYNC_STORAGE_KEYS.STORAGE_LANGUAGES_KEY)) || "ru"
+      const selectedLanguages =
+        (yield AsyncStorage.load(ASYNC_STORAGE_KEYS.STORAGE_LANGUAGES_KEY)) || "ru"
       setLocale(selectedLanguages)
     }),
     checkAuth: flow(function* () {
       const isAuth = yield SecureStore.loadString(SECURE_STORAGE_KEYS.AUTH_KEY)
 
       if (isAuth) {
-        console.log("CHECK AUTH.....")
         self.isAuth = true
       }
     }),
-  })).actions((self) => ({
+  }))
+  .actions((self) => ({
     finishAuth: flow(function* (pincode) {
       const authSaved = yield SecureStore.saveString(SECURE_STORAGE_KEYS.AUTH_KEY, "authorized")
 
@@ -65,7 +61,7 @@ export const AppModel = types
           self.pinCode = pincode
         }
       }
-    })
+    }),
   }))
 
 export interface App extends Instance<typeof AppModel> {}
@@ -75,5 +71,5 @@ export const createAppDefaultModel = () =>
   types.optional(AppModel, {
     isAuth: false,
     isVerify: false,
-    pinCode: null
+    pinCode: null,
   })
