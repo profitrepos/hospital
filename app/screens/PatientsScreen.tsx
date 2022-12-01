@@ -2,14 +2,13 @@ import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { Filter, Screen, Text } from "../components/ui"
-import { AppStackParamList } from "../navigators"
+import { Screen, Text } from "../components/ui"
+import { TabStackParamList } from "../navigators"
 
-export const PatientsScreen: FC<StackScreenProps<AppStackParamList, "Patients">> = observer(
+export const PatientsScreen: FC<StackScreenProps<TabStackParamList, "Patients">> = observer(
   function PatientsScreen() {
     return (
       <Screen style={$root} preset="scroll">
-        <Filter />
         <Text>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus possimus hic tempora ab,
           soluta, facere ipsum voluptate similique, quod deleniti maxime qui. Impedit aut

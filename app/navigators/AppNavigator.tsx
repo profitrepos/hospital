@@ -6,11 +6,7 @@ import { useColorScheme } from "react-native"
 import Config from "../config"
 import { useStores } from "../models"
 import {
-  HomeScreen,
   AuthScreen,
-  PatientsScreen,
-  ConsultationsScreen,
-  EmergencyRoomScreen,
   SettingsScreen,
   OtpScreen,
   VerificationScreen,
@@ -18,17 +14,15 @@ import {
   ResetPasswordScreen,
 } from "../screens"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
+import { TabNavigator } from "./TabNavigator"
 
 export type AppStackParamList = {
-  Home: undefined
   Auth: undefined
-  Patients: undefined
-  Consultations: undefined
-  EmergencyRoom: undefined
-  Settings: undefined
   Otp: undefined
-  Verification: undefined
   CreatePassword: undefined
+  Verification: undefined
+  Home: undefined
+  Settings: undefined
   ResetPassword: undefined
 }
 
@@ -43,13 +37,10 @@ const AppStack = observer(function AppStack() {
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {isAuth ? (
+      {false ? (
         isVerify ? (
           <>
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Patients" component={PatientsScreen} />
-            <Stack.Screen name="Consultations" component={ConsultationsScreen} />
-            <Stack.Screen name="EmergencyRoom" component={EmergencyRoomScreen} />
+            <Stack.Screen name="Home" component={TabNavigator} />
             <Stack.Screen name="Settings" component={SettingsScreen} />
             <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
           </>
