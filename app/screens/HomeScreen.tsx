@@ -2,11 +2,12 @@ import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { Screen } from "../components/ui"
+import { Button, Screen } from "../components/ui"
 import { ConsultaionsSVG, EmergencyRoomSVG, PatientsSVG } from "../components/svg"
 import { IHomeMenuItem } from "../interfaces/Common"
 import { AppStackParamList } from "../navigators"
 import { GridMenu } from "../components/ui/GridMenu"
+import { useStores } from "../models"
 
 const menuList: IHomeMenuItem[] = [
   {
@@ -33,10 +34,12 @@ const menuList: IHomeMenuItem[] = [
 
 export const HomeScreen: FC<StackScreenProps<AppStackParamList, "Home">> = observer(
   function HomeScreen() {
+    const { resetPassword } = useStores().app
     return (
       <Screen preset="scroll">
         <View style={$root}>
           <GridMenu list={menuList} />
+          <Button tx="common.exit" onPress={resetPassword}></Button>
         </View>
       </Screen>
     )
@@ -46,7 +49,3 @@ export const HomeScreen: FC<StackScreenProps<AppStackParamList, "Home">> = obser
 const $root: ViewStyle = {
   flex: 1,
 }
-
-//TODO: как будет работать restored store?
-//TODO: refresh control
-//посмотреть ворнинг с клипбоардом

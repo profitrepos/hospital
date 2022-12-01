@@ -2,7 +2,6 @@ import { applySnapshot, IDisposer, onSnapshot } from "mobx-state-tree"
 import type { RootStore } from "../RootStore"
 import { ASYNC_STORAGE_KEYS } from "../../interfaces/Common"
 import { AsyncStorage } from "../../utils/async-storage"
-import { createAppDefaultModel } from "../app/App"
 
 let _disposer: IDisposer
 export async function setupRootStore(rootStore: RootStore) {
@@ -22,7 +21,11 @@ export async function setupRootStore(rootStore: RootStore) {
   _disposer = onSnapshot(rootStore, (snapshot) => {
     return AsyncStorage.save(ASYNC_STORAGE_KEYS.ROOT_STATE_STORAGE_KEY, {
       ...snapshot,
-      app: createAppDefaultModel(),
+      // app: {
+      //   isAuth: false,
+      //   isVerify: false,
+      //   pinCode: null,
+      // },
     })
   })
 
