@@ -3,7 +3,7 @@ import { View } from "react-native"
 import Svg, { Path } from "react-native-svg"
 import { SVGPropsType } from "../../interfaces/Common"
 
-const ProfileSVG: React.FC<SVGPropsType> = ({ width, height, style, color }) => {
+const PatientSVG: React.FC<SVGPropsType> = ({ width, height, style, color }) => {
   return (
     <View style={style}>
       <Svg width={width} height={height} viewBox="0 0 19 21" fill="none">
@@ -16,4 +16,4 @@ const ProfileSVG: React.FC<SVGPropsType> = ({ width, height, style, color }) => 
   )
 }
 
-export default ProfileSVG
+export default PatientSVG

@@ -37,7 +37,7 @@ const AppStack = observer(function AppStack() {
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {false ? (
+      {isAuth ? (
         isVerify ? (
           <>
             <Stack.Screen name="Home" component={TabNavigator} />

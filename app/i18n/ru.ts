@@ -6,10 +6,10 @@ const ru = {
     exit: "Выход",
   },
   homeMenu: {
+    emergencyRoom: "Приемный покой",
     patients: "Пациенты",
     consultations: "Консультации",
-    emergencyRoom: "Приемный покой",
-    settings: "Настройки",
+    pager: "Пейджер",
   },
   authScreen: {
     title: "Вход в приложение",
