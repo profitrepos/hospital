@@ -2,7 +2,7 @@ import React, { FC, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { TextStyle, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { Avatar, Filter, Screen, ScreenTitle, Text } from "../components/ui"
+import { Avatar, Filter, Preloader, Screen, ScreenTitle, Text } from "../components/ui"
 import { TabStackParamList } from "../navigators"
 import { FilterItem } from "../interfaces/Common"
 
@@ -30,6 +30,7 @@ export const EmergencyRoomScreen: FC<StackScreenProps<TabStackParamList, "Emerge
         <Avatar />
         <ScreenTitle text="emergencyRoomScreen.title" />
         <Filter activeItem={value} onChange={setValue} data={filterData} />
+        <Preloader />
       </Screen>
     )
   })

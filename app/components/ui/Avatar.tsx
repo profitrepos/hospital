@@ -8,7 +8,7 @@ export const Avatar = () => {
   const navigation = useNavigation()
 
   const onPress = () => {
-    navigation.navigate("Settings")
+    navigation.navigate("Settings" as never)
   }
 
   return (
