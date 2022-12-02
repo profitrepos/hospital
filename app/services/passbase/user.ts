@@ -1,4 +1,4 @@
-import { IUserInfo } from "../../interfaces/User"
+import { Info } from "../../models/user-info/UserModel"
 import { api } from "../api"
 
 export const getUserInfo = async (IIN: string) => {
@@ -6,7 +6,7 @@ export const getUserInfo = async (IIN: string) => {
 
   params.append("IIN", IIN)
 
-  const { data } = await api.apisauce.get<IUserInfo>("getUserInfo", params)
+  const { data } = await api.apisauce.get<Info>("getUserInfo", params)
 
   return data
 }

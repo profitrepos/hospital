@@ -3,7 +3,7 @@ import { createAppDefaultModel } from "./app/App"
 import { createConsultationsDefaultModel } from "./consultations/Consultations"
 import { createEmergencyRoomDefaultModel } from "./emergency-room/EmergencyRoom"
 import { createPatientsDefaultModel } from "./patients/Patients"
-import { createUserDefaultModel } from "./user/User"
+import { createUserDefaultModel } from "./user-info/UserModel"
 
 export const RootStoreModel = types
   .model("RootStore")

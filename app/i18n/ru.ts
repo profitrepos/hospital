@@ -50,6 +50,9 @@ const ru = {
   emergencyRoomScreen: {
     title: "Приемное отделение",
   },
+  errors: {
+    network: "Ошибка сети! Попробуйте еще раз!",
+  },
 }
 
 export default ru
