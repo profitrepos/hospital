@@ -18,7 +18,6 @@ export const RootStoreModel = types
     afterCreate() {
       self.app.checkAuth()
       self.app.loadPincode()
-      self.app.setLocale()
     },
   }))
 

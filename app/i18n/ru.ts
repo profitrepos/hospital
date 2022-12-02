@@ -42,10 +42,13 @@ const ru = {
   errorScreen: {
     reset: "Перезагрузить приложение",
   },
-  emergencyRoomFilter: {
+  filter: {
     current: "Текущие",
     hospitalized: "Госпитализированные",
     refusal: "Отказ",
+  },
+  search: {
+    patientsPlaceholder: "Введите фамилию пaциента или ИИН",
   },
   emergencyRoomScreen: {
     title: "Приемное отделение",

@@ -15,7 +15,7 @@ export const Avatar = () => {
     <View style={$container}>
       <TouchableOpacity activeOpacity={1} style={$avatar} onPress={onPress}>
         <View style={$avatar}>
-          <Text text="AB" style={$text} preset="formHelper" />
+          <Text text="AB" style={$text} preset="label" />
         </View>
       </TouchableOpacity>
     </View>
@@ -26,7 +26,6 @@ const $container: ViewStyle = {
   alignItems: "flex-end",
   marginTop: spacing.large,
   marginBottom: spacing.extraSmall,
-  marginHorizontal: spacing.medium,
 }
 const $avatar: ViewStyle = {
   backgroundColor: "#434343",

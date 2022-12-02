@@ -62,6 +62,7 @@ export const Filter: FC<FilterProps> = ({ data, onChange, activeItem }) => {
 
 const $container: ViewStyle = {
   marginVertical: spacing.medium,
+  alignItems: "center",
 }
 
 const $list: ViewStyle = {}

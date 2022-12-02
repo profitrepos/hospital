@@ -44,6 +44,20 @@ const kz: Translations = {
   errorScreen: {
     reset: "Перезагрузить приложение",
   },
+  filter: {
+    current: "Текущие",
+    hospitalized: "Госпитализированные",
+    refusal: "Отказ",
+  },
+  search: {
+    patientsPlaceholder: "Введите фамилию пaциента или ИИН",
+  },
+  emergencyRoomScreen: {
+    title: "Приемное отделение",
+  },
+  errors: {
+    network: "Ошибка сети! Попробуйте еще раз!",
+  },
 }
 
 export default kz

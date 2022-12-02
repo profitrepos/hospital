@@ -26,7 +26,6 @@ export const AppBox: React.FC<AppBoxPropsType> = ({ children, style, containerSt
 const $box: ViewStyle = {
   borderRadius: 12,
   width: "100%",
-  flex: 1,
 }
 const $background: ViewStyle = {
   borderRadius: 12,

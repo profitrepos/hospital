@@ -1,5 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react"
+import { setLocale } from "../../i18n"
+import { ASYNC_STORAGE_KEYS } from "../../interfaces/Common"
 import { setReactotronRootStore } from "../../services/reactotron"
+import { AsyncStorage } from "../../utils/async-storage"
 import { RootStore, RootStoreModel } from "../RootStore"
 import { setupRootStore } from "./setupRootStore"
 
@@ -17,6 +20,10 @@ export const useInitialRootStore = (callback: () => void | Promise<void>) => {
   useEffect(() => {
     let _unsubscribe: () => void
     ;(async () => {
+      const selectedLanguages =
+        (await AsyncStorage.load(ASYNC_STORAGE_KEYS.STORAGE_LANGUAGES_KEY)) || "ru"
+      setLocale(selectedLanguages)
+
       const { restoredState, unsubscribe } = await setupRootStore(rootStore)
       _unsubscribe = unsubscribe
 

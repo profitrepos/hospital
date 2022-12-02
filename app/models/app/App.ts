@@ -1,7 +1,5 @@
 import { Instance, SnapshotIn, SnapshotOut, types, flow } from "mobx-state-tree"
-import { setLocale } from "../../i18n"
-import { ASYNC_STORAGE_KEYS, SECURE_STORAGE_KEYS } from "../../interfaces/Common"
-import { AsyncStorage } from "../../utils/async-storage"
+import { SECURE_STORAGE_KEYS } from "../../interfaces/Common"
 import { SecureStore } from "../../utils/secure-storage"
 import { withSetPropAction } from "../helpers/withSetPropAction"
 
@@ -34,11 +32,6 @@ export const AppModel = types
       self.isAuth = false
       self.isVerify = false
       self.pinCode = null
-    }),
-    setLocale: flow(function* () {
-      const selectedLanguages =
-        (yield AsyncStorage.load(ASYNC_STORAGE_KEYS.STORAGE_LANGUAGES_KEY)) || "ru"
-      setLocale(selectedLanguages)
     }),
     checkAuth: flow(function* () {
       const isAuth = yield SecureStore.loadString(SECURE_STORAGE_KEYS.AUTH_KEY)

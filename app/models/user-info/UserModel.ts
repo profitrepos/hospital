@@ -3,12 +3,19 @@ import { translate } from "../../i18n"
 import { getUserInfo } from "../../services/passbase"
 import { withSetPropAction } from "../helpers/withSetPropAction"
 
-const OrganizationModel = types.model("Organization").props({
-  organisationId: types.string,
-  organisationName: types.string,
-  departmentId: types.identifier,
-  departmentName: types.string,
-})
+const OrganizationModel = types
+  .model("Organization")
+  .props({
+    organisationId: types.string,
+    organisationName: types.string,
+    departmentId: types.identifier,
+    departmentName: types.string,
+  })
+  .actions((self) => ({
+    afterCreate: () => {
+      console.log("AFTER ---- CREATE ---- ORGANIZATION")
+    },
+  }))
 
 const InfoModel = types.model("Info").props({
   error: types.optional(types.string, ""),
@@ -21,7 +28,7 @@ export const UserModel = types
     iin: types.optional(types.string, ""),
     phone: types.optional(types.string, ""),
     info: types.maybeNull(InfoModel),
-    activeOrganization: types.maybeNull(types.reference(OrganizationModel)),
+    selectedOrganization: types.maybeNull(types.reference(OrganizationModel)),
     error: types.maybeNull(types.string),
     loading: false,
   })
@@ -36,7 +43,7 @@ export const UserModel = types
       self.info = info
     },
     setActiveOrganization: (org: Organization) => {
-      self.activeOrganization = org
+      self.selectedOrganization = org
     },
     setIIN: (iin: string) => {
       self.iin = iin
@@ -49,11 +56,12 @@ export const UserModel = types
     },
   }))
   .actions((self) => ({
-    getUserInfo: flow(function* (IIN: string) {
+    getUserInfo: flow(function* () {
       try {
         self.loading = true
-        const info = yield* toGenerator(getUserInfo(IIN))
+        const info = yield* toGenerator(getUserInfo(self.iin))
         self.info = info
+        self.setActiveOrganization(info.data[0])
       } catch (error) {
         self.error = translate("errors.network")
       } finally {
@@ -63,7 +71,9 @@ export const UserModel = types
   }))
   .actions((self) => ({
     afterCreate: () => {
-      self.getUserInfo("870516450266")
+      console.log("AFTER ---- CREATE ---- USER ---- MODEL")
+
+      self.getUserInfo()
     },
   }))
 
@@ -73,4 +83,7 @@ export interface Info extends Instance<typeof InfoModel> {}
 
 export interface UserSnapshotOut extends SnapshotOut<typeof UserModel> {}
 export interface UserSnapshotIn extends SnapshotIn<typeof UserModel> {}
-export const createUserDefaultModel = () => types.optional(UserModel, {})
+export const createUserDefaultModel = () =>
+  types.optional(UserModel, {
+    iin: "870516450266",
+  })

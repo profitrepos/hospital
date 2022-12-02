@@ -8,7 +8,7 @@ export async function setupRootStore(rootStore: RootStore) {
   let restoredState: any
 
   try {
-    restoredState = (await AsyncStorage.load(ASYNC_STORAGE_KEYS.ROOT_STATE_STORAGE_KEY)) || {}
+    restoredState = {}
     applySnapshot(rootStore, restoredState)
   } catch (e) {
     if (__DEV__) {
@@ -19,14 +19,8 @@ export async function setupRootStore(rootStore: RootStore) {
   if (_disposer) _disposer()
 
   _disposer = onSnapshot(rootStore, (snapshot) => {
-    return AsyncStorage.save(ASYNC_STORAGE_KEYS.ROOT_STATE_STORAGE_KEY, {
-      ...snapshot,
-      // app: {
-      //   isAuth: false,
-      //   isVerify: false,
-      //   pinCode: null,
-      // },
-    })
+    console.log(snapshot.app)
+    return AsyncStorage.save(ASYNC_STORAGE_KEYS.ROOT_STATE_STORAGE_KEY, snapshot)
   })
 
   const unsubscribe = () => {
