@@ -42,6 +42,14 @@ const ru = {
   errorScreen: {
     reset: "Перезагрузить приложение",
   },
+  emergencyRoomFilter: {
+    current: "Текущие",
+    hospitalized: "Госпитализированные",
+    refusal: "Отказ",
+  },
+  emergencyRoomScreen: {
+    title: "Приемное отделение",
+  },
 }
 
 export default ru

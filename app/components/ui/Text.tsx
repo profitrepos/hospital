@@ -38,7 +38,7 @@ export function Text(props: TextProps) {
 const $sizeStyles = {
   xxl: { fontSize: 36, lineHeight: 44 } as TextStyle,
   xl: { fontSize: 24, lineHeight: 34 } as TextStyle,
-  lg: { fontSize: 20, lineHeight: 32 } as TextStyle,
+  lg: { fontSize: 20, lineHeight: 24 } as TextStyle,
   md: { fontSize: 18, lineHeight: 26 } as TextStyle,
   sm: { fontSize: 16, lineHeight: 24 } as TextStyle,
   xs: { fontSize: 14, lineHeight: 21 } as TextStyle,
@@ -62,7 +62,7 @@ const $presets = {
 
   semiBold: [$baseStyle, $fontWeightStyles.semiBold] as StyleProp<TextStyle>,
 
-  heading: [$baseStyle, $sizeStyles.xxl, $fontWeightStyles.semiBold] as StyleProp<TextStyle>,
+  heading: [$baseStyle, $sizeStyles.xl, $fontWeightStyles.bold] as StyleProp<TextStyle>,
 
   subheading: [$baseStyle, $sizeStyles.lg, $fontWeightStyles.medium] as StyleProp<TextStyle>,
 

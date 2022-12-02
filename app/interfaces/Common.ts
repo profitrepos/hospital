@@ -35,3 +35,8 @@ export enum SECURE_STORAGE_KEYS {
   PINCODE_KEY = "PINCODE",
   AUTH_KEY = "AUTH",
 }
+
+export interface FilterItem {
+  value: string
+  title: TxKeyPath
+}
