@@ -1,11 +1,26 @@
-import i18n from "i18n-js"
+import i18n from "i18next"
+import { initReactI18next } from "react-i18next"
 
 import ru, { Translations } from "./ru"
 import kz from "./kz"
 
-i18n.fallbacks = true
+i18n.use(initReactI18next).init({
+  resources: {
+    ru: {
+      translation: ru,
+    },
+    kz: {
+      translation: kz,
+    },
+  },
+  compatibilityJSON: "v3",
+  lng: "ru",
+  fallbackLng: "ru",
 
-i18n.translations = { kz, ru }
+  interpolation: {
+    escapeValue: false, // https://www.i18next.com/translation-function/interpolation#unescape
+  },
+})
 
 export type TxKeyPath = RecursiveKeyOf<Translations>
 

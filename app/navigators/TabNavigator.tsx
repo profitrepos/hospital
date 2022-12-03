@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { observer } from "mobx-react-lite"
 import React from "react"
 import { ConsultationSVG, HomeSVG, NotificationSVG, PatientSVG } from "../components/svg"
-import { translate } from "../i18n"
+import { useTranslate } from "../i18n"
 import { ConsultationsScreen, EmergencyRoomScreen, PagerScreen, PatientsScreen } from "../screens"
 import { COLORS } from "../theme"
 
@@ -30,40 +30,43 @@ const tabOptions = {
   headerShown: false,
 }
 
-const screenOptions: ScreenOptions = {
-  EmergencyRoom: {
-    tabBarIcon: ({ color }) => <HomeSVG color={color} width={20} height={20} />,
-    title: translate("homeMenu.emergencyRoom"),
-  },
-  Patients: {
-    tabBarIcon: ({ color }) => <PatientSVG color={color} width={20} height={20} />,
-    title: translate("homeMenu.patients"),
-  },
-  Consultations: {
-    tabBarIcon: ({ color }) => <ConsultationSVG color={color} width={20} height={20} />,
-    title: translate("homeMenu.consultations"),
-  },
-  Pager: {
-    tabBarIcon: ({ color }) => <NotificationSVG color={color} width={20} height={20} />,
-    title: translate("homeMenu.pager"),
-  },
-}
-
 export const TabNavigator = observer(() => {
+  const translate = useTranslate()
+
   return (
     <Tab.Navigator screenOptions={tabOptions}>
       <Tab.Screen
         name="EmergencyRoom"
         component={EmergencyRoomScreen}
-        options={screenOptions.EmergencyRoom}
+        options={{
+          tabBarIcon: ({ color }) => <HomeSVG color={color} width={20} height={20} />,
+          title: translate("homeMenu.emergencyRoom"),
+        }}
       />
-      <Tab.Screen name="Patients" component={PatientsScreen} options={screenOptions.Patients} />
+      <Tab.Screen
+        name="Patients"
+        component={PatientsScreen}
+        options={{
+          tabBarIcon: ({ color }) => <PatientSVG color={color} width={20} height={20} />,
+          title: translate("homeMenu.patients"),
+        }}
+      />
       <Tab.Screen
         name="Consultations"
         component={ConsultationsScreen}
-        options={screenOptions.Consultations}
+        options={{
+          tabBarIcon: ({ color }) => <ConsultationSVG color={color} width={20} height={20} />,
+          title: translate("homeMenu.consultations"),
+        }}
       />
-      <Tab.Screen name="Pager" component={PagerScreen} options={screenOptions.Pager} />
+      <Tab.Screen
+        name="Pager"
+        component={PagerScreen}
+        options={{
+          tabBarIcon: ({ color }) => <NotificationSVG color={color} width={20} height={20} />,
+          title: translate("homeMenu.pager"),
+        }}
+      />
     </Tab.Navigator>
   )
 })

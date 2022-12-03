@@ -65,17 +65,19 @@ export async function save(key: string, value: any): Promise<boolean> {
  *
  * @param key The key to kill.
  */
-export async function remove(key: string): Promise<void> {
+export async function remove(key: string): Promise<boolean> {
   try {
     await SecureStore.deleteItemAsync(key)
-  } catch {}
+    return true
+  } catch {
+    return false
+  }
 }
-
 
 export default {
   loadString,
   saveString,
   load,
   save,
-  remove
+  remove,
 }

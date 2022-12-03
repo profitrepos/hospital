@@ -6,11 +6,12 @@ import { AppStackParamList } from "../navigators"
 import { Screen } from "../components/ui"
 import PINCode from "@haskkor/react-native-pincode"
 import { COLORS } from "../theme"
-import { translate } from "../i18n"
 import { useStores } from "../models"
+import { useTranslate } from "../i18n"
 
 export const CreatePasswordScreen: FC<StackScreenProps<AppStackParamList, "CreatePassword">> =
   observer(function CreatePasswordScreen() {
+    const translate = useTranslate()
     const { finishAuth } = useStores().app
 
     const handleNext = (code: string) => {

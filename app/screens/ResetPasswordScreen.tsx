@@ -5,15 +5,16 @@ import { StackScreenProps } from "@react-navigation/stack"
 import { AppStackParamList } from "../navigators"
 import { Button, Screen } from "../components/ui"
 import PINCode from "@haskkor/react-native-pincode"
-import { translate } from "../i18n"
 import { COLORS } from "../theme"
 import { useFocusEffect } from "@react-navigation/native"
 import { FingerPrint } from "../components/svg"
 import { useStores } from "../models"
+import { useTranslate } from "../i18n"
 
 export const ResetPasswordScreen: FC<StackScreenProps<AppStackParamList, "ResetPassword">> =
   observer(function ResetPasswordScreen({ navigation }) {
-    const { savePincode, resetPassword, pinCode } = useStores().app
+    const translate = useTranslate()
+    const { savePincode, resetPassword, pincode } = useStores().app
     const [pinStatus, setPinStatus] = useState<"enter" | "choose">("enter")
 
     useFocusEffect(
@@ -80,7 +81,7 @@ export const ResetPasswordScreen: FC<StackScreenProps<AppStackParamList, "ResetP
           onClickButtonLockedPage={BackHandler.exitApp}
           buttonComponentLockedPage={renderResetButton}
           bottomLeftComponent={pinStatus === "enter" && renderLeftComponent}
-          storedPin={pinCode}
+          storedPin={pincode}
         />
       </Screen>
     )

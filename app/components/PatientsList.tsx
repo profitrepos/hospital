@@ -7,6 +7,7 @@ import {
   View,
   ViewStyle,
 } from "react-native"
+import { useTranslate } from "../i18n"
 import { COLORS, spacing } from "../theme"
 import { ArrowRightSVG, SearchSVG } from "./svg"
 import { Text, TextField } from "./ui"
@@ -20,6 +21,7 @@ type keyExtractorType = (item: any, index: number) => string
 const keyExtractor: keyExtractorType = (item) => String(Math.random())
 
 export const PatientsList: FC<PatientsListProps> = ({ data }) => {
+  const translate = useTranslate()
   const [text, setText] = useState("")
 
   const renderItem: ListRenderItem<any> = ({ item, index }) => {
@@ -45,10 +47,11 @@ export const PatientsList: FC<PatientsListProps> = ({ data }) => {
         value={text}
         onChangeText={setText}
         LeftIcon={({ style }) => (
-          <SearchSVG height={16} width={24} style={style} color={COLORS.icons} />
+          <SearchSVG height={16} width={24} style={[style, $searchIcon]} color={COLORS.icons} />
         )}
         wrapperStyle={$search}
-        placeholderInner="search.patientsPlaceholder"
+        inputStyle={$searchInput}
+        placeholderInner={translate("search.patientsPlaceholder")}
       />
       <FlatList
         renderItem={renderItem}
@@ -71,6 +74,12 @@ const $container: ViewStyle = {
 }
 const $search: ViewStyle = {
   marginBottom: spacing.large,
+}
+const $searchInput: ViewStyle = {
+  paddingLeft: 40,
+}
+const $searchIcon: ViewStyle = {
+  left: 10,
 }
 const $list: ViewStyle = {}
 const $listContainer: ViewStyle = {}

@@ -8,12 +8,13 @@ import { AppStackParamList } from "../navigators"
 import { Screen, Button } from "../components/ui"
 import { COLORS } from "../theme"
 import { FingerPrint } from "../components/svg"
-import { translate } from "../i18n"
 import { useStores } from "../models"
+import { useTranslate } from "../i18n"
 
 export const VerificationScreen: FC<StackScreenProps<AppStackParamList, "Verification">> = observer(
   function VerificationScreen({}) {
-    const { resetPassword, setIsVerify, pinCode } = useStores().app
+    const translate = useTranslate()
+    const { resetPassword, setIsVerify, pincode } = useStores().app
 
     const next = () => {
       setIsVerify(true)
@@ -67,7 +68,7 @@ export const VerificationScreen: FC<StackScreenProps<AppStackParamList, "Verific
           stylePinCodeTextSubtitle={$text}
           delayBetweenAttempts={1000}
           bottomLeftComponent={renderLeftComponent}
-          storedPin={pinCode}
+          storedPin={pincode}
         />
       </Screen>
     )

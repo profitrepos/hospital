@@ -1,7 +1,6 @@
-import i18n from "i18n-js"
 import React from "react"
 import { StyleProp, Text as RNText, TextProps as RNTextProps, TextStyle } from "react-native"
-import { translate, TxKeyPath } from "../../i18n"
+import { TxKeyPath, useTranslate } from "../../i18n"
 import { COLORS, typography } from "../../theme"
 
 type Sizes = keyof typeof $sizeStyles
@@ -11,7 +10,6 @@ type Presets = keyof typeof $presets
 export interface TextProps extends RNTextProps {
   tx?: TxKeyPath
   text?: string
-  txOptions?: i18n.TranslateOptions
   style?: StyleProp<TextStyle>
   preset?: Presets
   weight?: Weights
@@ -20,9 +18,10 @@ export interface TextProps extends RNTextProps {
 }
 
 export function Text(props: TextProps) {
-  const { weight, size, tx, txOptions, text, children, style: $styleOverride, ...rest } = props
+  const translate = useTranslate()
+  const { weight, size, tx, text, children, style: $styleOverride, ...rest } = props
 
-  const i18nText = tx && translate(tx, txOptions)
+  const i18nText = tx && translate(tx)
   const content = i18nText || text || children
 
   const preset: Presets = $presets[props.preset] ? props.preset : "default"

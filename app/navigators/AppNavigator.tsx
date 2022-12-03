@@ -1,8 +1,7 @@
-import { DarkTheme, DefaultTheme, NavigationContainer } from "@react-navigation/native"
+import { NavigationContainer } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { observer } from "mobx-react-lite"
 import React from "react"
-import { useColorScheme } from "react-native"
 import Config from "../config"
 import { useStores } from "../models"
 import {
@@ -39,7 +38,7 @@ const AppStack = observer(function AppStack() {
         isVerify ? (
           <>
             <Stack.Screen name="Home" component={TabNavigator} />
-            <Stack.Screen name="Settings" component={SettingsScreen} />
+            <Stack.Screen name="Settings" component={ResetPasswordScreen} />
             <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
           </>
         ) : (
@@ -59,16 +58,10 @@ const AppStack = observer(function AppStack() {
 interface NavigationProps extends Partial<React.ComponentProps<typeof NavigationContainer>> {}
 
 export const AppNavigator = observer(function AppNavigator(props: NavigationProps) {
-  const colorScheme = useColorScheme()
-
   useBackButtonHandler((routeName) => exitRoutes.includes(routeName))
 
   return (
-    <NavigationContainer
-      ref={navigationRef}
-      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-      {...props}
-    >
+    <NavigationContainer ref={navigationRef} {...props}>
       <AppStack />
     </NavigationContainer>
   )

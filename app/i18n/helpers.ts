@@ -1,10 +1,8 @@
-import i18n from "i18n-js"
+import { useTranslation } from "react-i18next"
 import { TxKeyPath } from "../i18n"
 
-export function translate(key: TxKeyPath, options?: i18n.TranslateOptions) {
-  return i18n.t(key, options)
-}
-
-export function setLocale(locale: string) {
-  i18n.locale = locale
+export const useTranslate = () => {
+  const { t } = useTranslation()
+  const translate: (key: TxKeyPath) => string = t
+  return translate
 }

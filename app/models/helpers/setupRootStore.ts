@@ -1,14 +1,28 @@
-import { applySnapshot, IDisposer, onSnapshot } from "mobx-state-tree"
+import { applySnapshot } from "mobx-state-tree"
+
 import type { RootStore } from "../RootStore"
-import { ASYNC_STORAGE_KEYS } from "../../interfaces/Common"
-import { AsyncStorage } from "../../utils/async-storage"
+import { ASYNC_STORAGE_KEYS, SECURE_STORAGE_KEYS } from "../../interfaces/Common"
+import secureStorage from "../../utils/secure-storage/secure-storage"
+import asyncStorage from "../../utils/async-storage/async-storage"
 
-let _disposer: IDisposer
 export async function setupRootStore(rootStore: RootStore) {
-  let restoredState: any
-
+  let restoredState: RootStore = rootStore
+  let locale: string
   try {
-    restoredState = {}
+    const pincode = await secureStorage.loadString(SECURE_STORAGE_KEYS.PINCODE_KEY)
+    const isAuth = await secureStorage.loadString(SECURE_STORAGE_KEYS.AUTH_KEY)
+    locale = (await asyncStorage.loadString(ASYNC_STORAGE_KEYS.STORAGE_LANGUAGES_KEY)) || "ru"
+
+    restoredState = {
+      ...rootStore,
+      app: {
+        ...rootStore.app,
+        isAuth: Boolean(isAuth),
+        isVerify: true, //TODO: для разработки
+        pincode,
+      },
+    }
+
     applySnapshot(rootStore, restoredState)
   } catch (e) {
     if (__DEV__) {
@@ -16,17 +30,5 @@ export async function setupRootStore(rootStore: RootStore) {
     }
   }
 
-  if (_disposer) _disposer()
-
-  _disposer = onSnapshot(rootStore, (snapshot) => {
-    console.log(snapshot.app)
-    return AsyncStorage.save(ASYNC_STORAGE_KEYS.ROOT_STATE_STORAGE_KEY, snapshot)
-  })
-
-  const unsubscribe = () => {
-    _disposer()
-    _disposer = undefined
-  }
-
-  return { rootStore, restoredState, unsubscribe }
+  return { rootStore, restoredState, locale }
 }

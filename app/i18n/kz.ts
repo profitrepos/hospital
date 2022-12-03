@@ -53,7 +53,7 @@ const kz: Translations = {
     patientsPlaceholder: "Введите фамилию пaциента или ИИН",
   },
   emergencyRoomScreen: {
-    title: "Приемное отделение",
+    title: "Приемное отделение kz",
   },
   errors: {
     network: "Ошибка сети! Попробуйте еще раз!",
