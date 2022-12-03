@@ -22,7 +22,7 @@ const kz: Translations = {
     smsConfirm: "SMS-подтверждение",
     note: "Мы отправили на Ваш телефон SMS c кодом. Введите его в поле",
     repeatWithoutTime: "Отправить повторно",
-    otpScreenWithTime: "Отправить повторно - %{minutes}м %{seconds}с",
+    otpScreenWithTime: "Отправить повторно - {{minutes}}kz min {{seconds}}kz sec",
     "1": "Ошибка с кодом 1",
     "2": "Ошибка с кодом 2",
   },

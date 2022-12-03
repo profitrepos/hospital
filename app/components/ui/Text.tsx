@@ -10,6 +10,7 @@ type Presets = keyof typeof $presets
 export interface TextProps extends RNTextProps {
   tx?: TxKeyPath
   text?: string
+  txOptions?: any
   style?: StyleProp<TextStyle>
   preset?: Presets
   weight?: Weights
@@ -19,9 +20,9 @@ export interface TextProps extends RNTextProps {
 
 export function Text(props: TextProps) {
   const translate = useTranslate()
-  const { weight, size, tx, text, children, style: $styleOverride, ...rest } = props
+  const { weight, size, tx, txOptions, text, children, style: $styleOverride, ...rest } = props
 
-  const i18nText = tx && translate(tx)
+  const i18nText = tx && translate(tx, txOptions)
   const content = i18nText || text || children
 
   const preset: Presets = $presets[props.preset] ? props.preset : "default"

@@ -20,7 +20,7 @@ export interface ButtonAccessoryProps {
 export interface ButtonProps extends PressableProps {
   tx?: TextProps["tx"]
   text?: TextProps["text"]
-  txOptions?: TextProps["txOptions"]
+  txOptions?: any
   style?: StyleProp<ViewStyle>
   pressedStyle?: StyleProp<ViewStyle>
   textStyle?: StyleProp<TextStyle>

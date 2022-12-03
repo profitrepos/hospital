@@ -7,7 +7,6 @@ import { TabStackParamList } from "../navigators"
 import { FilterItem } from "../interfaces/Common"
 import { PatientsList } from "../components"
 import { spacing } from "../theme"
-import { useStores } from "../models"
 
 const filterData: FilterItem[] = [
   {
@@ -26,7 +25,6 @@ const filterData: FilterItem[] = [
 
 export const EmergencyRoomScreen: FC<StackScreenProps<TabStackParamList, "EmergencyRoom">> =
   observer(function EmergencyRoomScreen() {
-    const { setLocale } = useStores().app
     const [value, setValue] = useState<FilterItem>()
 
     return (
@@ -35,8 +33,6 @@ export const EmergencyRoomScreen: FC<StackScreenProps<TabStackParamList, "Emerge
           <Avatar />
           <ScreenTitle text="emergencyRoomScreen.title" />
         </View>
-        <Button onPress={() => setLocale("ru")}>SET RU</Button>
-        <Button onPress={() => setLocale("kz")}>SET KZ</Button>
         <Filter activeItem={value} onChange={setValue} data={filterData} />
         <View style={[$container, $list]}>
           <PatientsList data={[]} />
