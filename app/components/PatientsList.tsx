@@ -16,7 +16,9 @@ interface PatientsListProps {
   data: any[]
 }
 
+//TOOD: организовать сторы удобно
 //TODO: добавить тип пациента
+//TODO: проверить компонент pincode
 type keyExtractorType = (item: any, index: number) => string
 const keyExtractor: keyExtractorType = (item) => String(Math.random())
 
@@ -32,7 +34,7 @@ export const PatientsList: FC<PatientsListProps> = ({ data }) => {
       <TouchableOpacity onPress={onPress} activeOpacity={0.6}>
         <View style={$item}>
           <View style={$values}>
-            <Text preset="subheading" style={$name} text={`${index}.) Булат Тадхтим Утемуратов`} />
+            <Text preset="subheading" style={$name} text={"Булат Тадхтим Утемуратов"} />
             <Text preset="helper" style={$info} text={"28 лет, госпитализация: 23.08.2022 19:30"} />
           </View>
           <ArrowRightSVG style={$arrow} width={10} height={14} />

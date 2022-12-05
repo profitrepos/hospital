@@ -1,4 +1,4 @@
-import { applySnapshot } from "mobx-state-tree"
+import { applySnapshot, castToSnapshot, onSnapshot } from "mobx-state-tree"
 
 import type { RootStore } from "../RootStore"
 import { ASYNC_STORAGE_KEYS, SECURE_STORAGE_KEYS } from "../../interfaces/Common"
@@ -22,8 +22,8 @@ export async function setupRootStore(rootStore: RootStore) {
         pincode,
       },
     }
-
-    applySnapshot(rootStore, restoredState)
+    onSnapshot(rootStore, (snapshot) => console.log("SNAPSHOT ---- ", snapshot))
+    applySnapshot(rootStore, castToSnapshot(restoredState))
   } catch (e) {
     if (__DEV__) {
       console.tron.error(e.message, null)

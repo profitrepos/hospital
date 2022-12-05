@@ -48,13 +48,15 @@ const ru = {
     refusal: "Отказ",
   },
   search: {
-    patientsPlaceholder: "Введите фамилию пaциента или ИИН",
+    patientsPlaceholder: "Введите фамилию или ИИН пaциента",
   },
   emergencyRoomScreen: {
     title: "Приемное отделение",
   },
   errors: {
     network: "Ошибка сети! Попробуйте еще раз!",
+    phoneCode: "Введенный номер не является телефоном сотовых операторов РК!",
+    phoneInvalid: "Некорректый номер телефона",
   },
 }
 

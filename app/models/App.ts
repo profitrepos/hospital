@@ -1,18 +1,15 @@
-import { flow, Instance, SnapshotIn, SnapshotOut, toGenerator, types } from "mobx-state-tree"
+import { flow, Instance, SnapshotIn, SnapshotOut, types } from "mobx-state-tree"
 import i18n from "i18next"
-import { initReactI18next } from "react-i18next"
 
 import { ASYNC_STORAGE_KEYS, SECURE_STORAGE_KEYS } from "../interfaces/Common"
 import asyncStorage from "../utils/async-storage/async-storage"
 import secureStorage from "../utils/secure-storage/secure-storage"
 import { withSetPropAction } from "./helpers/withSetPropAction"
-import ru from "../i18n/ru"
-import kz from "../i18n/kz"
 
 export const AppModel = types
   .model("App")
   .props({
-    pincode: types.maybeNull(types.string),
+    pincode: types.maybe(types.string),
     isVerify: false,
     isAuth: false,
   })
