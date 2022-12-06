@@ -58,6 +58,10 @@ const ru = {
     phoneCode: "Введенный номер не является телефоном сотовых операторов РК!",
     phoneInvalid: "Некорректый номер телефона",
   },
+  selectOrganizationScreen: {
+    title: "Выберите организацию",
+    continue: "Далее",
+  },
 }
 
 export default ru

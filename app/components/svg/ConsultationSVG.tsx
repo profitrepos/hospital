@@ -1,7 +1,7 @@
 import * as React from "react"
 import { View } from "react-native"
 import Svg, { SvgProps, G, Path, Circle } from "react-native-svg"
-import { SVGPropsType } from "../../interfaces/Common"
+import { SVGPropsType } from "../../interfaces"
 
 const ConsultationSVG: React.FC<SVGPropsType> = ({ width, height, style, color }) => {
   return (

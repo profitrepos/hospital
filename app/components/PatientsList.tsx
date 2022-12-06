@@ -17,7 +17,7 @@ interface PatientsListProps {
 }
 
 //TOOD: организовать сторы удобно
-//TODO: добавить тип пациента
+//TODO: PatientsList -> List
 //TODO: проверить компонент pincode
 type keyExtractorType = (item: any, index: number) => string
 const keyExtractor: keyExtractorType = (item) => String(Math.random())

@@ -6,8 +6,8 @@ import asyncStorage from "../utils/async-storage/async-storage"
 import secureStorage from "../utils/secure-storage/secure-storage"
 import { withSetPropAction } from "./helpers/withSetPropAction"
 
-export const AppModel = types
-  .model("App")
+export const AppStore = types
+  .model("AppStore")
   .props({
     pincode: types.maybe(types.string),
     isVerify: false,
@@ -53,7 +53,7 @@ export const AppModel = types
     }),
   }))
 
-export interface App extends Instance<typeof AppModel> {}
-export interface AppSnapshotOut extends SnapshotOut<typeof AppModel> {}
-export interface AppSnapshotIn extends SnapshotIn<typeof AppModel> {}
-export const createAppDefaultModel = () => types.optional(AppModel, {})
+export interface AppStore extends Instance<typeof AppStore> {}
+export interface AppStoreSnapshotOut extends SnapshotOut<typeof AppStore> {}
+export interface AppStoreSnapshotIn extends SnapshotIn<typeof AppStore> {}
+export const createAppStoreDefault = () => types.optional(AppStore, {})

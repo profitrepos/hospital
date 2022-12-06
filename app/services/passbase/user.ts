@@ -1,4 +1,4 @@
-import { UserInfo } from "../../models/User"
+import { UserInfo } from "../../interfaces"
 import { api } from "../api"
 
 export const getUserInfo = async (IIN: string) => {

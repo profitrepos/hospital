@@ -22,7 +22,7 @@ export async function setupRootStore(rootStore: RootStore) {
         pincode,
       },
     }
-    onSnapshot(rootStore, (snapshot) => console.log("SNAPSHOT ---- ", snapshot))
+    // onSnapshot(rootStore, (snapshot) => console.log("SNAPSHOT ---- ", snapshot))
     applySnapshot(rootStore, castToSnapshot(restoredState))
   } catch (e) {
     if (__DEV__) {

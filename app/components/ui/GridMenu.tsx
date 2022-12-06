@@ -4,7 +4,7 @@ import { COLORS, SIZES } from "../../theme"
 
 import { AppBox, Text } from "."
 import { useNavigation } from "@react-navigation/native"
-import { IHomeMenuItem } from "../../interfaces/Common"
+import { IHomeMenuItem } from "../../interfaces"
 
 type MenuItemPropsType = {
   item: IHomeMenuItem

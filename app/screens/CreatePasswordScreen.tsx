@@ -6,7 +6,7 @@ import { AppStackParamList } from "../navigators"
 import { Screen } from "../components/ui"
 import PINCode from "@haskkor/react-native-pincode"
 import { COLORS } from "../theme"
-import { useStores } from "../models"
+import { useStores } from "../store"
 import { useTranslate } from "../i18n"
 
 export const CreatePasswordScreen: FC<StackScreenProps<AppStackParamList, "CreatePassword">> =

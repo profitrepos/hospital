@@ -8,7 +8,7 @@ import { AppStackParamList } from "../navigators"
 import { Screen, Button } from "../components/ui"
 import { COLORS } from "../theme"
 import { FingerPrint } from "../components/svg"
-import { useStores } from "../models"
+import { useStores } from "../store"
 import { useTranslate } from "../i18n"
 
 export const VerificationScreen: FC<StackScreenProps<AppStackParamList, "Verification">> = observer(

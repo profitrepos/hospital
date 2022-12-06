@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { observer } from "mobx-react-lite"
 import React from "react"
 import Config from "../config"
-import { useStores } from "../models"
+import { useStores } from "../store"
 import {
   AuthScreen,
   SettingsScreen,
@@ -11,6 +11,7 @@ import {
   VerificationScreen,
   CreatePasswordScreen,
   ResetPasswordScreen,
+  SelectOrganizationScreen,
 } from "../screens"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { TabNavigator } from "./TabNavigator"
@@ -23,6 +24,7 @@ export type AppStackParamList = {
   Home: undefined
   Settings: undefined
   ResetPassword: undefined
+  SelectOrganization: undefined
 }
 
 const exitRoutes = Config.exitRoutes
@@ -37,6 +39,7 @@ const AppStack = observer(function AppStack() {
       {isAuth ? (
         isVerify ? (
           <>
+            <Stack.Screen name="SelectOrganization" component={SelectOrganizationScreen} />
             <Stack.Screen name="Home" component={TabNavigator} />
             <Stack.Screen name="Settings" component={ResetPasswordScreen} />
             <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />

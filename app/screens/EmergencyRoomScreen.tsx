@@ -7,6 +7,7 @@ import { TabStackParamList } from "../navigators"
 import { FilterItem } from "../interfaces/Common"
 import { PatientsList } from "../components"
 import { spacing } from "../theme"
+import { useStores } from "../store"
 
 const filterData: FilterItem[] = [
   {

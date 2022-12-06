@@ -1,4 +1,4 @@
-import { CardModelInfo } from "../../models/Card"
+import { RecordInfo } from "../../interfaces"
 import { api } from "../api"
 
 export const getMedicalRecords = async (orgId: string, cardId: string) => {
@@ -7,7 +7,7 @@ export const getMedicalRecords = async (orgId: string, cardId: string) => {
   params.append("orgId", orgId)
   params.append("cardId", cardId)
 
-  const { data } = await api.apisauce.post<CardModelInfo>("getMedicalRecords", params)
+  const { data } = await api.apisauce.post<RecordInfo>("getMedicalRecords", params)
 
   return data
 }

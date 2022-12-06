@@ -44,7 +44,9 @@ const pickerSelectStyles: PickerStyle = StyleSheet.create({
     color: COLORS.blackLight2,
     borderRadius: 8,
     fontFamily: "Gilroy-Medium",
+    marginRight: spacing.huge,
   },
+  //TODO: проверить чтобы текст не заходил за иконку
   inputIOS: {
     fontSize: 14,
     color: COLORS.blackLight2,

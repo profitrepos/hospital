@@ -8,7 +8,7 @@ import PINCode from "@haskkor/react-native-pincode"
 import { COLORS } from "../theme"
 import { useFocusEffect } from "@react-navigation/native"
 import { FingerPrint } from "../components/svg"
-import { useStores } from "../models"
+import { useStores } from "../store"
 import { useTranslate } from "../i18n"
 
 export const ResetPasswordScreen: FC<StackScreenProps<AppStackParamList, "ResetPassword">> =

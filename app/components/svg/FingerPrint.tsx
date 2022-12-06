@@ -1,7 +1,7 @@
 import React from "react"
 import { View } from "react-native"
 import Svg, { Path, G } from "react-native-svg"
-import { SVGPropsType } from "../../interfaces/Common"
+import { SVGPropsType } from "../../interfaces"
 
 const FingerPrint: React.FC<SVGPropsType> = ({
   width = 24,

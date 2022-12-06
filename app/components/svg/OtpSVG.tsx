@@ -1,7 +1,7 @@
 import React from "react"
 import { View } from "react-native"
 import Svg, { Path, Defs, LinearGradient, Stop } from "react-native-svg"
-import { SVGPropsType } from "../../interfaces/Common"
+import { SVGPropsType } from "../../interfaces"
 
 const OtpSVG: React.FC<SVGPropsType> = ({ width, height, style }) => {
   return (

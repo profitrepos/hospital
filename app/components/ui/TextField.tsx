@@ -10,7 +10,7 @@ import {
 } from "react-native"
 import Icon from "react-native-vector-icons/MaterialIcons"
 import { TxKeyPath } from "../../i18n"
-import { SVGPropsType } from "../../interfaces/Common"
+import { SVGPropsType } from "../../interfaces"
 import { COLORS, typography } from "../../theme"
 import { Text } from "./Text"
 
