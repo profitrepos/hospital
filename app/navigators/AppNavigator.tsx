@@ -6,15 +6,13 @@ import Config from "../config"
 import { useStores } from "../store"
 import {
   AuthScreen,
-  SettingsScreen,
   OtpScreen,
   VerificationScreen,
   CreatePasswordScreen,
   ResetPasswordScreen,
-  SelectOrganizationScreen,
 } from "../screens"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
-import { TabNavigator } from "./TabNavigator"
+import { MainTabNavigator } from "./MainTabNavigator"
 
 export type AppStackParamList = {
   Auth: undefined
@@ -39,8 +37,7 @@ const AppStack = observer(function AppStack() {
       {isAuth ? (
         isVerify ? (
           <>
-            <Stack.Screen name="SelectOrganization" component={SelectOrganizationScreen} />
-            <Stack.Screen name="Home" component={TabNavigator} />
+            <Stack.Screen name="Home" component={MainTabNavigator} />
             <Stack.Screen name="Settings" component={ResetPasswordScreen} />
             <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
           </>

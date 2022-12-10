@@ -27,9 +27,18 @@ export const AuthScreen: FC<StackScreenProps<AppStackParamList, "Auth">> = obser
                 onChangeText={setPhone}
                 LeftIcon={({ style }) => <FlagSVG height={16} width={24} style={style} />}
                 maxLength={12}
-                placeholder="authScreen.placeholder"
+                placeholder="authScreen.phone"
                 keyboardType="phone-pad"
                 autoFocus={true}
+                wrapperStyle={$input}
+              />
+              <TextField
+                value={phone}
+                onChangeText={setPhone}
+                maxLength={12}
+                placeholder="authScreen.iin"
+                keyboardType="phone-pad"
+                wrapperStyle={$input}
               />
             </AppBox>
           </View>
@@ -64,4 +73,7 @@ const $title: TextStyle = {
 const $box: ViewStyle = {
   alignItems: "center",
   padding: spacing.medium,
+}
+const $input: ViewStyle = {
+  marginBottom: spacing.extraSmall
 }

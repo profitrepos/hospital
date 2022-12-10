@@ -1,1 +1,1 @@
-export * from "./PatientsList"
+export * from "./MedcardList"

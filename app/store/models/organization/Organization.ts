@@ -5,7 +5,6 @@ export const OrganizationModel = types.model("Organization").props({
   organisationName: types.string,
   departmentId: types.identifier,
   departmentName: types.string,
-  employeeName: types.string,
 })
 
 export interface Organization extends Instance<typeof OrganizationModel> {}

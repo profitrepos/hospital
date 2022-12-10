@@ -9,14 +9,14 @@ import {
   TextInputProps,
 } from "react-native"
 import Icon from "react-native-vector-icons/MaterialIcons"
-import { TxKeyPath } from "../../i18n"
+import { TxKeyPath, useTranslate } from "../../i18n"
 import { SVGPropsType } from "../../interfaces"
 import { COLORS, typography } from "../../theme"
 import { Text } from "./Text"
 
 interface TextFieldProps extends TextInputProps {
   placeholder?: TxKeyPath
-  placeholderInner?: string
+  placeholderInner?: TxKeyPath
   inputStyle?: StyleProp<TextStyle>
   inputWrapperStyle?: StyleProp<ViewStyle>
   onChangeText: (text: string) => void
@@ -44,6 +44,8 @@ export const TextField: React.FC<TextFieldProps> = ({
   onPressRightIcon,
   ...props
 }) => {
+
+  const translate = useTranslate()
   const [secure, setSecure] = React.useState<boolean>(secureType)
 
   return (
@@ -60,7 +62,7 @@ export const TextField: React.FC<TextFieldProps> = ({
           onChangeText={onChangeText}
           value={value}
           secureTextEntry={secure}
-          placeholder={placeholderInner}
+          placeholder={translate(placeholderInner)}
           {...props}
         />
         {secureType ? (

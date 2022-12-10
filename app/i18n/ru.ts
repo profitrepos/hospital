@@ -5,15 +5,22 @@ const ru = {
     back: "Back",
     exit: "Выход",
   },
-  homeMenu: {
-    emergencyRoom: "Приемный покой",
+  mainTabs: {
+    department: "Отделение",
     patients: "Пациенты",
-    consultations: "Консультации",
-    pager: "Пейджер",
+    all: "Все",
+  },
+  medcardTabs: {
+    data: "Данные",
+    records: "Мед.записи",
+    journal: "Дневник",
+    assignments: "Назначения",
+    more: "Еще"
   },
   authScreen: {
     title: "Вход в приложение",
-    placeholder: "Укажите ваш номер телефона",
+    phone: "Укажите ваш номер телефона",
+    iin: "Введите ИИН", 
     next: "Далее",
   },
   otpScreen: {
@@ -50,8 +57,14 @@ const ru = {
   search: {
     patientsPlaceholder: "Введите фамилию или ИИН пaциента",
   },
-  emergencyRoomScreen: {
+  departmentScreen: {
     title: "Приемное отделение",
+  },
+  patientsSreen: {
+    title: "Мои пациенты"
+  },
+  searchScreen: {
+    title: "Пациенты больницы"
   },
   errors: {
     network: "Ошибка сети! Попробуйте еще раз!",
