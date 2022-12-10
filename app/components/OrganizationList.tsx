@@ -32,8 +32,6 @@ export const OrganizationList: FC<OrganizationListProps> = observer(() => {
     }
   }, [activeOrg])
 
-  //TODO: подсвечивать выбранную огранизацию (узнать как обрезать текст)
-
   const renderItem: ListRenderItem<Organization> = ({ item }) => {
     const onPress = () => {
       setActiveOrg(item.departmentId)

@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite"
-import React, { FC, useState } from "react"
+import React, { FC } from "react"
 import {
   FlatList,
   ListRenderItem,
@@ -8,14 +8,13 @@ import {
   View,
   ViewStyle,
 } from "react-native"
-import { useTranslate } from "../i18n"
 import { MedicalCardListItem } from "../interfaces"
 import { useStores } from "../store"
 import { COLORS, spacing } from "../theme"
 import { ArrowRightSVG, SearchSVG } from "./svg"
 import { Preloader, Text, TextField } from "./ui"
 
-interface MedcardListProps {
+interface MedCardsListProps {
   data: MedicalCardListItem[]
   searchText: string
   onSearchChange: (value: string) => void
@@ -24,13 +23,13 @@ interface MedcardListProps {
 type keyExtractorType = (item: any, index: number) => string
 const keyExtractor: keyExtractorType = (item: MedicalCardListItem) => item.uid
 
-export const MedcardList: FC<MedcardListProps> = observer(
+export const MedCardsList: FC<MedCardsListProps> = observer(
   ({ data, searchText, onSearchChange }) => {
-    const { setActiveOrg, loading } = useStores().medicalCard
+    const { setActiveMedCard, loading } = useStores().medicalCard
 
     const renderItem: ListRenderItem<MedicalCardListItem> = ({ item }) => {
       const onPress = () => {
-        setActiveOrg(item.uid)
+        setActiveMedCard(item.uid)
       }
       return (
         <TouchableOpacity onPress={onPress} activeOpacity={0.6}>
@@ -40,7 +39,7 @@ export const MedcardList: FC<MedcardListProps> = observer(
               <Text
                 preset="helper"
                 style={$info}
-                text={`${item.age} лет, госпитализация: ${item.admissionDate}`}
+                text={`${item.age}, госпитализация: ${item.admissionDate}`}
               />
             </View>
             <ArrowRightSVG style={$arrow} width={10} height={14} />
@@ -63,7 +62,7 @@ export const MedcardList: FC<MedcardListProps> = observer(
           )}
           wrapperStyle={$search}
           inputStyle={$searchInput}
-          placeholderInner={"search.patientsPlaceholder"}
+          placeholderInner={"search.medcards"}
         />
         <FlatList
           renderItem={renderItem}

@@ -33,7 +33,7 @@ const MedicalCardStore = types
         self.loading = false
       }
     }),
-    setActiveOrg: (uid: string) => {
+    setActiveMedCard: (uid: string) => {
       self.activeMedCard = uid as any
     },
     clearError: () => {
@@ -48,7 +48,7 @@ const MedicalCardStore = types
       return self.medCards.reduce<MedicalCardListItem[]>((prev, card) => {
         const values: string[] = Object.values(card)
 
-        if (values.some((v) => v.includes(self.allSearch))) {
+        if (values.some((v) => String(v).includes(self.allSearch))) {
           //ФИЛЬТРАЦИЯ ПО ВСЕМ ПОЛЯМ
           const { admissionDate, patient, age, uid } = card
           return [...prev, { admissionDate, patient, age, uid }]
@@ -67,7 +67,7 @@ const MedicalCardStore = types
 
         const values: string[] = Object.values(card)
 
-        if (values.some((v) => v.includes(self.mySearch))) {
+        if (values.some((v) => String(v).includes(self.mySearch))) {
           //ФИЛЬТРАЦИЯ ПО ВСЕМ ПОЛЯМ
           const { admissionDate, patient, age, uid } = card
           return [...prev, { admissionDate, patient, age, uid }]

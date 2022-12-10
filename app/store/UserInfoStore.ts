@@ -1,7 +1,7 @@
-import { cast, flow, toGenerator, types } from "mobx-state-tree"
+import { cast, flow, toGenerator, types, getRoot } from "mobx-state-tree"
 import { getUserInfo } from "../services/passbase"
-import { getRootStore } from "./helpers/getRootStore"
 import { OrganizationModel } from "./models/organization/Organization"
+import { RootStoreModel } from "./RootStore"
 
 const UserInfoStore = types
   .model("UserInfoStore")
@@ -13,12 +13,12 @@ const UserInfoStore = types
   })
   .actions((self) => ({
     load: flow(function* () {
-      const root = getRootStore(self)
+      const { IIN } = getRoot<typeof RootStoreModel>(self).app
       try {
         self.error = ""
         self.loading = true
 
-        const { error, data } = yield* toGenerator(getUserInfo(root.app.IIN))
+        const { error, data } = yield* toGenerator(getUserInfo(IIN))
 
         if (error) {
           self.error = error

@@ -55,7 +55,7 @@ const ru = {
     refusal: "Отказ",
   },
   search: {
-    patientsPlaceholder: "ФИО пациента",
+    medcards: "Поиск",
   },
   departmentScreen: {
     title: "Приемное отделение",

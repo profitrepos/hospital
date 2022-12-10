@@ -1,2 +1,2 @@
-export * from "./MedcardList"
+export * from "./MedCardsList"
 export * from "./ScreenWithActionSheet"

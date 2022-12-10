@@ -5,7 +5,7 @@ import { StackScreenProps } from "@react-navigation/stack"
 import { Avatar, Screen, ScreenTitle } from "../components/ui"
 import { HomeTabParamList } from "../navigators"
 import { spacing } from "../theme"
-import { MedcardList } from "../components"
+import { MedCardsList } from "../components"
 import { useStores } from "../store"
 
 export const DepartmentScreen: FC<StackScreenProps<HomeTabParamList, "Department">> = observer(
@@ -23,7 +23,7 @@ export const DepartmentScreen: FC<StackScreenProps<HomeTabParamList, "Department
           <ScreenTitle text="departmentScreen.title" />
         </View>
         <View style={[$list, $container]}>
-          <MedcardList data={all} onSearchChange={onSearchChange} searchText={allSearch} />
+          <MedCardsList data={all} onSearchChange={onSearchChange} searchText={allSearch} />
         </View>
       </Screen>
     )
