@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { Avatar, Button, Screen, ScreenTitle } from "../components/ui"
-import { MainTabStackParamList, MedicalCardsStack, resetRoot } from "../navigators"
+import { HomeTabParamList, resetRoot } from "../navigators"
 import { FilterItem } from "../interfaces/Common"
 import { spacing } from "../theme"
 
@@ -22,15 +22,14 @@ const filterData: FilterItem[] = [
   },
 ]
 
-export const DepartmentScreen: FC<StackScreenProps<MainTabStackParamList, "Department">> =
-  observer(function DepartmentScreen({navigation}) {
+export const DepartmentScreen: FC<StackScreenProps<HomeTabParamList, "Department">> = observer(
+  function DepartmentScreen({ navigation }) {
     const [value, setValue] = useState<FilterItem>()
 
     const onPress = () => {
       resetRoot()
       navigation.navigate("MedicalCard")
     }
-
 
     return (
       <Screen style={$root} preset="fixed" filled>
@@ -44,7 +43,8 @@ export const DepartmentScreen: FC<StackScreenProps<MainTabStackParamList, "Depar
         </View>
       </Screen>
     )
-  })
+  },
+)
 
 const $root: ViewStyle = {
   flex: 1,
@@ -55,5 +55,5 @@ const $container = {
 const $list: ViewStyle = {
   flex: 1,
   marginBottom: spacing.large,
-  justifyContent: "flex-end"
+  justifyContent: "flex-end",
 }

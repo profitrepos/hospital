@@ -1,4 +1,5 @@
 export * from "./AppNavigator"
 export * from "./navigationUtilities"
-export * from "./MainTabNavigator"
-export * from './MedicalCardsStack'
+export * from "./HomeTabNavigator"
+export * from "./MedicalCardNavigator"
+export * from "./MainStack"

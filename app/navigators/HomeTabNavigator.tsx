@@ -1,4 +1,4 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import { BottomTabNavigationOptions, createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { observer } from "mobx-react-lite"
 import React from "react"
 import NavigatorExample from "../components/NavigatorExample"
@@ -7,18 +7,16 @@ import { useTranslate } from "../i18n"
 import { SearchPatientsScreen, DepartmentScreen, MyPatientsScreen } from "../screens"
 import { COLORS } from "../theme"
 
-export type MainTabStackParamList = {
+export type HomeTabParamList = {
   Department: undefined
   MyPatients: undefined
   SearchPatients: undefined
   MedicalCard: undefined
 }
 
-interface ScreenOptions extends Record<keyof MainTabStackParamList, {}> {}
+const Tab = createBottomTabNavigator<HomeTabParamList>()
 
-const Tab = createBottomTabNavigator<MainTabStackParamList>()
-
-const tabOptions = {
+const tabOptions: BottomTabNavigationOptions = {
   tabBarActiveTintColor: COLORS.mainBlue,
   tabBarInactiveTintColor: COLORS.lightGrayTabIcon,
   tabBarLabelStyle: {
@@ -31,7 +29,7 @@ const tabOptions = {
   headerShown: false,
 }
 
-export const MainTabNavigator = observer(() => {
+export const HomeTabNavigator = observer(() => {
   const translate = useTranslate()
 
   return (
@@ -41,7 +39,7 @@ export const MainTabNavigator = observer(() => {
         component={DepartmentScreen}
         options={{
           tabBarIcon: ({ color }) => <DepartmentSVG color={color} />,
-          title: translate("mainTabs.department")
+          title: translate("mainTabs.department"),
         }}
       />
       <Tab.Screen
@@ -54,7 +52,7 @@ export const MainTabNavigator = observer(() => {
       />
       <Tab.Screen
         name="SearchPatients"
-        component={SearchPatientsScreen}
+        component={NavigatorExample}
         options={{
           tabBarIcon: ({ color }) => <PlusSvg color={color} />,
           title: translate("mainTabs.all"),

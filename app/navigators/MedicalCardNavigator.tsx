@@ -1,24 +1,29 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import { BottomTabNavigationOptions, createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { observer } from "mobx-react-lite"
 import React from "react"
-import { DataSVG, DepartmentSVG, JournalSVG, MoreSVG, PencilSVG, СapsuleSVG } from "../components/svg"
+import { ViewStyle } from "react-native"
+import { DataSVG, JournalSVG, MoreSVG, PencilSVG, СapsuleSVG } from "../components/svg"
 import { useTranslate } from "../i18n"
-import {  PatientsAssignmentsScreen, PatientsDataScreen, PatientsJournalScreen, PatientsMoreScreen, PatientsRecordsScreen } from "../screens"
+import {
+  PatientsAssignmentsScreen,
+  PatientsDataScreen,
+  PatientsJournalScreen,
+  PatientsMoreScreen,
+  PatientsRecordsScreen,
+} from "../screens"
 import { COLORS } from "../theme"
 
-export type MedicalCardsStackParamList = {
-  PatientsData: undefined;
+export type MedicalCardTabsParamList = {
+  PatientsData: undefined
   PatientsRecords: undefined
   PatientsJournal: undefined
   PatientsAssignments: undefined
   PatientsMore: undefined
 }
 
-interface ScreenOptions extends Record<keyof MedicalCardsStackParamList, {}> {}
+const Tab = createBottomTabNavigator<MedicalCardTabsParamList>()
 
-const Tab = createBottomTabNavigator<MedicalCardsStackParamList>()
-
-const tabOptions = {
+const tabOptions: BottomTabNavigationOptions = {
   tabBarActiveTintColor: COLORS.mainBlue,
   tabBarInactiveTintColor: COLORS.lightGrayTabIcon,
   tabBarLabelStyle: {
@@ -31,11 +36,11 @@ const tabOptions = {
   headerShown: false,
 }
 
-export const MedicalCardsStack = observer(() => {
+export const MedicalCardNavigator = observer(() => {
   const translate = useTranslate()
 
   return (
-    <Tab.Navigator screenOptions={tabOptions} backBehavior="none">
+    <Tab.Navigator screenOptions={tabOptions} sceneContainerStyle={$sceneContainerStyle}>
       <Tab.Screen
         name="PatientsData"
         component={PatientsDataScreen}
@@ -79,3 +84,7 @@ export const MedicalCardsStack = observer(() => {
     </Tab.Navigator>
   )
 })
+
+const $sceneContainerStyle: ViewStyle = {
+  backgroundColor: COLORS.iconsBG,
+}
