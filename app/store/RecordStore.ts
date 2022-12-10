@@ -49,7 +49,6 @@ const RecordStore = types
     research: ResearchStore,
   })
   .actions((self) => ({
-    //TODO: удалить ИИН
     load: flow(function* (orgId: string, cardId: string) {
       try {
         self.error = ""
