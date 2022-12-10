@@ -1,6 +1,8 @@
-import { cast, flow, toGenerator, types } from "mobx-state-tree"
+import { cast, flow, getRoot, toGenerator, types } from "mobx-state-tree"
+import { MedicalCardListItem } from "../interfaces"
 import { getMedicalCards } from "../services/passbase"
 import { MedicalCardModel } from "./models/medicalCard/MedicalCard"
+import { RootStore } from "./RootStore"
 
 const MedicalCardStore = types
   .model("MedicalCardStore")
@@ -9,6 +11,8 @@ const MedicalCardStore = types
     loading: false,
     error: types.maybe(types.string),
     activeMedCard: types.safeReference(MedicalCardModel),
+    allSearch: types.optional(types.string, ""),
+    mySearch: types.optional(types.string, ""),
   })
   .actions((self) => ({
     load: flow(function* (orgId: string, depId: string) {
@@ -34,6 +38,43 @@ const MedicalCardStore = types
     },
     clearError: () => {
       self.error = ""
+    },
+    setSearch: (value: string, field: "allSearch" | "mySearch" = "allSearch") => {
+      self[field] = value
+    },
+  }))
+  .views((self) => ({
+    get all() {
+      return self.medCards.reduce<MedicalCardListItem[]>((prev, card) => {
+        const values: string[] = Object.values(card)
+
+        if (values.some((v) => v.includes(self.allSearch))) {
+          //ФИЛЬТРАЦИЯ ПО ВСЕМ ПОЛЯМ
+          const { admissionDate, patient, age, uid } = card
+          return [...prev, { admissionDate, patient, age, uid }]
+        }
+
+        return prev
+      }, [])
+    },
+    get my() {
+      return self.medCards.reduce<MedicalCardListItem[]>((prev, card) => {
+        const { userInfo }: RootStore = getRoot(self)
+
+        if (card.doctor !== userInfo.activeOrg.employeeName) {
+          return prev
+        }
+
+        const values: string[] = Object.values(card)
+
+        if (values.some((v) => v.includes(self.mySearch))) {
+          //ФИЛЬТРАЦИЯ ПО ВСЕМ ПОЛЯМ
+          const { admissionDate, patient, age, uid } = card
+          return [...prev, { admissionDate, patient, age, uid }]
+        }
+
+        return prev
+      }, [])
     },
   }))
 

@@ -15,12 +15,12 @@ const ru = {
     records: "Мед.записи",
     journal: "Дневник",
     assignments: "Назначения",
-    more: "Еще"
+    more: "Еще",
   },
   authScreen: {
     title: "Вход в приложение",
     phone: "Укажите ваш номер телефона",
-    iin: "Введите ИИН", 
+    iin: "Введите ИИН",
     next: "Далее",
   },
   otpScreen: {
@@ -55,16 +55,16 @@ const ru = {
     refusal: "Отказ",
   },
   search: {
-    patientsPlaceholder: "Введите фамилию или ИИН пaциента",
+    patientsPlaceholder: "ФИО пациента",
   },
   departmentScreen: {
     title: "Приемное отделение",
   },
   patientsSreen: {
-    title: "Мои пациенты"
+    title: "Мои пациенты",
   },
   searchScreen: {
-    title: "Пациенты больницы"
+    title: "Пациенты больницы",
   },
   errors: {
     network: "Ошибка сети! Попробуйте еще раз!",

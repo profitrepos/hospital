@@ -6,15 +6,19 @@ import { goBack, navigate, resetRoot } from "../navigators"
 
 interface ScreenWithActionSheetProps {
   children?: React.ReactNode
+  navigateTo?: string
 }
 
 const snapPoints = ["90%", "100%"]
 
-export const ScreenWithActionSheet: FC<ScreenWithActionSheetProps> = ({ children }) => {
+export const ScreenWithActionSheet: FC<ScreenWithActionSheetProps> = ({
+  children,
+  navigateTo = "Home",
+}) => {
   const sheetRef = useRef<BottomSheet>(null)
 
   const onClose = () => {
-    navigate("Home")
+    navigate(navigateTo)
   }
 
   return (

@@ -1,3 +1,4 @@
+import { observer } from "mobx-react-lite"
 import React, { FC, useState } from "react"
 import {
   FlatList,
@@ -8,65 +9,75 @@ import {
   ViewStyle,
 } from "react-native"
 import { useTranslate } from "../i18n"
+import { MedicalCardListItem } from "../interfaces"
+import { useStores } from "../store"
 import { COLORS, spacing } from "../theme"
 import { ArrowRightSVG, SearchSVG } from "./svg"
-import { Text, TextField } from "./ui"
+import { Preloader, Text, TextField } from "./ui"
 
 interface MedcardListProps {
-  data: any[]
+  data: MedicalCardListItem[]
+  searchText: string
+  onSearchChange: (value: string) => void
 }
 
-//TOOD: организовать сторы удобно
-//TODO: PatientsList -> List
-//TODO: проверить компонент pincode
 type keyExtractorType = (item: any, index: number) => string
-const keyExtractor: keyExtractorType = (item) => String(Math.random())
+const keyExtractor: keyExtractorType = (item: MedicalCardListItem) => item.uid
 
-export const MedcardList: FC<MedcardListProps> = ({ data }) => {
-  const translate = useTranslate()
-  const [text, setText] = useState("")
+export const MedcardList: FC<MedcardListProps> = observer(
+  ({ data, searchText, onSearchChange }) => {
+    const { setActiveOrg, loading } = useStores().medicalCard
 
-  const renderItem: ListRenderItem<any> = ({ item, index }) => {
-    const onPress = () => {
-      console.log(item)
-    }
-    return (
-      <TouchableOpacity onPress={onPress} activeOpacity={0.6}>
-        <View style={$item}>
-          <View style={$values}>
-            <Text preset="subheading" style={$name} text={"Булат Тадхтим Утемуратов"} />
-            <Text preset="helper" style={$info} text={"28 лет, госпитализация: 23.08.2022 19:30"} />
+    const renderItem: ListRenderItem<MedicalCardListItem> = ({ item }) => {
+      const onPress = () => {
+        setActiveOrg(item.uid)
+      }
+      return (
+        <TouchableOpacity onPress={onPress} activeOpacity={0.6}>
+          <View style={$item}>
+            <View style={$values}>
+              <Text preset="subheading" style={$name} text={item.patient} />
+              <Text
+                preset="helper"
+                style={$info}
+                text={`${item.age} лет, госпитализация: ${item.admissionDate}`}
+              />
+            </View>
+            <ArrowRightSVG style={$arrow} width={10} height={14} />
           </View>
-          <ArrowRightSVG style={$arrow} width={10} height={14} />
-        </View>
-      </TouchableOpacity>
-    )
-  }
+        </TouchableOpacity>
+      )
+    }
 
-  return (
-    <View style={$container}>
-      <TextField
-        value={text}
-        onChangeText={setText}
-        LeftIcon={({ style }) => (
-          <SearchSVG height={16} width={24} style={[style, $searchIcon]} color={COLORS.icons} />
-        )}
-        wrapperStyle={$search}
-        inputStyle={$searchInput}
-        placeholderInner={"search.patientsPlaceholder"}
-      />
-      <FlatList
-        renderItem={renderItem}
-        data={new Array(20)}
-        keyExtractor={keyExtractor}
-        showsHorizontalScrollIndicator={false}
-        style={$list}
-        contentContainerStyle={$listContainer}
-        showsVerticalScrollIndicator={false}
-      />
-    </View>
-  )
-}
+    if (loading) {
+      return <Preloader />
+    }
+
+    return (
+      <View style={$container}>
+        <TextField
+          value={searchText}
+          onChangeText={onSearchChange}
+          LeftIcon={({ style }) => (
+            <SearchSVG height={16} width={24} style={[style, $searchIcon]} color={COLORS.icons} />
+          )}
+          wrapperStyle={$search}
+          inputStyle={$searchInput}
+          placeholderInner={"search.patientsPlaceholder"}
+        />
+        <FlatList
+          renderItem={renderItem}
+          data={data}
+          keyExtractor={keyExtractor}
+          showsHorizontalScrollIndicator={false}
+          style={$list}
+          contentContainerStyle={$listContainer}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
+    )
+  },
+)
 
 const $container: ViewStyle = {
   borderRadius: 12,

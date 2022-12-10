@@ -13,9 +13,11 @@ export const CreatePasswordScreen: FC<StackScreenProps<AppStackParamList, "Creat
   observer(function CreatePasswordScreen() {
     const translate = useTranslate()
     const { finishAuth } = useStores().app
+    const { load } = useStores().userInfo
 
     const handleNext = (code: string) => {
       finishAuth(code)
+      load()
     }
 
     return (

@@ -49,7 +49,6 @@ const RecordStore = types
     research: ResearchStore,
   })
   .actions((self) => ({
-    //TODO: удалить ИИН
     load: flow(function* (orgId: string, cardId: string) {
       try {
         self.error = ""
@@ -80,18 +79,19 @@ const RecordStore = types
     },
   }))
 
-export const createRecordStoreDefault = () => types.optional(RecordStore, {
-  analysis: {},
-  consultation: {},
-  diagnosis: {},
-  epicrisis: {},
-  extract: {},
-  initialInspection: {},
-  journal: {},
-  operationProtocol: {},
-  patient: {},
-  research: {},
-})
+export const createRecordStoreDefault = () =>
+  types.optional(RecordStore, {
+    analysis: {},
+    consultation: {},
+    diagnosis: {},
+    epicrisis: {},
+    extract: {},
+    initialInspection: {},
+    journal: {},
+    operationProtocol: {},
+    patient: {},
+    research: {},
+  })
 
 const recordsDictionary = {
   Анализ: "analysis",

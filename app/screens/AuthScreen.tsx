@@ -6,14 +6,21 @@ import { AppBox, Button, Screen, TextField, Text } from "../components/ui"
 import { AppStackParamList } from "../navigators"
 import { AuthSVG, FlagSVG } from "../components/svg"
 import { spacing } from "../theme"
+import { useStores } from "../store"
 
 export const AuthScreen: FC<StackScreenProps<AppStackParamList, "Auth">> = observer(
   function AuthScreen({ navigation }) {
-    const [phone, setPhone] = useState("")
+    const { setIIN: saveIIN } = useStores().userInfo
 
-    const phoneHandler = () => {
+    const [phone, setPhone] = useState("")
+    const [IIN, setIIN] = useState("870516450266")
+
+    const next = () => {
       navigation.navigate("Otp")
+      saveIIN(IIN)
     }
+
+    //TODO: сделать валидацию телефона и ИИН
 
     return (
       <Screen preset="scroll">
@@ -33,8 +40,8 @@ export const AuthScreen: FC<StackScreenProps<AppStackParamList, "Auth">> = obser
                 wrapperStyle={$input}
               />
               <TextField
-                value={phone}
-                onChangeText={setPhone}
+                value={IIN}
+                onChangeText={setIIN}
                 maxLength={12}
                 placeholder="authScreen.iin"
                 keyboardType="phone-pad"
@@ -43,7 +50,7 @@ export const AuthScreen: FC<StackScreenProps<AppStackParamList, "Auth">> = obser
             </AppBox>
           </View>
           <View style={$bottomSection}>
-            <Button onPress={phoneHandler} tx="authScreen.next" />
+            <Button onPress={next} tx="authScreen.next" />
           </View>
         </View>
       </Screen>
@@ -75,5 +82,5 @@ const $box: ViewStyle = {
   padding: spacing.medium,
 }
 const $input: ViewStyle = {
-  marginBottom: spacing.extraSmall
+  marginBottom: spacing.extraSmall,
 }

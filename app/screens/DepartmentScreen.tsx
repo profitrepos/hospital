@@ -2,33 +2,18 @@ import React, { FC, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { Avatar, Button, Screen, ScreenTitle } from "../components/ui"
-import { HomeTabParamList, resetRoot } from "../navigators"
-import { FilterItem } from "../interfaces/Common"
+import { Avatar, Screen, ScreenTitle } from "../components/ui"
+import { HomeTabParamList } from "../navigators"
 import { spacing } from "../theme"
-
-const filterData: FilterItem[] = [
-  {
-    value: "Текущие",
-    title: "filter.current",
-  },
-  {
-    value: "Госпитализированные",
-    title: "filter.hospitalized",
-  },
-  {
-    value: "Отказ",
-    title: "filter.refusal",
-  },
-]
+import { MedcardList } from "../components"
+import { useStores } from "../store"
 
 export const DepartmentScreen: FC<StackScreenProps<HomeTabParamList, "Department">> = observer(
   function DepartmentScreen({ navigation }) {
-    const [value, setValue] = useState<FilterItem>()
+    const { all, allSearch, setSearch } = useStores().medicalCard
 
-    const onPress = () => {
-      resetRoot()
-      navigation.navigate("MedicalCard")
+    const onSearchChange = (value: string) => {
+      setSearch(value)
     }
 
     return (
@@ -37,9 +22,8 @@ export const DepartmentScreen: FC<StackScreenProps<HomeTabParamList, "Department
           <Avatar />
           <ScreenTitle text="departmentScreen.title" />
         </View>
-        {/* <Filter activeItem={value} onChange={setValue} data={filterData} /> */}
-        <View style={[$container, $list]}>
-          <Button onPress={onPress}>Go To Medicals Card Stack</Button>
+        <View style={[$list, $container]}>
+          <MedcardList data={all} onSearchChange={onSearchChange} searchText={allSearch} />
         </View>
       </Screen>
     )
@@ -52,6 +36,7 @@ const $root: ViewStyle = {
 const $container = {
   marginHorizontal: spacing.medium,
 }
+
 const $list: ViewStyle = {
   flex: 1,
   marginBottom: spacing.large,
