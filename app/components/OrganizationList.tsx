@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite"
-import React, { FC } from "react"
+import React, { FC, useEffect } from "react"
 import {
   FlatList,
   ListRenderItem,
@@ -9,6 +9,7 @@ import {
   ViewStyle,
 } from "react-native"
 import { OrganizationListItem } from "../interfaces"
+import { navigate } from "../navigators"
 import { Organization, useStores } from "../store"
 import { COLORS, spacing } from "../theme"
 import { ArrowRightSVG } from "./svg"
@@ -20,7 +21,16 @@ type keyExtractorType = (item: any, index: number) => string
 const keyExtractor: keyExtractorType = (item: OrganizationListItem) => item.departmentId
 
 export const OrganizationList: FC<OrganizationListProps> = observer(() => {
-  const { setActiveOrg, organizations, loading } = useStores().userInfo
+  const { userInfo, medicalCard } = useStores()
+  const { setActiveOrg, organizations, loading, activeOrg } = userInfo
+
+  useEffect(() => {
+    if (activeOrg) {
+      const { organisationId, departmentId } = activeOrg
+      medicalCard.load(organisationId, departmentId)
+      navigate("Main")
+    }
+  }, [activeOrg])
 
   //TODO: подсвечивать выбранную огранизацию (узнать как обрезать текст)
 

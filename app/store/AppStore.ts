@@ -12,6 +12,7 @@ export const AppStore = types
     pincode: types.maybe(types.string),
     isVerify: false,
     isAuth: false,
+    IIN: types.optional(types.string, ""),
   })
   .actions(withSetPropAction)
   .actions((self) => ({
@@ -31,12 +32,15 @@ export const AppStore = types
       i18n.changeLanguage(locale)
       return yield asyncStorage.saveString(ASYNC_STORAGE_KEYS.STORAGE_LANGUAGES_KEY, locale)
     }),
+    setIIN: (value: string) => {
+      self.IIN = value
+    },
   }))
   .actions((self) => ({
     finishAuth: flow(function* (pincode: string) {
       const pincodeSaved = yield secureStorage.saveString(SECURE_STORAGE_KEYS.PINCODE_KEY, pincode)
-      const authSaved = yield secureStorage.saveString(SECURE_STORAGE_KEYS.AUTH_KEY, "true")
-      if (pincodeSaved && authSaved) {
+      const iinSaved = yield secureStorage.saveString(SECURE_STORAGE_KEYS.IIN, self.IIN)
+      if (pincodeSaved && iinSaved) {
         self.pincode = pincode
         self.isAuth = true
         self.isVerify = true
@@ -44,8 +48,8 @@ export const AppStore = types
     }),
     resetPassword: flow(function* () {
       const pincodeRemoved = yield secureStorage.remove(SECURE_STORAGE_KEYS.PINCODE_KEY)
-      const authRemoved = yield secureStorage.remove(SECURE_STORAGE_KEYS.AUTH_KEY)
-      if (pincodeRemoved && authRemoved) {
+      const iinRemoved = yield secureStorage.remove(SECURE_STORAGE_KEYS.IIN)
+      if (pincodeRemoved && iinRemoved) {
         self.pincode = null
         self.isAuth = false
         self.isVerify = false

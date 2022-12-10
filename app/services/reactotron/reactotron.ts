@@ -23,6 +23,8 @@ import { ReactotronConfig, DEFAULT_REACTOTRON_CONFIG } from "./reactotronConfig"
 import { goBack, resetRoot, navigate } from "../../navigators/navigationUtilities"
 import { fakeReactotron } from "./reactotronFake"
 import { AsyncStorage as asyncStorage } from "../../utils/async-storage"
+import secureStorage from "../../utils/secure-storage/secure-storage"
+import { SECURE_STORAGE_KEYS } from "../../interfaces"
 /**
  * We tell typescript we intend to hang Reactotron off of the console object.
  *
@@ -139,6 +141,17 @@ export function setupReactotron(customConfig: ReactotronConfig = {}) {
       handler: () => {
         Reactotron.log("resetting store")
         asyncStorage.clear()
+      },
+    })
+
+    Reactotron.onCustomCommand({
+      title: "Reset Secure Store",
+      description: "reset IIN, reset pincode",
+      command: "resetSecureStore",
+      handler: () => {
+        Reactotron.log("resetting secure store")
+        secureStorage.remove(SECURE_STORAGE_KEYS.IIN)
+        secureStorage.remove(SECURE_STORAGE_KEYS.PINCODE_KEY)
       },
     })
 

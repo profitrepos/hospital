@@ -7,7 +7,13 @@ export const getMedicalCards = async (orgId: string, depId: string) => {
   params.append("orgId", orgId)
   params.append("depId", depId)
 
-  const { data } = await api.apisauce.post<MedicalCardInfo>("getMedicalCards", params)
+  const { data } = await api.apisauce.post<MedicalCardInfo>(
+    "getMedicalCards",
+    {},
+    {
+      params,
+    },
+  )
 
   return data
 }

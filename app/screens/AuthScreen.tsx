@@ -10,7 +10,7 @@ import { useStores } from "../store"
 
 export const AuthScreen: FC<StackScreenProps<AppStackParamList, "Auth">> = observer(
   function AuthScreen({ navigation }) {
-    const { setIIN: saveIIN } = useStores().userInfo
+    const { setIIN: saveIIN } = useStores().app
 
     const [phone, setPhone] = useState("")
     const [IIN, setIIN] = useState("870516450266")

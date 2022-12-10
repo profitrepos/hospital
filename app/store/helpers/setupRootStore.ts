@@ -10,16 +10,17 @@ export async function setupRootStore(rootStore: RootStore) {
   let locale: string
   try {
     const pincode = await secureStorage.loadString(SECURE_STORAGE_KEYS.PINCODE_KEY)
-    const isAuth = await secureStorage.loadString(SECURE_STORAGE_KEYS.AUTH_KEY)
+    const IIN = await secureStorage.loadString(SECURE_STORAGE_KEYS.IIN)
     locale = (await asyncStorage.loadString(ASYNC_STORAGE_KEYS.STORAGE_LANGUAGES_KEY)) || "ru"
 
     restoredState = {
       ...rootStore,
       app: {
         ...rootStore.app,
-        isAuth: false,
-        isVerify: false, //TODO: для разработки
+        isAuth: Boolean(IIN),
+        isVerify: true, //TODO: для разработки
         pincode,
+        IIN,
       },
     }
     // onSnapshot(rootStore, (snapshot) => console.log("SNAPSHOT ---- ", snapshot))

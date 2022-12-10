@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React, { FC, useEffect } from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
@@ -11,23 +11,16 @@ import { useStores } from "../store"
 export const SelectOrganizationScreen: FC<
   StackScreenProps<AppStackParamList, "SelectOrganization">
 > = observer(function OtpScreen({ navigation }) {
-  const { userInfo, medicalCard } = useStores()
+  const { load } = useStores().userInfo
 
-  const { activeOrg } = userInfo
-
-  const next = () => {
-    const { organisationId, departmentId } = activeOrg
-    medicalCard.load(organisationId, departmentId)
-    navigation.navigate("Main")
-  }
+  useEffect(() => {
+    load()
+  }, [])
 
   return (
-    <Screen style={$root} preset="scroll">
+    <Screen style={$root} preset="fixed">
       <ScreenTitle text="selectOrganizationScreen.title" />
       <OrganizationList />
-      <Button disabled={!activeOrg} onPress={next}>
-        Next
-      </Button>
     </Screen>
   )
 })

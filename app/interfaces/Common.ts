@@ -33,5 +33,5 @@ export enum ASYNC_STORAGE_KEYS {
 
 export enum SECURE_STORAGE_KEYS {
   PINCODE_KEY = "PINCODE",
-  AUTH_KEY = "AUTH",
+  IIN = "IIN",
 }
