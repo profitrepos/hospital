@@ -2,7 +2,7 @@ import React, { FC, useCallback, useMemo, useRef } from "react"
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet"
 import { Screen } from "./ui"
 import { ViewStyle } from "react-native"
-import { goBack, resetRoot } from "../navigators"
+import { goBack, navigate, resetRoot } from "../navigators"
 
 interface ScreenWithActionSheetProps {
   children?: React.ReactNode
@@ -14,8 +14,7 @@ export const ScreenWithActionSheet: FC<ScreenWithActionSheetProps> = ({ children
   const sheetRef = useRef<BottomSheet>(null)
 
   const onClose = () => {
-    resetRoot()
-    goBack()
+    navigate("Home")
   }
 
   return (
@@ -45,6 +44,7 @@ const $root: ViewStyle = {
 }
 const $contentContainer: ViewStyle = {
   backgroundColor: "#fff",
+  flex: 1,
 }
 const $backgroundStyle: ViewStyle = {
   borderRadius: 20,

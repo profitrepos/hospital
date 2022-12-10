@@ -34,6 +34,7 @@ const tabOptions: BottomTabNavigationOptions = {
     paddingBottom: 3,
   },
   headerShown: false,
+  lazy: false,
 }
 
 export const MedicalCardNavigator = observer(() => {

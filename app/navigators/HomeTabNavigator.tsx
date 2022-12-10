@@ -1,7 +1,6 @@
 import { BottomTabNavigationOptions, createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { observer } from "mobx-react-lite"
 import React from "react"
-import NavigatorExample from "../components/NavigatorExample"
 import { DepartmentSVG, PatientSVG, PlusSvg } from "../components/svg"
 import { useTranslate } from "../i18n"
 import { SearchPatientsScreen, DepartmentScreen, MyPatientsScreen } from "../screens"
@@ -52,7 +51,7 @@ export const HomeTabNavigator = observer(() => {
       />
       <Tab.Screen
         name="SearchPatients"
-        component={NavigatorExample}
+        component={SearchPatientsScreen}
         options={{
           tabBarIcon: ({ color }) => <PlusSvg color={color} />,
           title: translate("mainTabs.all"),
