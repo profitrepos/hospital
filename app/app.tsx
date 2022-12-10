@@ -11,6 +11,8 @@ import { setupReactotron } from "./services/reactotron"
 import Config from "./config"
 import { ASYNC_STORAGE_KEYS } from "./interfaces/Common"
 import { AsyncStorage } from "./utils/async-storage"
+import { GestureHandlerRootView } from "react-native-gesture-handler"
+import { ViewStyle } from "react-native"
 
 setupReactotron({
   clearOnLoad: true,
@@ -43,13 +45,19 @@ function App(props: AppProps) {
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <ErrorBoundary catchErrors={Config.catchErrors}>
-        <AppNavigator
-          initialState={initialNavigationState}
-          onStateChange={onNavigationStateChange}
-        />
+        <GestureHandlerRootView style={$root}>
+          <AppNavigator
+            initialState={initialNavigationState}
+            onStateChange={onNavigationStateChange}
+          />
+        </GestureHandlerRootView>
       </ErrorBoundary>
     </SafeAreaProvider>
   )
+}
+
+const $root: ViewStyle = {
+  flex: 1
 }
 
 export default App

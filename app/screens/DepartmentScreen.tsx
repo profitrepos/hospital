@@ -2,11 +2,10 @@ import React, { FC, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { Avatar, Filter, Screen, ScreenTitle, Text } from "../components/ui"
-import { MainTabStackParamList } from "../navigators"
+import { Avatar, Button, Screen, ScreenTitle } from "../components/ui"
+import { MainTabStackParamList, MedicalCardsStack, resetRoot } from "../navigators"
 import { FilterItem } from "../interfaces/Common"
 import { spacing } from "../theme"
-import { useStores } from "../store"
 
 const filterData: FilterItem[] = [
   {
@@ -24,8 +23,14 @@ const filterData: FilterItem[] = [
 ]
 
 export const DepartmentScreen: FC<StackScreenProps<MainTabStackParamList, "Department">> =
-  observer(function EmergencyRoomScreen() {
+  observer(function DepartmentScreen({navigation}) {
     const [value, setValue] = useState<FilterItem>()
+
+    const onPress = () => {
+      resetRoot()
+      navigation.navigate("MedicalCard")
+    }
+
 
     return (
       <Screen style={$root} preset="fixed" filled>
@@ -33,8 +38,9 @@ export const DepartmentScreen: FC<StackScreenProps<MainTabStackParamList, "Depar
           <Avatar />
           <ScreenTitle text="departmentScreen.title" />
         </View>
-        <Filter activeItem={value} onChange={setValue} data={filterData} />
+        {/* <Filter activeItem={value} onChange={setValue} data={filterData} /> */}
         <View style={[$container, $list]}>
+          <Button onPress={onPress}>Go To Medicals Card Stack</Button>
         </View>
       </Screen>
     )
@@ -48,5 +54,6 @@ const $container = {
 }
 const $list: ViewStyle = {
   flex: 1,
-  marginBottom: spacing.extraSmall,
+  marginBottom: spacing.large,
+  justifyContent: "flex-end"
 }

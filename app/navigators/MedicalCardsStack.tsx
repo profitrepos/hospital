@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { observer } from "mobx-react-lite"
 import React from "react"
-import { DataSVG, DepartmentSVG, JournalSVG, MoreSVG, PatientSVG, PencilSVG, PlusSvg, СapsuleSVG } from "../components/svg"
+import { DataSVG, DepartmentSVG, JournalSVG, MoreSVG, PencilSVG, СapsuleSVG } from "../components/svg"
 import { useTranslate } from "../i18n"
 import {  PatientsAssignmentsScreen, PatientsDataScreen, PatientsJournalScreen, PatientsMoreScreen, PatientsRecordsScreen } from "../screens"
 import { COLORS } from "../theme"
@@ -35,7 +35,7 @@ export const MedicalCardsStack = observer(() => {
   const translate = useTranslate()
 
   return (
-    <Tab.Navigator screenOptions={tabOptions}>
+    <Tab.Navigator screenOptions={tabOptions} backBehavior="none">
       <Tab.Screen
         name="PatientsData"
         component={PatientsDataScreen}

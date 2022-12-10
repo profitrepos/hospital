@@ -13,6 +13,7 @@ import {
 } from "../screens"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { MainTabNavigator } from "./MainTabNavigator"
+import { MedicalCardsStack } from "./MedicalCardsStack"
 
 export type AppStackParamList = {
   Auth: undefined
@@ -20,6 +21,7 @@ export type AppStackParamList = {
   CreatePassword: undefined
   Verification: undefined
   Home: undefined
+  MedicalCard: undefined
   Settings: undefined
   ResetPassword: undefined
   SelectOrganization: undefined
@@ -38,7 +40,7 @@ const AppStack = observer(function AppStack() {
         isVerify ? (
           <>
             <Stack.Screen name="Home" component={MainTabNavigator} />
-            <Stack.Screen name="Settings" component={ResetPasswordScreen} />
+            <Stack.Screen name="MedicalCard" component={MedicalCardsStack} />
             <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
           </>
         ) : (

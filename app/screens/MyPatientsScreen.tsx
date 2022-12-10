@@ -9,7 +9,7 @@ import { spacing } from "../theme"
 export const MyPatientsScreen: FC<StackScreenProps<MainTabStackParamList, "MyPatients">> = observer(
   function MyPatientsScreen() {
     return (
-      <Screen style={$root} preset="scroll">
+      <Screen style={$root} preset="scroll" filled>
         <View style={$container}>
           <Avatar />
           <ScreenTitle text="patientsSreen.title" />

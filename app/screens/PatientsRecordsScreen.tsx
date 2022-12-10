@@ -1,13 +1,18 @@
 import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle } from "react-native"
+import { View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { Screen } from "../components/ui"
+import { Text } from "../components/ui"
 import { MedicalCardsStackParamList } from "../navigators"
+import { ScreenWithActionSheet } from "../components"
 
 export const PatientsRecordsScreen: FC<StackScreenProps<MedicalCardsStackParamList, "PatientsRecords">> = observer(
   function PatientsRecordsScreen({ navigation }) {
-    return <Screen style={$root} preset="scroll"></Screen>
+    return <ScreenWithActionSheet>
+    <View>
+      <Text style={{ textAlign: "center", marginTop: 20 }} preset="heading">Мед. записи</Text>
+    </View>
+  </ScreenWithActionSheet>
   },
 )
 

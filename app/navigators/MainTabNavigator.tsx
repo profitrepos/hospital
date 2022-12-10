@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { observer } from "mobx-react-lite"
 import React from "react"
+import NavigatorExample from "../components/NavigatorExample"
 import { DepartmentSVG, PatientSVG, PlusSvg } from "../components/svg"
 import { useTranslate } from "../i18n"
 import { SearchPatientsScreen, DepartmentScreen, MyPatientsScreen } from "../screens"
@@ -10,6 +11,7 @@ export type MainTabStackParamList = {
   Department: undefined
   MyPatients: undefined
   SearchPatients: undefined
+  MedicalCard: undefined
 }
 
 interface ScreenOptions extends Record<keyof MainTabStackParamList, {}> {}
@@ -39,7 +41,7 @@ export const MainTabNavigator = observer(() => {
         component={DepartmentScreen}
         options={{
           tabBarIcon: ({ color }) => <DepartmentSVG color={color} />,
-          title: translate("mainTabs.department"),
+          title: translate("mainTabs.department")
         }}
       />
       <Tab.Screen
