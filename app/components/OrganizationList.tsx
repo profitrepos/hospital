@@ -20,6 +20,8 @@ interface OrganizationListProps {}
 type keyExtractorType = (item: any, index: number) => string
 const keyExtractor: keyExtractorType = (item: OrganizationListItem) => item.departmentId
 
+//TODO: refresh controll
+
 export const OrganizationList: FC<OrganizationListProps> = observer(() => {
   const { userInfo, medicalCard } = useStores()
   const { setActiveOrg, organizations, loading, activeOrg } = userInfo
@@ -34,7 +36,11 @@ export const OrganizationList: FC<OrganizationListProps> = observer(() => {
 
   const renderItem: ListRenderItem<Organization> = ({ item }) => {
     const onPress = () => {
-      setActiveOrg(item.departmentId)
+      if (activeOrg?.departmentId === item.departmentId) {
+        navigate("Main")
+      } else {
+        setActiveOrg(item.departmentId)
+      }
     }
     return (
       <TouchableOpacity onPress={onPress} activeOpacity={0.6}>

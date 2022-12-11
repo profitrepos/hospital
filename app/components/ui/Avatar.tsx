@@ -24,8 +24,6 @@ export const Avatar = () => {
 
 const $container: ViewStyle = {
   alignItems: "flex-end",
-  marginTop: spacing.large,
-  marginBottom: spacing.extraSmall,
 }
 const $avatar: ViewStyle = {
   backgroundColor: "#434343",

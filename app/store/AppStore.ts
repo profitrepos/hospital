@@ -13,6 +13,7 @@ export const AppStore = types
     isVerify: false,
     isAuth: false,
     IIN: types.optional(types.string, ""),
+    error: types.optional(types.string, ""), //TODO: сделать обработку этой ошибки где то
   })
   .actions(withSetPropAction)
   .actions((self) => ({
@@ -38,21 +39,32 @@ export const AppStore = types
   }))
   .actions((self) => ({
     finishAuth: flow(function* (pincode: string) {
-      const pincodeSaved = yield secureStorage.saveString(SECURE_STORAGE_KEYS.PINCODE_KEY, pincode)
-      const iinSaved = yield secureStorage.saveString(SECURE_STORAGE_KEYS.IIN, self.IIN)
-      if (pincodeSaved && iinSaved) {
-        self.pincode = pincode
-        self.isAuth = true
-        self.isVerify = true
+      try {
+        const pincodeSaved = yield secureStorage.saveString(
+          SECURE_STORAGE_KEYS.PINCODE_KEY,
+          pincode,
+        )
+        const iinSaved = yield secureStorage.saveString(SECURE_STORAGE_KEYS.IIN, self.IIN)
+        if (pincodeSaved && iinSaved) {
+          self.pincode = pincode
+          self.isAuth = true
+          self.isVerify = true
+        }
+      } catch (error) {
+        self.error = "Не известная ошибка" //TODO: предумать навзвание
       }
     }),
     resetPassword: flow(function* () {
-      const pincodeRemoved = yield secureStorage.remove(SECURE_STORAGE_KEYS.PINCODE_KEY)
-      const iinRemoved = yield secureStorage.remove(SECURE_STORAGE_KEYS.IIN)
-      if (pincodeRemoved && iinRemoved) {
-        self.pincode = null
-        self.isAuth = false
-        self.isVerify = false
+      try {
+        const pincodeRemoved = yield secureStorage.remove(SECURE_STORAGE_KEYS.PINCODE_KEY)
+        const iinRemoved = yield secureStorage.remove(SECURE_STORAGE_KEYS.IIN)
+        if (pincodeRemoved && iinRemoved) {
+          self.pincode = null
+          self.isAuth = false
+          self.isVerify = false
+        }
+      } catch (error) {
+        self.error = "Не известная ошибка" //TODO: предумать навзвание
       }
     }),
   }))

@@ -2,7 +2,7 @@ import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { Avatar, Screen, ScreenTitle, Text } from "../components/ui"
+import { Avatar, BackButton, Screen, ScreenTitle, Text } from "../components/ui"
 import { HomeTabParamList } from "../navigators"
 import { spacing } from "../theme"
 import { useStores } from "../store"
@@ -19,7 +19,10 @@ export const MyPatientsScreen: FC<StackScreenProps<HomeTabParamList, "MyPatients
     return (
       <Screen style={$root} preset="fixed" filled>
         <View style={$container}>
-          <Avatar />
+          <View style={$header}>
+            <BackButton />
+            <Avatar />
+          </View>
           <ScreenTitle text="patientsSreen.title" />
         </View>
         <View style={[$list, $container]}>
@@ -32,6 +35,13 @@ export const MyPatientsScreen: FC<StackScreenProps<HomeTabParamList, "MyPatients
 
 const $root: ViewStyle = {
   flex: 1,
+}
+const $header: ViewStyle = {
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+  marginTop: spacing.medium,
+  marginBottom: spacing.extraSmall,
 }
 const $container = {
   marginHorizontal: spacing.medium,

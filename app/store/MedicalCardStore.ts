@@ -19,6 +19,7 @@ const MedicalCardStore = types
       try {
         self.error = ""
         self.loading = true
+        self.medCards = cast([])
 
         const { error, data } = yield* toGenerator(getMedicalCards(orgId, depId))
 

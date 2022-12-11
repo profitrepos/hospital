@@ -10,6 +10,8 @@ export const RootStoreModel = types.model("RootStore").props({
   userInfo: createUserInfoStoreDefault(),
   record: createRecordStoreDefault(),
 })
+//TODO: сделать стор для поиска пациентов
+//TODO: сделать обработку ошибок
 
 export interface RootStore extends Instance<typeof RootStoreModel> {}
 

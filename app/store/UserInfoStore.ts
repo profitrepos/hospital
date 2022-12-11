@@ -13,7 +13,8 @@ const UserInfoStore = types
   })
   .actions((self) => ({
     load: flow(function* () {
-      const { IIN } = getRoot<typeof RootStoreModel>(self).app
+      //@ts-ignore
+      const { IIN } = getRoot(self).app //TODO: убрать костыль с типизацией
       try {
         self.error = ""
         self.loading = true

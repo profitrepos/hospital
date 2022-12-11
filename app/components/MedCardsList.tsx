@@ -9,6 +9,7 @@ import {
   ViewStyle,
 } from "react-native"
 import { MedicalCardListItem } from "../interfaces"
+import { navigate } from "../navigators"
 import { useStores } from "../store"
 import { COLORS, spacing } from "../theme"
 import { ArrowRightSVG, SearchSVG } from "./svg"
@@ -23,6 +24,8 @@ interface MedCardsListProps {
 type keyExtractorType = (item: any, index: number) => string
 const keyExtractor: keyExtractorType = (item: MedicalCardListItem) => item.uid
 
+//TODO: refresh controll
+
 export const MedCardsList: FC<MedCardsListProps> = observer(
   ({ data, searchText, onSearchChange }) => {
     const { setActiveMedCard, loading } = useStores().medicalCard
@@ -30,6 +33,7 @@ export const MedCardsList: FC<MedCardsListProps> = observer(
     const renderItem: ListRenderItem<MedicalCardListItem> = ({ item }) => {
       const onPress = () => {
         setActiveMedCard(item.uid)
+        navigate("MedicalCard")
       }
       return (
         <TouchableOpacity onPress={onPress} activeOpacity={0.6}>
