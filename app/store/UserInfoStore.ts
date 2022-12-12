@@ -1,25 +1,31 @@
-import { cast, flow, toGenerator, types, getRoot } from "mobx-state-tree"
+import { cast, flow, toGenerator, types } from "mobx-state-tree"
 import { getUserInfo } from "../services/passbase"
+import { getRootStore } from "./helpers/getRootStore"
+import { withSetPropAction } from "./helpers/withSetPropAction"
 import { OrganizationModel } from "./models/organization/Organization"
-import { RootStoreModel } from "./RootStore"
 
 const UserInfoStore = types
   .model("UserInfoStore")
   .props({
     organizations: types.optional(types.array(OrganizationModel), []),
     loading: false,
-    error: types.maybe(types.string),
+    error: types.optional(types.string, ''),
     activeOrg: types.safeReference(OrganizationModel),
   })
+  .views((self) => ({
+    get IIN(): string {
+      const { app } = getRootStore(self)
+      return app.IIN
+    }
+  }))
   .actions((self) => ({
     load: flow(function* () {
-      //@ts-ignore
-      const { IIN } = getRoot(self).app //TODO: убрать костыль с типизацией
+
       try {
         self.error = ""
         self.loading = true
 
-        const { error, data } = yield* toGenerator(getUserInfo(IIN))
+        const { error, data } = yield* toGenerator(getUserInfo(self.IIN))
 
         if (error) {
           self.error = error

@@ -15,35 +15,25 @@ import { COLORS, spacing } from "../theme"
 import { ArrowRightSVG } from "./svg"
 import { Preloader, Text } from "./ui"
 
-interface OrganizationListProps {}
+interface OrganizationListProps {
+  onPress: (org: OrganizationListItem) => void
+  loading: boolean
+  data: OrganizationListItem[]
+}
 
-type keyExtractorType = (item: any, index: number) => string
-const keyExtractor: keyExtractorType = (item: OrganizationListItem) => item.departmentId
+const keyExtractor = (item: OrganizationListItem) => item.departmentId
 
 //TODO: refresh controll
 
-export const OrganizationList: FC<OrganizationListProps> = observer(() => {
-  const { userInfo, medicalCard } = useStores()
-  const { setActiveOrg, organizations, loading, activeOrg } = userInfo
-
-  useEffect(() => {
-    if (activeOrg) {
-      const { organisationId, departmentId } = activeOrg
-      medicalCard.load(organisationId, departmentId)
-      navigate("Main")
-    }
-  }, [activeOrg])
-
+export const OrganizationList: FC<OrganizationListProps> = observer(({ onPress, loading, data }) => {
   const renderItem: ListRenderItem<Organization> = ({ item }) => {
-    const onPress = () => {
-      if (activeOrg?.departmentId === item.departmentId) {
-        navigate("Main")
-      } else {
-        setActiveOrg(item.departmentId)
-      }
+
+    const handlePress = () => {
+      onPress(item)
     }
+    
     return (
-      <TouchableOpacity onPress={onPress} activeOpacity={0.6}>
+      <TouchableOpacity onPress={handlePress} activeOpacity={0.6}>
         <View style={$item}>
           <View style={$values}>
             <Text preset="subheading" style={$name} text={item.organisationName} />
@@ -63,7 +53,7 @@ export const OrganizationList: FC<OrganizationListProps> = observer(() => {
     <View style={$container}>
       <FlatList
         renderItem={renderItem}
-        data={organizations}
+        data={data}
         keyExtractor={keyExtractor}
         showsHorizontalScrollIndicator={false}
         style={$list}
@@ -85,7 +75,7 @@ const $listContainer: ViewStyle = {}
 const $item: ViewStyle = {
   flexDirection: "row",
   alignItems: "center",
-  paddingBottom: spacing.medium,
+  paddingVertical: spacing.medium,
   borderBottomColor: "#EAEAEA",
   borderBottomWidth: 1,
 }

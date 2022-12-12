@@ -1,60 +1,45 @@
-import { observer } from "mobx-react-lite"
-import React, { FC } from "react"
-import {
-  FlatList,
-  ListRenderItem,
-  TextStyle,
-  TouchableOpacity,
-  View,
-  ViewStyle,
-} from "react-native"
-import { MedicalCardListItem } from "../interfaces"
-import { COLORS, spacing } from "../theme"
-import { ArrowRightSVG } from "./svg"
-import { Preloader, Text } from "./ui"
+import React, { FC } from 'react'
+import { FlatList, ListRenderItem, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
+import { PatientListItem } from '../interfaces'
+import { COLORS, spacing } from '../theme'
+import { ArrowRightSVG } from './svg'
+import { Preloader, Text } from './ui'
 
-interface MedCardsListProps {
-  data: MedicalCardListItem[]
-  onPress: (item: MedicalCardListItem) => void
-  loading: boolean
+
+interface PatientsListProps {
+    loading: boolean
+    onPress: (item: PatientListItem) => void
+    data: PatientListItem[]
 }
 
-type keyExtractorType = (item: any, index: number) => string
-const keyExtractor: keyExtractorType = (item: MedicalCardListItem) => item.uid
+const keyExtractor = (item: PatientListItem) => item.uid
 
-//TODO: refresh controll
+export const PatientsList: FC<PatientsListProps> = ({ loading, onPress, data }) => {
+    const renderItem: ListRenderItem<PatientListItem> = ({ item }) => {
 
-export const MedCardsList: FC<MedCardsListProps> = observer(
-  ({ data, onPress, loading }) => {
+        const handlePress = () => {
+            onPress(item)
+        }
 
-    const renderItem: ListRenderItem<MedicalCardListItem> = ({ item }) => {
-      const handlePress = () => {
-        onPress(item)
-      }
       return (
         <TouchableOpacity onPress={handlePress} activeOpacity={0.6}>
           <View style={$item}>
             <View style={$values}>
               <Text preset="subheading" style={$name} text={item.patient} />
-              <Text
-                preset="helper"
-                style={$info}
-                text={`${item.age}, госпитализация: ${item.admissionDate}`}
-              />
+              <Text preset="helper" style={$info} text={item.age} />
             </View>
             <ArrowRightSVG style={$arrow} width={10} height={14} />
           </View>
         </TouchableOpacity>
       )
     }
-
+  
     if (loading) {
       return <Preloader />
     }
-
+  
     return (
       <View style={$container}>
-        
         <FlatList
           renderItem={renderItem}
           data={data}
@@ -66,13 +51,15 @@ export const MedCardsList: FC<MedCardsListProps> = observer(
         />
       </View>
     )
-  },
-)
-
-const $container: ViewStyle = {
-  flex: 1,
 }
 
+
+
+const $container: ViewStyle = {
+  borderRadius: 12,
+  backgroundColor: "#fff",
+  flex: 1,
+}
 const $list: ViewStyle = {}
 const $listContainer: ViewStyle = {}
 const $item: ViewStyle = {

@@ -13,6 +13,13 @@ export const MedicalCardModel = types.model("MedicalCard").props({
   doctor: types.string,
 })
 
+export const PatientMedicalCardModel = MedicalCardModel.named("PatientMedicalCard").props({
+  department: types.string,
+  isClosed: types.string,
+  dischargeDate: types.string
+})
+
 export interface MedicalCard extends Instance<typeof MedicalCardModel> {}
+export interface PatientMedicalCard extends Instance<typeof PatientMedicalCardModel> {}
 export interface MedicalCardSnapshotOut extends SnapshotOut<typeof MedicalCardModel> {}
 export interface MedicalCardSnapshotIn extends SnapshotIn<typeof MedicalCardModel> {}

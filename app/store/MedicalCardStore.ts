@@ -1,19 +1,25 @@
-import { cast, flow, getRoot, toGenerator, types } from "mobx-state-tree"
+import { cast, flow, toGenerator, types } from "mobx-state-tree"
 import { MedicalCardListItem } from "../interfaces"
 import { getMedicalCards } from "../services/passbase"
+import { getRootStore } from "./helpers/getRootStore"
 import { MedicalCardModel } from "./models/medicalCard/MedicalCard"
-import { RootStore } from "./RootStore"
 
 const MedicalCardStore = types
   .model("MedicalCardStore")
   .props({
     medCards: types.optional(types.array(MedicalCardModel), []),
     loading: false,
-    error: types.maybe(types.string),
+    error: types.optional(types.string, ''),
     activeMedCard: types.safeReference(MedicalCardModel),
     allSearch: types.optional(types.string, ""),
     mySearch: types.optional(types.string, ""),
   })
+  .views((self) => ({
+    get userName(): string {
+      const { userInfo } = getRootStore(self)
+      return userInfo.activeOrg.employeeName
+    }
+  }))
   .actions((self) => ({
     load: flow(function* (orgId: string, depId: string) {
       try {
@@ -60,9 +66,9 @@ const MedicalCardStore = types
     },
     get my() {
       return self.medCards.reduce<MedicalCardListItem[]>((prev, card) => {
-        const { userInfo }: RootStore = getRoot(self)
+        
 
-        if (card.doctor !== userInfo.activeOrg.employeeName) {
+        if (card.doctor !== self.userName) {
           return prev
         }
 

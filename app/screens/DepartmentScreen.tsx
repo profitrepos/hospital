@@ -1,19 +1,25 @@
-import React, { FC, useState } from "react"
+import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { Avatar, BackButton, Screen, ScreenTitle } from "../components/ui"
+import { Avatar, BackButton, Screen, ScreenTitle, TextField } from "../components/ui"
 import { HomeTabParamList } from "../navigators"
-import { spacing } from "../theme"
+import { COLORS, spacing } from "../theme"
 import { MedCardsList } from "../components"
 import { useStores } from "../store"
+import { MedicalCardListItem } from "../interfaces"
+import { SearchSVG } from "../components/svg"
 
 export const DepartmentScreen: FC<StackScreenProps<HomeTabParamList, "Department">> = observer(
   function DepartmentScreen({ navigation }) {
-    const { all, allSearch, setSearch } = useStores().medicalCard
+    const {medicalCard, userInfo} = useStores()
+    const { all, allSearch, setSearch, setActiveMedCard, loading } = medicalCard
+    const { activeOrg } = userInfo
 
-    const onSearchChange = (value: string) => {
-      setSearch(value)
+
+    const medCardHandler = (item: MedicalCardListItem) => {
+      setActiveMedCard(item.uid)
+      navigation.navigate("MedicalCard")
     }
 
     return (
@@ -23,10 +29,20 @@ export const DepartmentScreen: FC<StackScreenProps<HomeTabParamList, "Department
             <BackButton />
             <Avatar />
           </View>
-          <ScreenTitle text="departmentScreen.title" />
+          <ScreenTitle customText={activeOrg.departmentName} />
         </View>
         <View style={[$list, $container]}>
-          <MedCardsList data={all} onSearchChange={onSearchChange} searchText={allSearch} />
+          <TextField
+            value={allSearch}
+            onChangeText={setSearch}
+            LeftIcon={({ style }) => (
+              <SearchSVG height={16} width={24} style={[style, $searchIcon]} color={COLORS.icons} />
+            )}
+            wrapperStyle={$search}
+            inputStyle={$searchInput}
+            placeholderInner={"search.medcards"}
+          />
+          <MedCardsList loading={loading} onPress={medCardHandler} data={all} />
         </View>
       </Screen>
     )
@@ -50,4 +66,16 @@ const $list: ViewStyle = {
   flex: 1,
   marginBottom: spacing.large,
   justifyContent: "flex-end",
+  backgroundColor: "#fff",
+  borderRadius: 12,
+  padding: spacing.medium,
+}
+const $search: ViewStyle = {
+  marginBottom: spacing.large,
+}
+const $searchInput: ViewStyle = {
+  paddingLeft: 40,
+}
+const $searchIcon: ViewStyle = {
+  left: 10,
 }

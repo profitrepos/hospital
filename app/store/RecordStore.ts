@@ -35,7 +35,7 @@ const RecordStore = types
   .model("RecordStore")
   .props({
     loading: false,
-    error: types.maybe(types.string),
+    error: types.optional(types.string, ''),
     activeRecord: types.safeReference(ComposeRecordModel),
     analysis: AnalysisStore,
     consultation: ConsultationStore,

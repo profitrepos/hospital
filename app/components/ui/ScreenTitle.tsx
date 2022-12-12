@@ -5,13 +5,14 @@ import { COLORS, spacing } from "../../theme"
 import { Text } from "./Text"
 
 interface ScreenTitleProps {
-  text: TxKeyPath
+  text?: TxKeyPath
+  customText?: string 
 }
 
-export const ScreenTitle: FC<ScreenTitleProps> = ({ text }) => {
+export const ScreenTitle: FC<ScreenTitleProps> = ({ text, customText }) => {
   return (
     <View style={$title}>
-      <Text preset="heading" tx={text} style={$text} />
+      <Text preset="heading" tx={text} style={$text} text={customText} />
     </View>
   )
 }
@@ -22,4 +23,5 @@ const $title: ViewStyle = {
 }
 const $text: TextStyle = {
   color: COLORS.darkingBlue,
+  textAlign: "center"
 }

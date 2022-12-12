@@ -7,20 +7,41 @@ import { AppStackParamList } from "../navigators"
 import { spacing } from "../theme"
 import { OrganizationList } from "../components/OrganizationList"
 import { useStores } from "../store"
+import { OrganizationListItem } from "../interfaces"
 
 export const SelectOrganizationScreen: FC<
   StackScreenProps<AppStackParamList, "SelectOrganization">
-> = observer(function OtpScreen({ navigation }) {
-  const { load } = useStores().userInfo
+> = observer(function SelectOrganizationScreen({ navigation }) {
+
+  const { userInfo, medicalCard } = useStores()
+  const { setActiveOrg, organizations, loading, activeOrg, load } = userInfo
+
 
   useEffect(() => {
     load()
   }, [])
 
+  useEffect(() => {
+    if (activeOrg) {
+      const { organisationId, departmentId } = activeOrg
+      medicalCard.load(organisationId, departmentId)
+      navigation.navigate("Main")
+    }
+  }, [activeOrg])
+
+  
+  const organizationHandler = (item: OrganizationListItem) => {
+    if (activeOrg?.departmentId === item.departmentId) {
+      navigation.navigate("Main")
+    } else {
+      setActiveOrg(item.departmentId)
+    }
+  }
+
   return (
     <Screen style={$root} preset="fixed">
       <ScreenTitle text="selectOrganizationScreen.title" />
-      <OrganizationList />
+      <OrganizationList data={organizations} onPress={organizationHandler} loading={loading} />
     </Screen>
   )
 })
