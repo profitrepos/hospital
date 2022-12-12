@@ -8,16 +8,15 @@ export interface MedicalCardInfo {
 export interface MedicalCardListItem
   extends Pick<MedicalCard, "patient" | "admissionDate" | "age" | "uid"> {}
 
-export interface PatientListItem
-  extends Pick<Patient, "uid" | "patient" | "age"> {}
+export interface PatientListItem extends Pick<Patient, "uid" | "patient" | "age" | "address"> {}
 
 export interface SearchMedicalCard {
   error: string
   data: {
-    patients: Patient[],
+    patients: Patient[]
     cards: PatientMedicalCard[]
   }
-} 
+}
 
 export interface SearchPatientsMedicalCard {
   error: ""

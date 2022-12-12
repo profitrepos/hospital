@@ -1,21 +1,18 @@
 import React, { FC } from "react"
-import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { Avatar, BackButton, Screen, ScreenTitle, TextField } from "../components/ui"
+import { Avatar, BackButton, Button, Screen, ScreenTitle, TextField } from "../components/ui"
 import { COLORS, spacing } from "../theme"
 import { HomeTabParamList } from "../navigators"
 import { SearchList } from "../components"
 import { useStores } from "../store"
 import { SearchSVG } from "../components/svg"
+import { observer } from "mobx-react-lite"
 
 export const SearchPatientsScreen: FC<StackScreenProps<HomeTabParamList, "SearchPatients">> =
   observer(function SearchPatientsScreen() {
-
     const { search } = useStores()
-    const { searchText , setSearchText, loading, patients, searchByPatient, medCardsList } = search
-    
-
+    const { searchText, setSearchText, searchMedCards } = search
 
     return (
       <Screen style={$root} preset="fixed" filled>
@@ -28,48 +25,57 @@ export const SearchPatientsScreen: FC<StackScreenProps<HomeTabParamList, "Search
         </View>
         <View style={[$list, $container]}>
           <TextField
-              value={searchText}
-              onChangeText={setSearchText}
-              LeftIcon={({ style }) => (
-                <SearchSVG height={16} width={24} style={[style, $searchIcon]} color={COLORS.icons} />
-              )}
-              wrapperStyle={$search}
-              inputStyle={$searchInput}
-              placeholderInner={"search.medcards"}
-            />
-            <SearchList />
+            value={searchText}
+            onChangeText={setSearchText}
+            LeftIcon={({ style }) => (
+              <SearchSVG height={16} width={24} style={[style, $searchIcon]} color={COLORS.icons} />
+            )}
+            wrapperStyle={$search}
+            inputStyle={$searchInput}
+            placeholderInner={"search.medcards"}
+          />
+          <SearchList />
+          <Button
+            onPress={searchMedCards}
+            style={$searchBtn}
+            tx="common.search"
+            disabled={searchText.length < 5}
+          />
         </View>
       </Screen>
     )
   })
 
-  const $root: ViewStyle = {
-    flex: 1,
-  }
-  const $container: ViewStyle = {
-    marginHorizontal: spacing.medium,
-  }
-  const $header: ViewStyle = {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginTop: spacing.medium,
-    marginBottom: spacing.extraSmall,
-  }
-  const $list: ViewStyle = {
-    flex: 1,
-    marginBottom: spacing.large,
-    justifyContent: "flex-end",
-    backgroundColor: "#fff",
-    borderRadius: 12,
-    padding: spacing.medium,
-  }
-  const $search: ViewStyle = {
-    marginBottom: spacing.large,
-  }
-  const $searchInput: ViewStyle = {
-    paddingLeft: 40,
-  }
-  const $searchIcon: ViewStyle = {
-    left: 10,
-  }
+const $root: ViewStyle = {
+  flex: 1,
+}
+const $container: ViewStyle = {
+  marginHorizontal: spacing.medium,
+}
+const $header: ViewStyle = {
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+  marginTop: spacing.medium,
+  marginBottom: spacing.extraSmall,
+}
+const $list: ViewStyle = {
+  flex: 1,
+  marginBottom: spacing.large,
+  justifyContent: "flex-end",
+  backgroundColor: "#fff",
+  borderRadius: 12,
+  padding: spacing.medium,
+}
+const $search: ViewStyle = {
+  marginBottom: spacing.large,
+}
+const $searchInput: ViewStyle = {
+  paddingLeft: 40,
+}
+const $searchIcon: ViewStyle = {
+  left: 10,
+}
+const $searchBtn: ViewStyle = {
+  marginTop: spacing.small,
+}

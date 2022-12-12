@@ -1,13 +1,13 @@
 import { Instance, types } from "mobx-state-tree"
 
 export const PatientModel = types.model("Patient").props({
-  uid: types.string,
+  uid: types.identifier,
   timestamp: types.number,
   doc: types.literal("Пациент"),
   patient: types.string,
   gender: types.string,
   IIN: types.string,
-  birthDate: types.string,
+  birthdDate: types.string,
   age: types.string,
   address: types.string,
   allergy: types.string,

@@ -24,50 +24,46 @@ const keyExtractor: keyExtractorType = (item: MedicalCardListItem) => item.uid
 
 //TODO: refresh controll
 
-export const MedCardsList: FC<MedCardsListProps> = observer(
-  ({ data, onPress, loading }) => {
-
-    const renderItem: ListRenderItem<MedicalCardListItem> = ({ item }) => {
-      const handlePress = () => {
-        onPress(item)
-      }
-      return (
-        <TouchableOpacity onPress={handlePress} activeOpacity={0.6}>
-          <View style={$item}>
-            <View style={$values}>
-              <Text preset="subheading" style={$name} text={item.patient} />
-              <Text
-                preset="helper"
-                style={$info}
-                text={`${item.age}, госпитализация: ${item.admissionDate}`}
-              />
-            </View>
-            <ArrowRightSVG style={$arrow} width={10} height={14} />
-          </View>
-        </TouchableOpacity>
-      )
+export const MedCardsList: FC<MedCardsListProps> = ({ data, onPress, loading }) => {
+  const renderItem: ListRenderItem<MedicalCardListItem> = ({ item }) => {
+    const handlePress = () => {
+      onPress(item)
     }
-
-    if (loading) {
-      return <Preloader />
-    }
-
     return (
-      <View style={$container}>
-        
-        <FlatList
-          renderItem={renderItem}
-          data={data}
-          keyExtractor={keyExtractor}
-          showsHorizontalScrollIndicator={false}
-          style={$list}
-          contentContainerStyle={$listContainer}
-          showsVerticalScrollIndicator={false}
-        />
-      </View>
+      <TouchableOpacity onPress={handlePress} activeOpacity={0.6}>
+        <View style={$item}>
+          <View style={$values}>
+            <Text preset="subheading" style={$name} text={item.patient} />
+            <Text
+              preset="helper"
+              style={$info}
+              text={`${item.age}, госпитализация: ${item.admissionDate}`}
+            />
+          </View>
+          <ArrowRightSVG style={$arrow} width={10} height={14} />
+        </View>
+      </TouchableOpacity>
     )
-  },
-)
+  }
+
+  if (loading) {
+    return <Preloader />
+  }
+
+  return (
+    <View style={$container}>
+      <FlatList
+        renderItem={renderItem}
+        data={data}
+        keyExtractor={keyExtractor}
+        showsHorizontalScrollIndicator={false}
+        style={$list}
+        contentContainerStyle={$listContainer}
+        showsVerticalScrollIndicator={false}
+      />
+    </View>
+  )
+}
 
 const $container: ViewStyle = {
   flex: 1,

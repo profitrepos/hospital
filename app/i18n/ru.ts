@@ -4,6 +4,7 @@ const ru = {
     cancel: "Cancel",
     back: "Back",
     exit: "Выход",
+    search: "Найти",
   },
   mainTabs: {
     department: "Отделение",
@@ -65,6 +66,9 @@ const ru = {
   },
   searchScreen: {
     title: "Пациенты больницы",
+  },
+  selectPatientScreen: {
+    title: "Выберите пациента",
   },
   errors: {
     network: "Ошибка сети! Попробуйте еще раз!",

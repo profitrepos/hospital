@@ -6,19 +6,20 @@ import { goBack, navigate, resetRoot } from "../navigators"
 
 interface ScreenWithActionSheetProps {
   children?: React.ReactNode
-  navigateTo?: string
+  onClose?: () => void
 }
 
 const snapPoints = ["90%", "100%"]
 
-export const ScreenWithActionSheet: FC<ScreenWithActionSheetProps> = ({
-  children,
-  navigateTo = "Home",
-}) => {
+export const ScreenWithActionSheet: FC<ScreenWithActionSheetProps> = ({ children, onClose }) => {
   const sheetRef = useRef<BottomSheet>(null)
 
-  const onClose = () => {
-    navigate(navigateTo)
+  const handleClose = () => {
+    if (onClose) {
+      onClose()
+    } else {
+      navigate("Home")
+    }
   }
 
   return (
@@ -29,7 +30,7 @@ export const ScreenWithActionSheet: FC<ScreenWithActionSheetProps> = ({
         snapPoints={snapPoints}
         backgroundStyle={$backgroundStyle}
         enablePanDownToClose
-        onClose={onClose}
+        onClose={handleClose}
         animateOnMount={false}
       >
         <BottomSheetScrollView

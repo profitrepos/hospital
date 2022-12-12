@@ -1,7 +1,6 @@
 import { cast, flow, toGenerator, types } from "mobx-state-tree"
 import { getUserInfo } from "../services/passbase"
 import { getRootStore } from "./helpers/getRootStore"
-import { withSetPropAction } from "./helpers/withSetPropAction"
 import { OrganizationModel } from "./models/organization/Organization"
 
 const UserInfoStore = types
@@ -9,18 +8,17 @@ const UserInfoStore = types
   .props({
     organizations: types.optional(types.array(OrganizationModel), []),
     loading: false,
-    error: types.optional(types.string, ''),
+    error: types.optional(types.string, ""),
     activeOrg: types.safeReference(OrganizationModel),
   })
   .views((self) => ({
     get IIN(): string {
       const { app } = getRootStore(self)
       return app.IIN
-    }
+    },
   }))
   .actions((self) => ({
     load: flow(function* () {
-
       try {
         self.error = ""
         self.loading = true

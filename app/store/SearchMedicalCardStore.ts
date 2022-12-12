@@ -11,34 +11,38 @@ const SearchMedicalCardStore = types
     medCards: types.optional(types.array(PatientMedicalCardModel), []),
     patients: types.optional(types.array(PatientModel), []),
     loading: false,
-    error: types.optional(types.string, ''),
+    error: types.optional(types.string, ""),
     activeMedCard: types.safeReference(MedicalCardModel),
     activePatient: types.safeReference(PatientModel),
     searchText: types.optional(types.string, ""),
-    onlyActive: true
+    onlyActive: true,
   })
   .views((self) => ({
     get activeOrgId(): string {
       const { userInfo } = getRootStore(self)
       return userInfo.activeOrg.organisationId
-    }
+    },
   }))
   .actions((self) => ({
     searchMedCards: flow(function* () {
-
       try {
         self.error = ""
         self.loading = true
         self.medCards = cast([])
         self.patients = cast([])
 
-        const { error, data } = yield* toGenerator(searchMedicalCards(self.activeOrgId, self.searchText))
+        const { error, data } = yield* toGenerator(
+          searchMedicalCards(self.activeOrgId, self.searchText),
+        )
 
         if (error) {
           self.error = error
         } else {
-          self.medCards = cast(data.cards)
-          self.patients = cast(data.patients)
+          if (data.patients.length > 1) {
+            self.patients = cast(data.patients)
+          } else {
+            self.medCards = cast(data.cards)
+          }
         }
       } catch (error) {
         self.error = "errors.network"
@@ -48,20 +52,22 @@ const SearchMedicalCardStore = types
     }),
     searchByPatient: flow(function* () {
       try {
-
         self.error = ""
         self.loading = true
         self.medCards = cast([])
 
-        const { error, data } = yield* toGenerator(getPatientMedicalCards(self.activeOrgId, self.activePatient.uid))
+        const { error, data } = yield* toGenerator(
+          getPatientMedicalCards(self.activeOrgId, self.activePatient.uid),
+        )
 
         if (error) {
           self.error = error
         } else {
-          self.patients = cast([])
           self.medCards = cast(data)
         }
       } catch (error) {
+        console.log("ERROR ----- > ", error)
+
         self.error = "errors.network"
       } finally {
         self.loading = false
@@ -81,7 +87,7 @@ const SearchMedicalCardStore = types
     },
     setOnlyActive: (value: boolean) => {
       self.onlyActive = value
-    }
+    },
   }))
   .views((self) => ({
     get medCardsList() {
@@ -91,12 +97,12 @@ const SearchMedicalCardStore = types
         return [...prev, { admissionDate, patient, age, uid }]
       }, [])
     },
-    get patientsList () {
+    get patientsList() {
       return self.patients.reduce<PatientListItem[]>((prev, p) => {
-        const {uid, patient, age} = p
-        return [...prev, {uid, patient, age}]
+        const { uid, patient, age, address } = p
+        return [...prev, { uid, patient, age, address }]
       }, [])
-    }
+    },
   }))
 
 export const createSearchMedicalCardStoreDefault = () => types.optional(SearchMedicalCardStore, {})

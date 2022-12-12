@@ -25,13 +25,12 @@ const keyExtractor = (item: OrganizationListItem) => item.departmentId
 
 //TODO: refresh controll
 
-export const OrganizationList: FC<OrganizationListProps> = observer(({ onPress, loading, data }) => {
+export const OrganizationList: FC<OrganizationListProps> = ({ onPress, loading, data }) => {
   const renderItem: ListRenderItem<Organization> = ({ item }) => {
-
     const handlePress = () => {
       onPress(item)
     }
-    
+
     return (
       <TouchableOpacity onPress={handlePress} activeOpacity={0.6}>
         <View style={$item}>
@@ -62,7 +61,7 @@ export const OrganizationList: FC<OrganizationListProps> = observer(({ onPress, 
       />
     </View>
   )
-})
+}
 
 const $container: ViewStyle = {
   borderRadius: 12,
