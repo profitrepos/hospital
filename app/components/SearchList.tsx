@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite"
-import React, { FC, useEffect } from "react"
+import React, { FC, useEffect, useState } from "react"
 import { View, ViewStyle } from "react-native"
 import { MedicalCardListItem, PatientListItem } from "../interfaces"
 import { navigate } from "../navigators"
@@ -12,6 +12,8 @@ import { Button } from "./ui"
 interface SearchListProps {}
 
 export const SearchList: FC<SearchListProps> = observer(() => {
+  const [patientIndex, setPatientIndex] = useState(0)
+
   const { search } = useStores()
   const {
     loading,
@@ -35,8 +37,9 @@ export const SearchList: FC<SearchListProps> = observer(() => {
     //TODO: где будет активная мед карта?
   }
 
-  const patientHandler = (patient: PatientListItem) => {
+  const patientHandler = (patient: PatientListItem, index?: number) => {
     setActivePatient(patient.uid)
+    setPatientIndex(index ? index : 0)
   }
 
   const clearActivePatient = () => {
@@ -54,7 +57,12 @@ export const SearchList: FC<SearchListProps> = observer(() => {
     } else if (patientsList.length > 1) {
       return (
         <>
-          <PatientsList data={patientsList} onPress={patientHandler} loading={loading} />
+          <PatientsList
+            scrollToIndex={patientIndex}
+            data={patientsList}
+            onPress={patientHandler}
+            loading={loading}
+          />
           <Button
             onPress={searchMedCards}
             style={$btn}
