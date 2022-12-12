@@ -2,7 +2,7 @@ const ru = {
   common: {
     ok: "OK!",
     cancel: "Cancel",
-    back: "Back",
+    back: "Назад",
     exit: "Выход",
     search: "Найти",
   },
