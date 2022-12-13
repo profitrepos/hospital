@@ -9,7 +9,7 @@ const MedicalCardStore = types
   .props({
     medCards: types.optional(types.array(MedicalCardModel), []),
     loading: false,
-    error: types.optional(types.string, ''),
+    error: types.optional(types.string, ""),
     activeMedCard: types.safeReference(MedicalCardModel),
     allSearch: types.optional(types.string, ""),
     mySearch: types.optional(types.string, ""),
@@ -18,7 +18,7 @@ const MedicalCardStore = types
     get userName(): string {
       const { userInfo } = getRootStore(self)
       return userInfo.activeOrg.employeeName
-    }
+    },
   }))
   .actions((self) => ({
     load: flow(function* (orgId: string, depId: string) {
@@ -66,8 +66,6 @@ const MedicalCardStore = types
     },
     get my() {
       return self.medCards.reduce<MedicalCardListItem[]>((prev, card) => {
-        
-
         if (card.doctor !== self.userName) {
           return prev
         }

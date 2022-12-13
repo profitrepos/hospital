@@ -1,21 +1,20 @@
-import React, { FC, useEffect } from "react"
+import React, { FC, useEffect, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { Button, Screen, ScreenTitle } from "../components/ui"
+import { Button, Screen, ScreenTitle, Text } from "../components/ui"
 import { AppStackParamList } from "../navigators"
 import { spacing } from "../theme"
 import { OrganizationList } from "../components/OrganizationList"
 import { useStores } from "../store"
 import { OrganizationListItem } from "../interfaces"
+import { AppError, AppModal } from "../components"
 
 export const SelectOrganizationScreen: FC<
   StackScreenProps<AppStackParamList, "SelectOrganization">
 > = observer(function SelectOrganizationScreen({ navigation }) {
-
   const { userInfo, medicalCard } = useStores()
-  const { setActiveOrg, organizations, loading, activeOrg, load } = userInfo
-
+  const { setActiveOrg, organizations, loading, activeOrg, load, error, clearError } = userInfo
 
   useEffect(() => {
     load()
@@ -29,13 +28,20 @@ export const SelectOrganizationScreen: FC<
     }
   }, [activeOrg])
 
-  
   const organizationHandler = (item: OrganizationListItem) => {
     if (activeOrg?.departmentId === item.departmentId) {
       navigation.navigate("Main")
     } else {
       setActiveOrg(item.departmentId)
     }
+  }
+
+  if (error) {
+    return (
+      <AppModal>
+        <AppError customSubtitle={error} closeError={clearError} />
+      </AppModal>
+    )
   }
 
   return (
