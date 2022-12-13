@@ -69,6 +69,7 @@ export const VerificationScreen: FC<StackScreenProps<AppStackParamList, "Verific
           delayBetweenAttempts={1000}
           bottomLeftComponent={renderLeftComponent}
           storedPin={pincode}
+          callbackErrorTouchId={console.log}
         />
       </Screen>
     )

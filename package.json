@@ -39,7 +39,7 @@
     "@expo-google-fonts/space-grotesk": "^0.2.2",
     "@expo/webpack-config": "^0.17.0",
     "@gorhom/bottom-sheet": "^4.4.5",
-    "@haskkor/react-native-pincode": "https://github.com/bektemirovkam/react-native-pincode.git#8a5f23406d8c5d74aecb50f9969f5251bb930376",
+    "@haskkor/react-native-pincode": "https://github.com/bektemirovkam/react-native-pincode.git#a1e3205d1ca8e359b5cb2eaa2128cf75bf643900",
     "@react-native-async-storage/async-storage": "^1.17.3",
     "@react-native-community/clipboard": "^1.5.1",
     "@react-native-picker/picker": "2.4.2",

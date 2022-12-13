@@ -18,7 +18,7 @@ export async function setupRootStore(rootStore: RootStore) {
       app: {
         ...rootStore.app,
         isAuth: Boolean(IIN),
-        isVerify: true, //TODO: для разработки
+        isVerify: false, //TODO: для разработки
         pincode,
         IIN,
       },
