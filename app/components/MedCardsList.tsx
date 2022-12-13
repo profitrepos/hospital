@@ -24,8 +24,6 @@ interface MedCardsListProps {
 type keyExtractorType = (item: any, index: number) => string
 const keyExtractor: keyExtractorType = (item: MedicalCardListItem) => item.uid
 
-//TODO: refresh controll
-
 export const MedCardsList: FC<MedCardsListProps> = ({ data, onPress, loading, onRefresh }) => {
   const renderItem: ListRenderItem<MedicalCardListItem> = ({ item }) => {
     const handlePress = () => {

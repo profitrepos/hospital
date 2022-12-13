@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react"
+import React, { FC, useCallback, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { BackHandler, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
@@ -9,16 +9,18 @@ import { COLORS } from "../theme"
 import { useFocusEffect } from "@react-navigation/native"
 import { FingerPrint } from "../components/svg"
 import { useStores } from "../store"
-import { useTranslate } from "../i18n"
+import { TxKeyPath, useTranslate } from "../i18n"
+import { AppError, AppModal } from "../components"
 
 export const ResetPasswordScreen: FC<StackScreenProps<AppStackParamList, "ResetPassword">> =
   observer(function ResetPasswordScreen({ navigation }) {
     const translate = useTranslate()
-    const { savePincode, resetPassword, pincode } = useStores().app
+    const { app } = useStores()
+    const { savePincode, resetPassword, pincode, error, clearError } = app
     const [pinStatus, setPinStatus] = useState<"enter" | "choose">("enter")
 
     useFocusEffect(
-      React.useCallback(() => {
+      useCallback(() => {
         return () => {
           setPinStatus("enter")
         }
@@ -45,6 +47,14 @@ export const ResetPasswordScreen: FC<StackScreenProps<AppStackParamList, "ResetP
         <TouchableOpacity onPress={launchTouchID} style={$fingerBtn}>
           <FingerPrint width={40} height={40} />
         </TouchableOpacity>
+      )
+    }
+
+    if (error) {
+      return (
+        <AppModal>
+          <AppError closeError={clearError} subtitle={error as TxKeyPath} />
+        </AppModal>
       )
     }
 

@@ -7,15 +7,24 @@ import { Screen } from "../components/ui"
 import PINCode from "@haskkor/react-native-pincode"
 import { COLORS } from "../theme"
 import { useStores } from "../store"
-import { useTranslate } from "../i18n"
+import { TxKeyPath, useTranslate } from "../i18n"
+import { AppError, AppModal } from "../components"
 
 export const CreatePasswordScreen: FC<StackScreenProps<AppStackParamList, "CreatePassword">> =
   observer(function CreatePasswordScreen() {
     const translate = useTranslate()
-    const { finishAuth } = useStores().app
+    const { finishAuth, error, clearError } = useStores().app
 
     const handleNext = (code: string) => {
       finishAuth(code)
+    }
+
+    if (error) {
+      return (
+        <AppModal>
+          <AppError closeError={clearError} subtitle={error as TxKeyPath} />
+        </AppModal>
+      )
     }
 
     return (

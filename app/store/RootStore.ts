@@ -13,9 +13,6 @@ export const RootStoreModel = types.model("RootStore").props({
   search: createSearchMedicalCardStoreDefault(),
 })
 
-//TODO: сделать стор для поиска пациентов
-//TODO: сделать обработку ошибок
-
 export interface RootStore extends Instance<typeof RootStoreModel> {}
 
 export interface RootStoreSnapshot extends SnapshotOut<typeof RootStoreModel> {}

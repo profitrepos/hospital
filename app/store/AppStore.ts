@@ -13,7 +13,7 @@ export const AppStore = types
     isVerify: false,
     isAuth: false,
     IIN: types.optional(types.string, ""),
-    error: types.optional(types.string, ""), //TODO: сделать обработку этой ошибки где то
+    error: types.optional(types.string, ""),
   })
   .actions(withSetPropAction)
   .actions((self) => ({
@@ -36,6 +36,9 @@ export const AppStore = types
     setIIN: (value: string) => {
       self.IIN = value
     },
+    clearError: () => {
+      self.error = ""
+    },
   }))
   .actions((self) => ({
     finishAuth: flow(function* (pincode: string) {
@@ -51,7 +54,7 @@ export const AppStore = types
           self.isVerify = true
         }
       } catch (error) {
-        self.error = "Не известная ошибка" //TODO: предумать навзвание
+        self.error = "errors.unknown"
       }
     }),
     resetPassword: flow(function* () {
@@ -64,7 +67,7 @@ export const AppStore = types
           self.isVerify = false
         }
       } catch (error) {
-        self.error = "Не известная ошибка" //TODO: предумать навзвание
+        self.error = "errors.unknown"
       }
     }),
   }))

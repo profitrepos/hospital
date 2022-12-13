@@ -25,8 +25,6 @@ interface OrganizationListProps {
 
 const keyExtractor = (item: OrganizationListItem) => item.departmentId
 
-//TODO: refresh controll
-
 export const OrganizationList: FC<OrganizationListProps> = ({
   onPress,
   loading,
