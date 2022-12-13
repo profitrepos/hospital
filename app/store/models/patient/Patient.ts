@@ -13,6 +13,8 @@ export const PatientModel = types.model("Patient").props({
   allergy: types.string,
 })
 
+export const SearchPatientModel = PatientModel.named("SearchPatientModel")
+
 export const PatientStore = types
   .model("PatientStore")
   .props({
@@ -28,6 +30,13 @@ export const PatientStore = types
       self.search = value
     },
   }))
-  .views((self) => ({}))
+  .views((self) => ({
+    get currentPatient() {
+      if (self.items.length) {
+        return self.items[0]
+      }
+      return undefined
+    },
+  }))
 
 export interface Patient extends Instance<typeof PatientModel> {}

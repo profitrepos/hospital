@@ -81,7 +81,23 @@ const ru = {
     title: "Выберите организацию",
     continue: "Далее",
   },
+  patientDataScreen: {
+    IIN: "ИИН",
+    birthdDate: "Дата рождения",
+    gender: "Пол",
+    age: "Возраст",
+    address: "Адрес",
+    allergy: "Аллергоанамнез",
+    ward: "Палата",
+    doctor: "Леч.врач",
+    admissionDate: "Дата госпитализации",
+    cardNumber: "Номер мед.карты",
+    diagnosis: "Диагноз",
+    department: "Отделение госпитализации",
+  },
 }
 
 export default ru
 export type Translations = typeof ru
+
+//TODO: birthdDate исправить

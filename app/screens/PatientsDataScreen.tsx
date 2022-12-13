@@ -2,15 +2,17 @@ import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { Text } from "../components/ui"
+import { ScreenTitle } from "../components/ui"
 import { MedicalCardTabsParamList } from "../navigators"
-import { AppError, AppModal, ScreenWithActionSheet } from "../components"
+import { AppError, AppModal, PatientData, ScreenWithActionSheet } from "../components"
 import { useStores } from "../store"
+import { spacing } from "../theme"
 
 export const PatientsDataScreen: FC<StackScreenProps<MedicalCardTabsParamList, "PatientsData">> =
   observer(function PatientsDataScreen({ navigation }) {
     const { records } = useStores()
     const { loading, patient, error, clearError } = records
+    const { currentPatient } = patient
 
     if (error) {
       return (
@@ -22,10 +24,9 @@ export const PatientsDataScreen: FC<StackScreenProps<MedicalCardTabsParamList, "
 
     return (
       <ScreenWithActionSheet loading={loading}>
-        <View>
-          <Text style={{ textAlign: "center", marginTop: 20 }} preset="heading">
-            {JSON.stringify(patient)}
-          </Text>
+        <View style={$root}>
+          <ScreenTitle customText={currentPatient?.patient} />
+          {currentPatient && <PatientData patient={currentPatient} />}
         </View>
       </ScreenWithActionSheet>
     )
@@ -33,4 +34,8 @@ export const PatientsDataScreen: FC<StackScreenProps<MedicalCardTabsParamList, "
 
 const $modal: ViewStyle = {
   backgroundColor: "#fff",
+}
+const $root: ViewStyle = {
+  paddingVertical: spacing.medium,
+  paddingHorizontal: spacing.extraSmall,
 }

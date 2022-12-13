@@ -1,8 +1,8 @@
-import React, { FC, useCallback, useMemo, useRef } from "react"
+import React, { FC, useRef } from "react"
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet"
 import { Preloader, Screen } from "./ui"
 import { ViewStyle } from "react-native"
-import { goBack, navigate, resetRoot } from "../navigators"
+import { navigate } from "../navigators"
 
 interface ScreenWithActionSheetProps {
   children?: React.ReactNode
@@ -36,7 +36,7 @@ export const ScreenWithActionSheet: FC<ScreenWithActionSheetProps> = ({
         backgroundStyle={$backgroundStyle}
         enablePanDownToClose
         onClose={handleClose}
-        animateOnMount={false}
+        animateOnMount={true}
       >
         <BottomSheetScrollView
           showsVerticalScrollIndicator={false}
@@ -54,7 +54,6 @@ const $root: ViewStyle = {
 }
 const $contentContainer: ViewStyle = {
   backgroundColor: "#fff",
-  flex: 1,
 }
 const $backgroundStyle: ViewStyle = {
   borderRadius: 20,

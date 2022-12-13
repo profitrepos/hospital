@@ -2,17 +2,17 @@ import { cast, flow, toGenerator, types } from "mobx-state-tree"
 import { MedicalCardListItem, PatientListItem } from "../interfaces"
 import { getPatientMedicalCards, searchMedicalCards } from "../services/passbase"
 import { getRootStore } from "./helpers/getRootStore"
-import { MedicalCardModel, PatientMedicalCardModel } from "./models/medicalCard/MedicalCard"
-import { PatientModel } from "./models/patient/Patient"
+import { PatientMedicalCardModel } from "./models/medicalCard/MedicalCard"
+import { SearchPatientModel } from "./models/patient/Patient"
 
 const SearchMedicalCardStore = types
   .model("SearchMedicalCardStore")
   .props({
     medCards: types.optional(types.array(PatientMedicalCardModel), []),
-    patients: types.optional(types.array(PatientModel), []),
+    patients: types.optional(types.array(SearchPatientModel), []),
     loading: false,
     error: types.optional(types.string, ""),
-    activePatient: types.safeReference(PatientModel),
+    activePatient: types.safeReference(SearchPatientModel),
     searchText: types.optional(types.string, ""),
     onlyActive: true,
   })
