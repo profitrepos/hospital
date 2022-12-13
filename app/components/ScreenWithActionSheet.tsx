@@ -3,6 +3,7 @@ import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet"
 import { Preloader, Screen } from "./ui"
 import { ViewStyle } from "react-native"
 import { navigate } from "../navigators"
+import { spacing } from "../theme"
 
 interface ScreenWithActionSheetProps {
   children?: React.ReactNode
@@ -42,7 +43,7 @@ export const ScreenWithActionSheet: FC<ScreenWithActionSheetProps> = ({
           showsVerticalScrollIndicator={false}
           contentContainerStyle={$contentContainer}
         >
-          {loading ? <Preloader /> : children}
+          {loading ? <Preloader style={$preloader} /> : children}
         </BottomSheetScrollView>
       </BottomSheet>
     </Screen>
@@ -57,4 +58,7 @@ const $contentContainer: ViewStyle = {
 }
 const $backgroundStyle: ViewStyle = {
   borderRadius: 20,
+}
+const $preloader: ViewStyle = {
+  marginTop: spacing.large,
 }

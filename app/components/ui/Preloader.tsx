@@ -5,11 +5,16 @@ import { COLORS } from "../../theme"
 interface PreloaderProps {
   color?: string
   size?: number | "large" | "small"
+  style?: ViewStyle
 }
 
-export const Preloader: FC<PreloaderProps> = ({ color = COLORS.mainBlue, size = "large" }) => {
+export const Preloader: FC<PreloaderProps> = ({
+  color = COLORS.mainBlue,
+  size = "large",
+  style,
+}) => {
   return (
-    <View style={$container}>
+    <View style={[$container, style]}>
       <ActivityIndicator size={size} color={color} />
     </View>
   )
