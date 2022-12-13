@@ -5,21 +5,35 @@ import { StackScreenProps } from "@react-navigation/stack"
 import { Avatar, BackButton, Screen, ScreenTitle, TextField } from "../components/ui"
 import { HomeTabParamList } from "../navigators"
 import { COLORS, spacing } from "../theme"
-import { MedCardsList } from "../components"
+import { AppError, AppModal, MedCardsList } from "../components"
 import { useStores } from "../store"
 import { MedicalCardListItem } from "../interfaces"
 import { SearchSVG } from "../components/svg"
 
 export const DepartmentScreen: FC<StackScreenProps<HomeTabParamList, "Department">> = observer(
   function DepartmentScreen({ navigation }) {
-    const {medicalCard, userInfo} = useStores()
-    const { all, allSearch, setSearch, setActiveMedCard, loading } = medicalCard
+    const { medicalCard, userInfo } = useStores()
+    const { all, allSearch, setSearch, setActiveMedCard, loading, error, clearError, load } =
+      medicalCard
     const { activeOrg } = userInfo
-
 
     const medCardHandler = (item: MedicalCardListItem) => {
       setActiveMedCard(item.uid)
       navigation.navigate("MedicalCard")
+    }
+
+    const loadMedicalCard = () => {
+      if (activeOrg) {
+        load(activeOrg.organisationId, activeOrg.departmentId)
+      }
+    }
+
+    if (error) {
+      return (
+        <AppModal>
+          <AppError customSubtitle={error} closeError={clearError} />
+        </AppModal>
+      )
     }
 
     return (
@@ -42,7 +56,12 @@ export const DepartmentScreen: FC<StackScreenProps<HomeTabParamList, "Department
             inputStyle={$searchInput}
             placeholderInner={"search.medcards"}
           />
-          <MedCardsList loading={loading} onPress={medCardHandler} data={all} />
+          <MedCardsList
+            onRefresh={loadMedicalCard}
+            loading={loading}
+            onPress={medCardHandler}
+            data={all}
+          />
         </View>
       </Screen>
     )

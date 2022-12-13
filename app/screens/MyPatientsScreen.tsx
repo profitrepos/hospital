@@ -6,13 +6,17 @@ import { Avatar, BackButton, Screen, ScreenTitle, Text, TextField } from "../com
 import { HomeTabParamList } from "../navigators"
 import { COLORS, spacing } from "../theme"
 import { useStores } from "../store"
-import { MedCardsList } from "../components"
+import { AppError, AppModal, MedCardsList } from "../components"
 import { MedicalCardListItem } from "../interfaces"
 import { SearchSVG } from "../components/svg"
 
 export const MyPatientsScreen: FC<StackScreenProps<HomeTabParamList, "MyPatients">> = observer(
   function MyPatientsScreen({ navigation }) {
-    const { my, mySearch, setSearch, setActiveMedCard, loading } = useStores().medicalCard
+    const { userInfo, medicalCard } = useStores()
+    const { my, mySearch, setSearch, setActiveMedCard, loading, load, error, clearError } =
+      medicalCard
+
+    const { activeOrg } = userInfo
 
     const onSearchChange = (value: string) => {
       setSearch(value, "mySearch")
@@ -21,6 +25,20 @@ export const MyPatientsScreen: FC<StackScreenProps<HomeTabParamList, "MyPatients
     const medCardHandler = (item: MedicalCardListItem) => {
       setActiveMedCard(item.uid)
       navigation.navigate("MedicalCard")
+    }
+
+    const loadMedicalCard = () => {
+      if (activeOrg) {
+        load(activeOrg.organisationId, activeOrg.departmentId)
+      }
+    }
+
+    if (error) {
+      return (
+        <AppModal>
+          <AppError customSubtitle={error} closeError={clearError} />
+        </AppModal>
+      )
     }
 
     return (
@@ -33,7 +51,7 @@ export const MyPatientsScreen: FC<StackScreenProps<HomeTabParamList, "MyPatients
           <ScreenTitle text="patientsSreen.title" />
         </View>
         <View style={[$list, $container]}>
-        <TextField
+          <TextField
             value={mySearch}
             onChangeText={onSearchChange}
             LeftIcon={({ style }) => (
@@ -43,7 +61,12 @@ export const MyPatientsScreen: FC<StackScreenProps<HomeTabParamList, "MyPatients
             inputStyle={$searchInput}
             placeholderInner={"search.medcards"}
           />
-          <MedCardsList loading={loading} onPress={medCardHandler} data={my} />
+          <MedCardsList
+            onRefresh={loadMedicalCard}
+            loading={loading}
+            onPress={medCardHandler}
+            data={my}
+          />
         </View>
       </Screen>
     )

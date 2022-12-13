@@ -3,6 +3,7 @@ import React, { FC, useEffect } from "react"
 import {
   FlatList,
   ListRenderItem,
+  RefreshControl,
   TextStyle,
   TouchableOpacity,
   View,
@@ -19,13 +20,19 @@ interface OrganizationListProps {
   onPress: (org: OrganizationListItem) => void
   loading: boolean
   data: OrganizationListItem[]
+  onRefresh: () => void
 }
 
 const keyExtractor = (item: OrganizationListItem) => item.departmentId
 
 //TODO: refresh controll
 
-export const OrganizationList: FC<OrganizationListProps> = ({ onPress, loading, data }) => {
+export const OrganizationList: FC<OrganizationListProps> = ({
+  onPress,
+  loading,
+  data,
+  onRefresh,
+}) => {
   const renderItem: ListRenderItem<Organization> = ({ item }) => {
     const handlePress = () => {
       onPress(item)
@@ -58,6 +65,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({ onPress, loading, 
         style={$list}
         contentContainerStyle={$listContainer}
         showsVerticalScrollIndicator={false}
+        refreshControl={<RefreshControl refreshing={loading} onRefresh={onRefresh} />}
       />
     </View>
   )

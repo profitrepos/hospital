@@ -4,7 +4,7 @@ import { StackScreenProps } from "@react-navigation/stack"
 import { Avatar, BackButton, Button, Screen, ScreenTitle, TextField } from "../components/ui"
 import { COLORS, spacing } from "../theme"
 import { HomeTabParamList } from "../navigators"
-import { SearchList } from "../components"
+import { AppError, AppModal, SearchList } from "../components"
 import { useStores } from "../store"
 import { SearchSVG } from "../components/svg"
 import { observer } from "mobx-react-lite"
@@ -12,7 +12,15 @@ import { observer } from "mobx-react-lite"
 export const SearchPatientsScreen: FC<StackScreenProps<HomeTabParamList, "SearchPatients">> =
   observer(function SearchPatientsScreen() {
     const { search } = useStores()
-    const { searchText, setSearchText } = search
+    const { searchText, setSearchText, error, clearError } = search
+
+    if (error) {
+      return (
+        <AppModal>
+          <AppError customSubtitle={error} closeError={clearError} />
+        </AppModal>
+      )
+    }
 
     return (
       <Screen style={$root} preset="fixed" filled>

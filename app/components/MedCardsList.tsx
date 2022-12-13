@@ -1,8 +1,9 @@
 import { observer } from "mobx-react-lite"
-import React, { FC } from "react"
+import React, { FC, useState } from "react"
 import {
   FlatList,
   ListRenderItem,
+  RefreshControl,
   TextStyle,
   TouchableOpacity,
   View,
@@ -17,6 +18,7 @@ interface MedCardsListProps {
   data: MedicalCardListItem[]
   onPress: (item: MedicalCardListItem) => void
   loading: boolean
+  onRefresh?: () => void
 }
 
 type keyExtractorType = (item: any, index: number) => string
@@ -24,7 +26,7 @@ const keyExtractor: keyExtractorType = (item: MedicalCardListItem) => item.uid
 
 //TODO: refresh controll
 
-export const MedCardsList: FC<MedCardsListProps> = ({ data, onPress, loading }) => {
+export const MedCardsList: FC<MedCardsListProps> = ({ data, onPress, loading, onRefresh }) => {
   const renderItem: ListRenderItem<MedicalCardListItem> = ({ item }) => {
     const handlePress = () => {
       onPress(item)
@@ -60,6 +62,7 @@ export const MedCardsList: FC<MedCardsListProps> = ({ data, onPress, loading }) 
         style={$list}
         contentContainerStyle={$listContainer}
         showsVerticalScrollIndicator={false}
+        refreshControl={onRefresh && <RefreshControl refreshing={loading} onRefresh={onRefresh} />}
       />
     </View>
   )

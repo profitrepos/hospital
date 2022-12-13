@@ -47,7 +47,12 @@ export const SelectOrganizationScreen: FC<
   return (
     <Screen style={$root} preset="fixed">
       <ScreenTitle text="selectOrganizationScreen.title" />
-      <OrganizationList data={organizations} onPress={organizationHandler} loading={loading} />
+      <OrganizationList
+        onRefresh={load}
+        data={organizations}
+        onPress={organizationHandler}
+        loading={loading}
+      />
     </Screen>
   )
 })
