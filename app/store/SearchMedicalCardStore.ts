@@ -12,7 +12,6 @@ const SearchMedicalCardStore = types
     patients: types.optional(types.array(PatientModel), []),
     loading: false,
     error: types.optional(types.string, ""),
-    activeMedCard: types.safeReference(MedicalCardModel),
     activePatient: types.safeReference(PatientModel),
     searchText: types.optional(types.string, ""),
     onlyActive: true,
@@ -73,9 +72,6 @@ const SearchMedicalCardStore = types
         self.loading = false
       }
     }),
-    setActiveMedCard: (uid: string) => {
-      self.activeMedCard = uid as any
-    },
     setActivePatient: (uid: string) => {
       self.activePatient = uid as any
     },

@@ -1,4 +1,4 @@
-import { Instance, types } from "mobx-state-tree"
+import { Instance, types, cast } from "mobx-state-tree"
 
 export const PatientModel = types.model("Patient").props({
   uid: types.identifier,
@@ -28,11 +28,6 @@ export const PatientStore = types
       self.search = value
     },
   }))
-  .views((self) => ({
-    get items() {
-      //TODO: сделать логику фильтрации и поиска
-      return self.items
-    },
-  }))
+  .views((self) => ({}))
 
 export interface Patient extends Instance<typeof PatientModel> {}

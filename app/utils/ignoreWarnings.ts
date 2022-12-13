@@ -7,5 +7,6 @@ import { LogBox } from "react-native"
 // prettier-ignore
 LogBox.ignoreLogs([
   "Require cycle:",
-  "Clipboard has been extracted from react-native core and will be removed in a future release."
+  "Clipboard has been extracted from react-native core and will be removed in a future release.",
+  "Операция с отпечатком пальца отменена пользователем"
 ])

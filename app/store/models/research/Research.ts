@@ -1,4 +1,4 @@
-import { Instance, types } from "mobx-state-tree"
+import { Instance, types, cast } from "mobx-state-tree"
 
 export const ResearchModel = types.model("Research").props({
   uid: types.string,
@@ -28,11 +28,6 @@ export const ResearchStore = types
       self.search = value
     },
   }))
-  .views((self) => ({
-    get items() {
-      //TODO: сделать логику фильтрации и поиска
-      return self.items
-    },
-  }))
+  .views((self) => ({}))
 
 export interface Research extends Instance<typeof ResearchModel> {}

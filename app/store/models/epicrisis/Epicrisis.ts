@@ -1,4 +1,4 @@
-import { Instance, types } from "mobx-state-tree"
+import { Instance, types, cast } from "mobx-state-tree"
 import { ChapterModel } from "../common-models/common-models"
 
 export const EpicrisisModel = types.model("Epicrisis").props({
@@ -26,11 +26,6 @@ export const EpicrisisStore = types
       self.search = value
     },
   }))
-  .views((self) => ({
-    get items() {
-      //TODO: сделать логику фильтрации и поиска
-      return self.items
-    },
-  }))
+  .views((self) => ({}))
 
 export interface Epicrisis extends Instance<typeof EpicrisisModel> {}

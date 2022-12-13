@@ -1,4 +1,4 @@
-import { Instance, types } from "mobx-state-tree"
+import { Instance, types, cast } from "mobx-state-tree"
 import { ChapterModel } from "../common-models/common-models"
 
 export const JournalModel = types.model("Journal").props({
@@ -25,11 +25,6 @@ export const JournalStore = types
       self.search = value
     },
   }))
-  .views((self) => ({
-    get items() {
-      //TODO: сделать логику фильтрации и поиска
-      return self.items
-    },
-  }))
+  .views((self) => ({}))
 
 export interface Journal extends Instance<typeof JournalModel> {}

@@ -10,7 +10,6 @@ const MedicalCardStore = types
     medCards: types.optional(types.array(MedicalCardModel), []),
     loading: false,
     error: types.optional(types.string, ""),
-    activeMedCard: types.safeReference(MedicalCardModel),
     allSearch: types.optional(types.string, ""),
     mySearch: types.optional(types.string, ""),
   })
@@ -40,9 +39,6 @@ const MedicalCardStore = types
         self.loading = false
       }
     }),
-    setActiveMedCard: (uid: string) => {
-      self.activeMedCard = uid as any
-    },
     clearError: () => {
       self.error = ""
     },

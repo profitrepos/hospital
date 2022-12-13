@@ -14,7 +14,9 @@ interface SearchListProps {}
 export const SearchList: FC<SearchListProps> = observer(() => {
   const [patientIndex, setPatientIndex] = useState(0)
 
-  const { search } = useStores()
+  const { search, userInfo, records } = useStores()
+  const { activeOrg } = userInfo
+  const { load } = records
   const {
     loading,
     patientsList,
@@ -32,9 +34,11 @@ export const SearchList: FC<SearchListProps> = observer(() => {
     }
   }, [activePatient])
 
-  const medCardHandler = (medCard: MedicalCardListItem) => {
-    navigate("MedicalCard")
-    //TODO: где будет активная мед карта?
+  const medCardHandler = (item: MedicalCardListItem) => {
+    if (activeOrg) {
+      load(activeOrg.organisationId, item.uid)
+      navigate("MedicalCard")
+    }
   }
 
   const patientHandler = (patient: PatientListItem, index?: number) => {

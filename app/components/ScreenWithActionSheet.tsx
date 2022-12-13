@@ -1,17 +1,22 @@
 import React, { FC, useCallback, useMemo, useRef } from "react"
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet"
-import { Screen } from "./ui"
+import { Preloader, Screen } from "./ui"
 import { ViewStyle } from "react-native"
 import { goBack, navigate, resetRoot } from "../navigators"
 
 interface ScreenWithActionSheetProps {
   children?: React.ReactNode
   onClose?: () => void
+  loading?: boolean
 }
 
 const snapPoints = ["90%", "100%"]
 
-export const ScreenWithActionSheet: FC<ScreenWithActionSheetProps> = ({ children, onClose }) => {
+export const ScreenWithActionSheet: FC<ScreenWithActionSheetProps> = ({
+  children,
+  onClose,
+  loading,
+}) => {
   const sheetRef = useRef<BottomSheet>(null)
 
   const handleClose = () => {
@@ -37,7 +42,7 @@ export const ScreenWithActionSheet: FC<ScreenWithActionSheetProps> = ({ children
           showsVerticalScrollIndicator={false}
           contentContainerStyle={$contentContainer}
         >
-          {children}
+          {loading ? <Preloader /> : children}
         </BottomSheetScrollView>
       </BottomSheet>
     </Screen>

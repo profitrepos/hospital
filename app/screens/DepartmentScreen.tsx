@@ -12,14 +12,16 @@ import { SearchSVG } from "../components/svg"
 
 export const DepartmentScreen: FC<StackScreenProps<HomeTabParamList, "Department">> = observer(
   function DepartmentScreen({ navigation }) {
-    const { medicalCard, userInfo } = useStores()
-    const { all, allSearch, setSearch, setActiveMedCard, loading, error, clearError, load } =
-      medicalCard
+    const { medicalCard, userInfo, records } = useStores()
+    const { all, allSearch, setSearch, loading, error, clearError, load } = medicalCard
     const { activeOrg } = userInfo
+    const { load: recordsLoad } = records
 
     const medCardHandler = (item: MedicalCardListItem) => {
-      setActiveMedCard(item.uid)
-      navigation.navigate("MedicalCard")
+      if (activeOrg) {
+        recordsLoad(activeOrg.organisationId, item.uid)
+        navigation.navigate("MedicalCard")
+      }
     }
 
     const loadMedicalCard = () => {

@@ -7,7 +7,7 @@ export interface ConfigBaseProps {
 export type PersistNavigationConfig = ConfigBaseProps["persistNavigation"]
 
 const BaseConfig: ConfigBaseProps = {
-  persistNavigation: "dev",
+  persistNavigation: "never",
   catchErrors: __DEV__ ? "dev" : "prod",
   exitRoutes: ["Home"],
 }

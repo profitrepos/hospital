@@ -1,4 +1,4 @@
-import { Instance, types } from "mobx-state-tree"
+import { Instance, types, cast } from "mobx-state-tree"
 import { IndicatorModel } from "../common-models/common-models"
 
 export const AnalysisModel = types.model("Analysis").props({
@@ -28,11 +28,6 @@ export const AnalysisStore = types
       self.search = value
     },
   }))
-  .views((self) => ({
-    get items() {
-      //TODO: сделать логику фильтрации и поиска
-      return self.items
-    },
-  }))
+  .views((self) => ({}))
 
 export interface Analysis extends Instance<typeof AnalysisModel> {}

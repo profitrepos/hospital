@@ -1,42 +1,22 @@
 import { cast, flow, toGenerator, types } from "mobx-state-tree"
 import { getMedicalRecords } from "../services/passbase"
-import { AnalysisModel, AnalysisStore } from "./models/analysis/Analysis"
-import { ConsultationModel, ConsultationStore } from "./models/consultation/Consultation"
-import { ExtractModel, ExtractStore } from "./models/extract/Extract"
-import { EpicrisisModel, EpicrisisStore } from "./models/epicrisis/Epicrisis"
-import {
-  InitialInspectionModel,
-  InitialInspectionStore,
-} from "./models/initialInspection/InitialInspection"
-import { JournalModel, JournalStore } from "./models/journal/Journal"
-import {
-  OperationProtocolModel,
-  OperationProtocolStore,
-} from "./models/operationProtocol/OperationProtocol"
-import { PatientModel, PatientStore } from "./models/patient/Patient"
-import { DiagnosisModel, DiagnosisStore } from "./models/diagnosis/Diagnosis"
-import { ResearchModel, ResearchStore } from "./models/research/Research"
+import { AnalysisStore } from "./models/analysis/Analysis"
+import { ConsultationStore } from "./models/consultation/Consultation"
+import { ExtractStore } from "./models/extract/Extract"
+import { EpicrisisStore } from "./models/epicrisis/Epicrisis"
+import { InitialInspectionStore } from "./models/initialInspection/InitialInspection"
+import { JournalStore } from "./models/journal/Journal"
+import { OperationProtocolStore } from "./models/operationProtocol/OperationProtocol"
+import { PatientStore } from "./models/patient/Patient"
+import { DiagnosisStore } from "./models/diagnosis/Diagnosis"
+import { ResearchStore } from "./models/research/Research"
 import { NormalizedRecords, RecordType } from "../interfaces"
-
-const ComposeRecordModel = types.union(
-  AnalysisModel,
-  ConsultationModel,
-  DiagnosisModel,
-  EpicrisisModel,
-  ExtractModel,
-  InitialInspectionModel,
-  JournalModel,
-  OperationProtocolModel,
-  PatientModel,
-  ResearchModel,
-)
 
 const RecordStore = types
   .model("RecordStore")
   .props({
     loading: false,
-    error: types.optional(types.string, ''),
-    activeRecord: types.safeReference(ComposeRecordModel),
+    error: types.optional(types.string, ""),
     analysis: AnalysisStore,
     consultation: ConsultationStore,
     diagnosis: DiagnosisStore,
@@ -62,7 +42,7 @@ const RecordStore = types
           const normalizedRecords = normalizeRecords(data)
 
           Object.keys(normalizedRecords).forEach((key) => {
-            self[key] = normalizeRecords[key]
+            self[key].items = normalizedRecords[key]
           })
         }
       } catch (error) {
@@ -71,15 +51,12 @@ const RecordStore = types
         self.loading = false
       }
     }),
-    setActiveRecord: (uid: string) => {
-      self.activeRecord = uid as any
-    },
     clearError: () => {
       self.error = ""
     },
   }))
 
-export const createRecordStoreDefault = () =>
+export const createRecordsStoreDefault = () =>
   types.optional(RecordStore, {
     analysis: {},
     consultation: {},
@@ -119,6 +96,5 @@ const normalizeRecords = (data: RecordType[]): NormalizedRecords => {
 
     return { ...prev }
   }, {})
-
   return result
 }
