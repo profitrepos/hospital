@@ -39,7 +39,8 @@ const screenOptions: NativeStackNavigationOptions = {
 }
 
 const AppStack = observer(function AppStack() {
-  const { isAuth, isVerify } = useStores().app
+  const { app } = useStores()
+  const { isAuth, isVerify } = app
 
   return (
     <Stack.Navigator screenOptions={screenOptions}>

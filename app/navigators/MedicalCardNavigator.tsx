@@ -64,7 +64,6 @@ export const MedicalCardNavigator = observer(() => {
         options={{
           tabBarIcon: ({ color }) => <JournalSVG color={color} />,
           title: translate("medcardTabs.journal"),
-          unmountOnBlur: true,
         }}
       />
       <Tab.Screen

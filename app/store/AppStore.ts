@@ -15,7 +15,6 @@ export const AppStore = types
     IIN: types.optional(types.string, ""),
     error: types.optional(types.string, ""),
   })
-  .actions(withSetPropAction)
   .actions((self) => ({
     setPincode: (pincode: string) => {
       self.pincode = pincode
@@ -62,11 +61,13 @@ export const AppStore = types
         const pincodeRemoved = yield secureStorage.remove(SECURE_STORAGE_KEYS.PINCODE_KEY)
         const iinRemoved = yield secureStorage.remove(SECURE_STORAGE_KEYS.IIN)
         if (pincodeRemoved && iinRemoved) {
-          self.pincode = null
+          self.pincode = undefined
           self.isAuth = false
           self.isVerify = false
         }
       } catch (error) {
+        console.log("error ---> ", error)
+
         self.error = "errors.unknown"
       }
     }),
