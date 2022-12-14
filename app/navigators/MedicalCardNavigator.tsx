@@ -1,8 +1,9 @@
 import { BottomTabNavigationOptions, createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { observer } from "mobx-react-lite"
 import React from "react"
-import { ViewStyle } from "react-native"
+import { TextStyle, ViewStyle } from "react-native"
 import { DataSVG, JournalSVG, MoreSVG, PencilSVG, СapsuleSVG } from "../components/svg"
+import { Text } from "../components/ui"
 import { useTranslate } from "../i18n"
 import {
   AssignmentsScreen,
@@ -13,6 +14,7 @@ import {
   JournalDetailsScreen,
 } from "../screens"
 import { COLORS } from "../theme"
+import { getActiveRouteName, navigationRef } from "./navigationUtilities"
 
 export type MedicalCardTabsParamList = {
   PatientsData: undefined
@@ -25,7 +27,7 @@ export type MedicalCardTabsParamList = {
 
 const Tab = createBottomTabNavigator<MedicalCardTabsParamList>()
 
-const tabOptions: BottomTabNavigationOptions = {
+const defaultTabOptions: BottomTabNavigationOptions = {
   tabBarActiveTintColor: COLORS.mainBlue,
   tabBarInactiveTintColor: COLORS.lightGrayTabIcon,
   tabBarLabelStyle: {
@@ -45,12 +47,30 @@ const hiddenTabOptions: BottomTabNavigationOptions = {
   },
 }
 
+const jourlnalScreenOptions: BottomTabNavigationOptions = {
+  tabBarIcon: () => {
+    const routName: string = getActiveRouteName(navigationRef.getRootState())
+    const color = routName.includes("Journal") ? COLORS.mainBlue : COLORS.lightGrayTabIcon
+    return <JournalSVG color={color} />
+  },
+  tabBarLabel: () => {
+    const routName: string = getActiveRouteName(navigationRef.getRootState())
+    const $style: TextStyle = {
+      fontSize: 10,
+      lineHeight: 13,
+      color: routName.includes("Journal") ? COLORS.mainBlue : COLORS.lightGrayTabIcon,
+      fontFamily: "Gilroy-SemiBold",
+    }
+    return <Text style={$style} tx="medcardTabs.journal" />
+  },
+}
+
 export const MedicalCardNavigator = observer(() => {
   const translate = useTranslate()
 
   return (
     <Tab.Navigator
-      screenOptions={tabOptions}
+      screenOptions={defaultTabOptions}
       backBehavior="history"
       sceneContainerStyle={$sceneContainerStyle}
     >
@@ -70,14 +90,7 @@ export const MedicalCardNavigator = observer(() => {
           title: translate("medcardTabs.records"),
         }}
       />
-      <Tab.Screen
-        name="Journals"
-        component={JournalsScreen}
-        options={{
-          tabBarIcon: ({ color }) => <JournalSVG color={color} />,
-          title: translate("medcardTabs.journal"),
-        }}
-      />
+      <Tab.Screen name="Journals" component={JournalsScreen} options={jourlnalScreenOptions} />
       <Tab.Screen
         name="Assignments"
         component={AssignmentsScreen}
