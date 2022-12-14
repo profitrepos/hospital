@@ -1,7 +1,7 @@
 import React, { FC, useRef } from "react"
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet"
 import { Preloader, Screen } from "./ui"
-import { ViewStyle } from "react-native"
+import { View, ViewStyle } from "react-native"
 import { navigate } from "../navigators"
 import { spacing } from "../theme"
 
@@ -9,6 +9,7 @@ interface ScreenWithActionSheetProps {
   children?: React.ReactNode
   onClose?: () => void
   loading?: boolean
+  scrollEnabled?: boolean
 }
 
 const snapPoints = ["90%", "100%"]
@@ -17,6 +18,7 @@ export const ScreenWithActionSheet: FC<ScreenWithActionSheetProps> = ({
   children,
   onClose,
   loading,
+  scrollEnabled = true,
 }) => {
   const sheetRef = useRef<BottomSheet>(null)
 
@@ -26,6 +28,24 @@ export const ScreenWithActionSheet: FC<ScreenWithActionSheetProps> = ({
     } else {
       navigate("Home")
     }
+  }
+
+  const renderContent = () => {
+    if (scrollEnabled) {
+      return (
+        <BottomSheetScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={$contentContainer}
+        >
+          {loading ? <Preloader style={$preloader} /> : children}
+        </BottomSheetScrollView>
+      )
+    }
+    return (
+      <View style={{ flex: 1, borderWidth: 1, borderColor: "red" }}>
+        {loading ? <Preloader style={$preloader} /> : children}
+      </View>
+    )
   }
 
   return (
@@ -39,12 +59,7 @@ export const ScreenWithActionSheet: FC<ScreenWithActionSheetProps> = ({
         onClose={handleClose}
         animateOnMount={true}
       >
-        <BottomSheetScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={$contentContainer}
-        >
-          {loading ? <Preloader style={$preloader} /> : children}
-        </BottomSheetScrollView>
+        {renderContent()}
       </BottomSheet>
     </Screen>
   )

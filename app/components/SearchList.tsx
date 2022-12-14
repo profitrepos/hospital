@@ -5,6 +5,7 @@ import { MedicalCardListItem, PatientListItem } from "../interfaces"
 import { navigate } from "../navigators"
 import { useStores } from "../store"
 import { spacing } from "../theme"
+import { delay } from "../utils/delay"
 import { MedCardsList } from "./MedCardsList"
 import { PatientsList } from "./PatientsList"
 import { Button } from "./ui"
@@ -34,10 +35,11 @@ export const SearchList: FC<SearchListProps> = observer(() => {
     }
   }, [activePatient])
 
-  const medCardHandler = (item: MedicalCardListItem) => {
+  const medCardHandler = async (item: MedicalCardListItem) => {
     if (activeOrg) {
-      load(activeOrg.organisationId, item.uid)
       navigate("MedicalCard")
+      await delay(200)
+      load(activeOrg.organisationId, item.uid)
     }
   }
 

@@ -9,6 +9,7 @@ import { useStores } from "../store"
 import { AppError, AppModal, MedCardsList } from "../components"
 import { MedicalCardListItem } from "../interfaces"
 import { SearchSVG } from "../components/svg"
+import { delay } from "../utils/delay"
 
 export const MyPatientsScreen: FC<StackScreenProps<HomeTabParamList, "MyPatients">> = observer(
   function MyPatientsScreen({ navigation }) {
@@ -22,10 +23,11 @@ export const MyPatientsScreen: FC<StackScreenProps<HomeTabParamList, "MyPatients
       setSearch(value, "mySearch")
     }
 
-    const medCardHandler = (item: MedicalCardListItem) => {
+    const medCardHandler = async (item: MedicalCardListItem) => {
       if (activeOrg) {
-        recordsLoad(activeOrg.organisationId, item.uid)
         navigation.navigate("MedicalCard")
+        await delay(200)
+        recordsLoad(activeOrg.organisationId, item.uid)
       }
     }
 

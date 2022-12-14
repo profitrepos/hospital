@@ -67,9 +67,6 @@ const ru = {
   searchScreen: {
     title: "Пациенты больницы",
   },
-  selectPatientScreen: {
-    title: "Выберите пациента",
-  },
   errors: {
     common: "Ошибка!",
     network: "Ошибка сети! Попробуйте еще раз!",
@@ -94,6 +91,12 @@ const ru = {
     cardNumber: "Номер мед.карты",
     diagnosis: "Диагноз",
     department: "Отделение госпитализации",
+  },
+  journalsScreen: {
+    title: "Дневники",
+  },
+  journalScreen: {
+    title: "Дневник",
   },
 }
 

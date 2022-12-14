@@ -42,3 +42,5 @@ export interface NormalizedRecords
     patient: Patient[]
     research: Research[]
   }> {}
+
+export interface JournalListItem extends Pick<Journal, "doc" | "date" | "uid"> {}

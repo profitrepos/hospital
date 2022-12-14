@@ -1,8 +1,8 @@
 import React, { FC, useEffect, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle } from "react-native"
+import { View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { Button, Screen, ScreenTitle, Text } from "../components/ui"
+import { Avatar, BackButton, Button, Screen, ScreenTitle, Text } from "../components/ui"
 import { AppStackParamList } from "../navigators"
 import { spacing } from "../theme"
 import { OrganizationList } from "../components/OrganizationList"
@@ -45,22 +45,43 @@ export const SelectOrganizationScreen: FC<
   }
 
   return (
-    <Screen style={$root} preset="fixed">
-      <ScreenTitle text="selectOrganizationScreen.title" />
-      <OrganizationList
-        onRefresh={load}
-        data={organizations}
-        onPress={organizationHandler}
-        loading={loading}
-      />
+    <Screen style={$root} preset="fixed" filled>
+      <View style={$container}>
+        <View style={$header}>
+          <Avatar />
+        </View>
+        <ScreenTitle text="selectOrganizationScreen.title" />
+      </View>
+      <View style={[$list, $container]}>
+        <OrganizationList
+          onRefresh={load}
+          data={organizations}
+          onPress={organizationHandler}
+          loading={loading}
+        />
+      </View>
     </Screen>
   )
 })
 
 const $root: ViewStyle = {
   flex: 1,
-  marginTop: spacing.medium,
 }
-const $select: ViewStyle = {
+const $header: ViewStyle = {
+  flexDirection: "row",
+  justifyContent: "flex-end",
+  alignItems: "center",
+  marginTop: spacing.medium,
+  marginBottom: spacing.extraSmall,
+}
+const $container = {
+  marginHorizontal: spacing.medium,
+}
+const $list: ViewStyle = {
   flex: 1,
+  marginBottom: spacing.large,
+  justifyContent: "flex-end",
+  backgroundColor: "#fff",
+  borderRadius: 12,
+  padding: spacing.medium,
 }

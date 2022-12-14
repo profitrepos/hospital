@@ -6,8 +6,8 @@ import { Text } from "../components/ui"
 import { MedicalCardTabsParamList } from "../navigators"
 import { ScreenWithActionSheet } from "../components"
 
-export const PatientsMoreScreen: FC<StackScreenProps<MedicalCardTabsParamList, "PatientsMore">> =
-  observer(function PatientsMoreScreen({ navigation }) {
+export const MoreScreen: FC<StackScreenProps<MedicalCardTabsParamList, "More">> = observer(
+  function MoreScreen({ navigation }) {
     return (
       <ScreenWithActionSheet>
         <View>
@@ -17,7 +17,8 @@ export const PatientsMoreScreen: FC<StackScreenProps<MedicalCardTabsParamList, "
         </View>
       </ScreenWithActionSheet>
     )
-  })
+  },
+)
 
 const $root: ViewStyle = {
   flex: 1,

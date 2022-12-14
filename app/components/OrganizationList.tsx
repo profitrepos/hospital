@@ -72,7 +72,6 @@ export const OrganizationList: FC<OrganizationListProps> = ({
 const $container: ViewStyle = {
   borderRadius: 12,
   backgroundColor: "#fff",
-  padding: spacing.medium,
   flex: 1,
 }
 const $list: ViewStyle = {}

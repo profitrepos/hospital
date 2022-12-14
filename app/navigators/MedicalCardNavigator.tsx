@@ -5,20 +5,21 @@ import { ViewStyle } from "react-native"
 import { DataSVG, JournalSVG, MoreSVG, PencilSVG, СapsuleSVG } from "../components/svg"
 import { useTranslate } from "../i18n"
 import {
-  PatientsAssignmentsScreen,
+  AssignmentsScreen,
   PatientsDataScreen,
-  PatientsJournalScreen,
-  PatientsMoreScreen,
-  PatientsRecordsScreen,
+  MoreScreen,
+  MedRecordsScreen,
+  JournalsScreen,
 } from "../screens"
 import { COLORS } from "../theme"
+import { JournalsStack } from "./JournalsStack"
 
 export type MedicalCardTabsParamList = {
   PatientsData: undefined
-  PatientsRecords: undefined
-  PatientsJournal: undefined
-  PatientsAssignments: undefined
-  PatientsMore: undefined
+  MedRecords: undefined
+  JournalsScreen: undefined
+  Assignments: undefined
+  More: undefined
 }
 
 const Tab = createBottomTabNavigator<MedicalCardTabsParamList>()
@@ -51,32 +52,32 @@ export const MedicalCardNavigator = observer(() => {
         }}
       />
       <Tab.Screen
-        name="PatientsRecords"
-        component={PatientsRecordsScreen}
+        name="MedRecords"
+        component={MedRecordsScreen}
         options={{
           tabBarIcon: ({ color }) => <PencilSVG color={color} />,
           title: translate("medcardTabs.records"),
         }}
       />
       <Tab.Screen
-        name="PatientsJournal"
-        component={PatientsJournalScreen}
+        name="JournalsScreen"
+        component={JournalsScreen}
         options={{
           tabBarIcon: ({ color }) => <JournalSVG color={color} />,
           title: translate("medcardTabs.journal"),
         }}
       />
       <Tab.Screen
-        name="PatientsAssignments"
-        component={PatientsAssignmentsScreen}
+        name="Assignments"
+        component={AssignmentsScreen}
         options={{
           tabBarIcon: ({ color }) => <СapsuleSVG color={color} />,
           title: translate("medcardTabs.assignments"),
         }}
       />
       <Tab.Screen
-        name="PatientsMore"
-        component={PatientsMoreScreen}
+        name="More"
+        component={MoreScreen}
         options={{
           tabBarIcon: ({ color }) => <MoreSVG color={color} />,
           title: translate("medcardTabs.more"),

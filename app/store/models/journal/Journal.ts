@@ -1,8 +1,9 @@
 import { Instance, types, cast } from "mobx-state-tree"
+import { JournalListItem } from "../../../interfaces"
 import { ChapterModel } from "../common-models/common-models"
 
 export const JournalModel = types.model("Journal").props({
-  uid: types.string,
+  uid: types.identifier,
   timestamp: types.number,
   doc: types.literal("Дневник"),
   date: types.string,
@@ -16,6 +17,7 @@ export const JournalStore = types
     items: types.optional(types.array(JournalModel), []),
     filter: "",
     search: "",
+    activeJournal: types.safeReference(JournalModel),
   })
   .actions((self) => ({
     setFilter: (value: string) => {
@@ -24,7 +26,17 @@ export const JournalStore = types
     setSearch: (value: string) => {
       self.search = value
     },
+    setActiveJournal: (uid: string) => {
+      self.activeJournal = uid as any
+    },
   }))
-  .views((self) => ({}))
+  .views((self) => ({
+    get list() {
+      return self.items.reduce<JournalListItem[]>((prev, journal) => {
+        const { uid, doc, date } = journal
+        return [...prev, { uid, doc, date }]
+      }, [])
+    },
+  }))
 
 export interface Journal extends Instance<typeof JournalModel> {}
