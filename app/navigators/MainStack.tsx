@@ -4,7 +4,6 @@ import {
 } from "@react-navigation/native-stack"
 import { observer } from "mobx-react-lite"
 import React from "react"
-import { JournalDetailScreen } from "../screens"
 import { HomeTabNavigator } from "./HomeTabNavigator"
 import { MedicalCardNavigator } from "./MedicalCardNavigator"
 
@@ -18,7 +17,7 @@ export type MainStackParamList = {
 
 const Stack = createNativeStackNavigator<MainStackParamList>()
 
-const screenOptions: NativeStackNavigationOptions = { headerShown: false }
+const screenOptions: NativeStackNavigationOptions = { headerShown: false, gestureEnabled: false }
 const transparentScreenOptions: NativeStackNavigationOptions = {
   presentation: "transparentModal",
 }
@@ -30,11 +29,6 @@ export const MainStack = observer(function MainStack() {
       <Stack.Screen
         name="MedicalCard"
         component={MedicalCardNavigator}
-        options={transparentScreenOptions}
-      />
-      <Stack.Screen
-        name="JournalDetail"
-        component={JournalDetailScreen}
         options={transparentScreenOptions}
       />
     </Stack.Navigator>

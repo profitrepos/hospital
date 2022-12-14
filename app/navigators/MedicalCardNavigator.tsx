@@ -12,12 +12,11 @@ import {
   JournalsScreen,
 } from "../screens"
 import { COLORS } from "../theme"
-import { JournalsStack } from "./JournalsStack"
 
 export type MedicalCardTabsParamList = {
   PatientsData: undefined
   MedRecords: undefined
-  JournalsScreen: undefined
+  Journals: undefined
   Assignments: undefined
   More: undefined
 }
@@ -60,11 +59,12 @@ export const MedicalCardNavigator = observer(() => {
         }}
       />
       <Tab.Screen
-        name="JournalsScreen"
+        name="Journals"
         component={JournalsScreen}
         options={{
           tabBarIcon: ({ color }) => <JournalSVG color={color} />,
           title: translate("medcardTabs.journal"),
+          unmountOnBlur: true,
         }}
       />
       <Tab.Screen

@@ -6,7 +6,7 @@ import { Text } from "./Text"
 
 interface ScreenTitleProps {
   text?: TxKeyPath
-  customText?: string 
+  customText?: string
 }
 
 export const ScreenTitle: FC<ScreenTitleProps> = ({ text, customText }) => {
@@ -23,5 +23,5 @@ const $title: ViewStyle = {
 }
 const $text: TextStyle = {
   color: COLORS.darkingBlue,
-  textAlign: "center"
+  textAlign: "center",
 }
