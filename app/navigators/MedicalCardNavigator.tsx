@@ -10,6 +10,7 @@ import {
   MoreScreen,
   MedRecordsScreen,
   JournalsScreen,
+  JournalDetailsScreen,
 } from "../screens"
 import { COLORS } from "../theme"
 
@@ -17,6 +18,7 @@ export type MedicalCardTabsParamList = {
   PatientsData: undefined
   MedRecords: undefined
   Journals: undefined
+  JournalDetails: undefined
   Assignments: undefined
   More: undefined
 }
@@ -37,11 +39,21 @@ const tabOptions: BottomTabNavigationOptions = {
   lazy: false,
 }
 
+const hiddenTabOptions: BottomTabNavigationOptions = {
+  tabBarItemStyle: {
+    display: "none",
+  },
+}
+
 export const MedicalCardNavigator = observer(() => {
   const translate = useTranslate()
 
   return (
-    <Tab.Navigator screenOptions={tabOptions} sceneContainerStyle={$sceneContainerStyle}>
+    <Tab.Navigator
+      screenOptions={tabOptions}
+      backBehavior="history"
+      sceneContainerStyle={$sceneContainerStyle}
+    >
       <Tab.Screen
         name="PatientsData"
         component={PatientsDataScreen}
@@ -81,6 +93,11 @@ export const MedicalCardNavigator = observer(() => {
           tabBarIcon: ({ color }) => <MoreSVG color={color} />,
           title: translate("medcardTabs.more"),
         }}
+      />
+      <Tab.Screen
+        name="JournalDetails"
+        component={JournalDetailsScreen}
+        options={hiddenTabOptions}
       />
     </Tab.Navigator>
   )

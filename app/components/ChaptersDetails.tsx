@@ -11,14 +11,15 @@ interface ChaptersDetailsProps {
 export const ChaptersDetails: FC<ChaptersDetailsProps> = ({ chapters }) => {
   return (
     <View style={$container}>
-      {chapters.map((chapter) => {
-        return (
-          <View style={$chapter} key={chapter.chapter}>
-            <Text preset="bold" text={chapter.chapter} style={$header} />
-            <Text preset="default" text={chapter.text} style={$text} />
-          </View>
-        )
-      })}
+      {chapters &&
+        chapters.map((chapter) => {
+          return (
+            <View style={$chapter} key={chapter.chapter}>
+              <Text preset="bold" text={chapter.chapter} style={$header} />
+              <Text preset="default" text={chapter.text} style={$text} />
+            </View>
+          )
+        })}
     </View>
   )
 }

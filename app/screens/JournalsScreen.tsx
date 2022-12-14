@@ -1,95 +1,23 @@
-import React, { FC, useCallback, useEffect } from "react"
+import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
-import { BackHandler, View, ViewStyle } from "react-native"
+import { View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { BackButton, ScreenTitle } from "../components/ui"
+import { ScreenTitle } from "../components/ui"
 import { AppError, AppModal, JournalsList, ScreenWithActionSheet } from "../components"
-import { Chapter, useStores } from "../store"
+import { useStores } from "../store"
 import { COLORS, spacing } from "../theme"
 import { JournalListItem } from "../interfaces"
 import { MedicalCardTabsParamList } from "../navigators"
-import { ChaptersDetails } from "../components/ChaptersDetails"
-import { useFocusEffect } from "@react-navigation/native"
-
-interface JournalsProps {
-  loading: boolean
-  journalHandler: (item: JournalListItem) => void
-  list: JournalListItem[]
-}
-
-const Journals: FC<JournalsProps> = ({ loading, journalHandler, list }) => {
-  return (
-    <View style={$journals}>
-      <ScreenTitle text="journalsScreen.title" />
-      <View style={$listContainer}>
-        <JournalsList loading={loading} data={list} onPress={journalHandler} />
-      </View>
-    </View>
-  )
-}
-
-interface JournalDetailProps {
-  chapters: Chapter[]
-  onBack: () => void
-}
-
-const JournalDetail: FC<JournalDetailProps> = ({ chapters, onBack }) => {
-  return (
-    <View style={$detailContainer}>
-      <BackButton btnStyle={$backBtn} onPress={onBack} />
-      <ScreenTitle text="journalScreen.title" />
-      <ChaptersDetails chapters={chapters} />
-    </View>
-  )
-}
 
 export const JournalsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Journals">> = observer(
   function JournalsScreen({ navigation }) {
     const { records } = useStores()
     const { loading, journal, clearError, error } = records
-    const { list, setActiveJournal, activeJournal } = journal
-
-    useEffect(() => {
-      const beforeRemoveHanlder = (e) => {
-        console.log("beforeRemoveHanlder.........")
-
-        if (activeJournal) {
-          e.preventDefault()
-          setActiveJournal(undefined)
-          return
-        }
-      }
-
-      navigation.addListener("beforeRemove", beforeRemoveHanlder)
-
-      return () => {
-        navigation.removeListener("beforeRemove", beforeRemoveHanlder)
-      }
-    }, [navigation])
-
-    useFocusEffect(
-      useCallback(() => {
-        const onBackPress = () => {
-          if (activeJournal) {
-            setActiveJournal(undefined)
-            return true
-          } else {
-            return false
-          }
-        }
-
-        const subscription = BackHandler.addEventListener("hardwareBackPress", onBackPress)
-
-        return () => subscription.remove()
-      }, [activeJournal, setActiveJournal]),
-    )
+    const { list, setActiveJournal } = journal
 
     const journalHandler = (item: JournalListItem) => {
       setActiveJournal(item.uid)
-    }
-
-    const clearActiveJournal = () => {
-      setActiveJournal(undefined)
+      navigation.navigate("JournalDetails")
     }
 
     if (error) {
@@ -103,11 +31,12 @@ export const JournalsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Jour
     return (
       <ScreenWithActionSheet loading={loading}>
         <View style={$root}>
-          {activeJournal ? (
-            <JournalDetail onBack={clearActiveJournal} chapters={activeJournal.chapters} />
-          ) : (
-            <Journals loading={loading} list={list} journalHandler={journalHandler} />
-          )}
+          <View style={$journals}>
+            <ScreenTitle text="journalsScreen.title" />
+            <View style={$listContainer}>
+              <JournalsList loading={loading} data={list} onPress={journalHandler} />
+            </View>
+          </View>
         </View>
       </ScreenWithActionSheet>
     )
@@ -125,10 +54,4 @@ const $listContainer: ViewStyle = {
 }
 const $journals: ViewStyle = {
   paddingVertical: spacing.medium,
-}
-const $detailContainer: ViewStyle = {
-  padding: spacing.extraSmall,
-}
-const $backBtn: ViewStyle = {
-  backgroundColor: COLORS.iconsBG,
 }
