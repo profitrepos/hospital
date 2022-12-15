@@ -4,7 +4,7 @@ import { View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { ScreenTitle } from "../components/ui"
 import { MedicalCardTabsParamList } from "../navigators"
-import { PatientData, ScreenWithActionSheet } from "../components"
+import { ScreenWithActionSheet } from "../components"
 import { useStores } from "../store"
 import { spacing } from "../theme"
 
@@ -12,14 +12,12 @@ export const ConsultationRecordsScreen: FC<
   StackScreenProps<MedicalCardTabsParamList, "ConsultationRecords">
 > = observer(function ConsultationRecordsScreen({ navigation }) {
   const { records } = useStores()
-  const { loading, patient } = records
-  const { currentPatient } = patient
+  const { loading } = records
 
   return (
     <ScreenWithActionSheet loading={loading}>
       <View style={$root}>
-        <ScreenTitle customText={currentPatient?.patient} />
-        {currentPatient && <PatientData patient={currentPatient} />}
+        <ScreenTitle text="consultationRecordsScreen.title" />
       </View>
     </ScreenWithActionSheet>
   )

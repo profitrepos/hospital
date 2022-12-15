@@ -76,7 +76,6 @@ const ru = {
   },
   selectOrganizationScreen: {
     title: "Выберите организацию",
-    continue: "Далее",
   },
   patientDataScreen: {
     IIN: "ИИН",
@@ -100,6 +99,30 @@ const ru = {
   },
   recordsScreen: {
     title: "Медзаписи",
+  },
+  analysisRecordsScreen: {
+    title: "Анализы",
+  },
+  consultationRecordsScreen: {
+    title: "Консультации",
+  },
+  diagnosisRecordsScreen: {
+    title: "Диагнозы",
+  },
+  epicrisisRecordsScreen: {
+    title: "Эпикризы",
+  },
+  extractRecordsScreen: {
+    title: "Выписки",
+  },
+  initialInspectionRecordsScreen: {
+    title: "Первичные осмотры",
+  },
+  operationProtocolRecordsScreen: {
+    title: "Протоколы операций",
+  },
+  researchRecordsScreen: {
+    title: "Исследования",
   },
 }
 
