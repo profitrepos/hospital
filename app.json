@@ -16,7 +16,9 @@
       "fallbackToCacheTimeout": 0
     },
     "jsEngine": "hermes",
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "android": {
       "icon": "./assets/images/app-icon-android-legacy.png",
       "package": "com.skomed.hospital",
@@ -47,6 +49,11 @@
         "image": "./assets/images/splash-logo-web.png",
         "resizeMode": "contain",
         "backgroundColor": "#191015"
+      }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d13ca272-0db8-44dd-9e08-11d98a91cbdc"
       }
     }
   }

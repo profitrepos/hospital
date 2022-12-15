@@ -10,7 +10,7 @@ interface PatientDataProps {
   style?: ViewStyle
 }
 
-const keys = ["IIN", "birthdDate", "age", "gender", "allergy", "address"] as const
+const keys = ["IIN", "birthDate", "age", "gender", "allergy", "address"] as const
 
 interface RowProps {
   text: string

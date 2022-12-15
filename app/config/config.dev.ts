@@ -1,6 +1,4 @@
-import { API_AUTHORIZATION, API_URL } from "@env"
-
 export default {
-  API_AUTHORIZATION,
-  API_URL,
+  API_AUTHORIZATION: "Basic d2ViQmFja2VuZDpZTkZtKnViUHBXRGlZTXdX",
+  API_URL: "https://passbase.e-health.kz/passbase/hs/api2",
 }
