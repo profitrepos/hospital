@@ -9,20 +9,36 @@ import {
   AssignmentsScreen,
   PatientsDataScreen,
   MoreScreen,
-  MedRecordsScreen,
+  RecordsScreen,
   JournalsScreen,
   JournalDetailsScreen,
+  AnalysisRecordsScreen,
+  ConsultationRecordsScreen,
+  DiagnosisRecordsScreen,
+  EpicrisisRecordsScreen,
+  ExtractRecordsScreen,
+  InitialInspectionRecordsScreen,
+  OperationProtocolRecordsScreen,
+  ResearchRecordsScreen,
 } from "../screens"
 import { COLORS } from "../theme"
 import { getActiveRouteName, navigationRef } from "./navigationUtilities"
 
 export type MedicalCardTabsParamList = {
   PatientsData: undefined
-  MedRecords: undefined
+  Records: undefined
   Journals: undefined
   JournalDetails: undefined
   Assignments: undefined
   More: undefined
+  AnalysisRecords: undefined
+  ConsultationRecords: undefined
+  DiagnosisRecords: undefined
+  EpicrisisRecords: undefined
+  ExtractRecords: undefined
+  InitialInspectionRecords: undefined
+  OperationProtocolRecords: undefined
+  ResearchRecords: undefined
 }
 
 const Tab = createBottomTabNavigator<MedicalCardTabsParamList>()
@@ -83,8 +99,8 @@ export const MedicalCardNavigator = observer(() => {
         }}
       />
       <Tab.Screen
-        name="MedRecords"
-        component={MedRecordsScreen}
+        name="Records"
+        component={RecordsScreen}
         options={{
           tabBarIcon: ({ color }) => <PencilSVG color={color} />,
           title: translate("medcardTabs.records"),
@@ -110,6 +126,46 @@ export const MedicalCardNavigator = observer(() => {
       <Tab.Screen
         name="JournalDetails"
         component={JournalDetailsScreen}
+        options={hiddenTabOptions}
+      />
+      <Tab.Screen
+        name="AnalysisRecords"
+        component={AnalysisRecordsScreen}
+        options={hiddenTabOptions}
+      />
+      <Tab.Screen
+        name="ConsultationRecords"
+        component={ConsultationRecordsScreen}
+        options={hiddenTabOptions}
+      />
+      <Tab.Screen
+        name="DiagnosisRecords"
+        component={DiagnosisRecordsScreen}
+        options={hiddenTabOptions}
+      />
+      <Tab.Screen
+        name="EpicrisisRecords"
+        component={EpicrisisRecordsScreen}
+        options={hiddenTabOptions}
+      />
+      <Tab.Screen
+        name="ExtractRecords"
+        component={ExtractRecordsScreen}
+        options={hiddenTabOptions}
+      />
+      <Tab.Screen
+        name="InitialInspectionRecords"
+        component={InitialInspectionRecordsScreen}
+        options={hiddenTabOptions}
+      />
+      <Tab.Screen
+        name="OperationProtocolRecords"
+        component={OperationProtocolRecordsScreen}
+        options={hiddenTabOptions}
+      />
+      <Tab.Screen
+        name="ResearchRecords"
+        component={ResearchRecordsScreen}
         options={hiddenTabOptions}
       />
     </Tab.Navigator>

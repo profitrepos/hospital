@@ -50,7 +50,7 @@ export const PatientsList: FC<PatientsListProps> = ({ loading, onPress, data, sc
               <Text preset="helper" style={$info} text={item.address} numberOfLines={2} />
             )}
           </View>
-          <ArrowRightSVG style={$arrow} width={10} height={14} />
+          <ArrowRightSVG style={$arrow} width={10} height={14} color={COLORS.lightBlue} />
         </View>
       </TouchableOpacity>
     )

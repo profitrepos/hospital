@@ -7,10 +7,11 @@ export const PatientModel = types.model("Patient").props({
   patient: types.string,
   gender: types.string,
   IIN: types.string,
-  birthdDate: types.string,
+  birthDate: types.string,
   age: types.string,
   address: types.string,
   allergy: types.string,
+  bloodType: types.string,
 })
 
 export const SearchPatientModel = PatientModel.named("SearchPatientModel")

@@ -10,7 +10,7 @@ import { AppError, AppModal } from "../components"
 import { TxKeyPath } from "../i18n"
 
 export const SettingsScreen: FC<StackScreenProps<AppStackParamList, "Settings">> = observer(
-  function SettingsScreen() {
+  function SettingsScreen({ navigation }) {
     const { app } = useStores()
 
     const { resetPassword, error, clearError } = app
@@ -25,7 +25,12 @@ export const SettingsScreen: FC<StackScreenProps<AppStackParamList, "Settings">>
 
     return (
       <Screen style={$root} preset="scroll">
-        <Button onPress={resetPassword}>Выйти</Button>
+        <Button onPress={resetPassword} style={{ marginBottom: 20 }}>
+          Выйти
+        </Button>
+        <Button onPress={() => navigation.navigate("ResetPassword")} style={{ marginBottom: 20 }}>
+          Сбросить пароль
+        </Button>
       </Screen>
     )
   },

@@ -43,7 +43,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({
             <Text preset="subheading" style={$name} text={item.organisationName} />
             <Text preset="helper" style={$info} text={item.departmentName} />
           </View>
-          <ArrowRightSVG style={$arrow} width={10} height={14} />
+          <ArrowRightSVG style={$arrow} width={10} height={14} color={COLORS.lightBlue} />
         </View>
       </TouchableOpacity>
     )

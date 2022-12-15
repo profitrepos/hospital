@@ -1,12 +1,5 @@
 import React, { FC, memo } from "react"
-import {
-  FlatList,
-  ListRenderItem,
-  TextStyle,
-  TouchableOpacity,
-  View,
-  ViewStyle,
-} from "react-native"
+import { TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { JournalListItem } from "../interfaces"
 import { COLORS, spacing } from "../theme"
 import { ArrowRightSVG } from "./svg"
@@ -35,7 +28,7 @@ const Journal: FC<JournalProps> = memo(({ item, onPress }) => {
           <Text preset="subheading" style={$name} text={item.doc} />
           <Text preset="helper" style={$info} text={item.date} />
         </View>
-        <ArrowRightSVG style={$arrow} width={10} height={14} />
+        <ArrowRightSVG style={$arrow} width={10} height={14} color={COLORS.lightBlue} />
       </View>
     </TouchableOpacity>
   )

@@ -11,6 +11,7 @@ export const MedicalCardModel = types.model("MedicalCard").props({
   admissionDate: types.string,
   diagnosis: types.string,
   doctor: types.string,
+  hospitalization: types.string,
 })
 
 export const PatientMedicalCardModel = MedicalCardModel.named("PatientMedicalCard").props({

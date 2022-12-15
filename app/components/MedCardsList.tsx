@@ -40,7 +40,7 @@ export const MedCardsList: FC<MedCardsListProps> = ({ data, onPress, loading, on
               text={`${item.age}, госпитализация: ${item.admissionDate}`}
             />
           </View>
-          <ArrowRightSVG style={$arrow} width={10} height={14} />
+          <ArrowRightSVG style={$arrow} width={10} height={14} color={COLORS.lightBlue} />
         </View>
       </TouchableOpacity>
     )

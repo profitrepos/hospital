@@ -80,7 +80,7 @@ const ru = {
   },
   patientDataScreen: {
     IIN: "ИИН",
-    birthdDate: "Дата рождения",
+    birthDate: "Дата рождения",
     gender: "Пол",
     age: "Возраст",
     address: "Адрес",
@@ -98,9 +98,10 @@ const ru = {
   journalScreen: {
     title: "Дневник",
   },
+  recordsScreen: {
+    title: "Медзаписи",
+  },
 }
 
 export default ru
 export type Translations = typeof ru
-
-//TODO: birthdDate исправить

@@ -1,4 +1,3 @@
-import { string } from "mobx-state-tree/dist/internal"
 import {
   Analysis,
   Consultation,
@@ -42,5 +41,16 @@ export interface NormalizedRecords
     patient: Patient[]
     research: Research[]
   }> {}
+
+export interface RecordListItem {
+  name: string
+  count: number
+}
+
+type RecordsMap<T> = {
+  [Key in keyof T]: RecordListItem
+}
+
+export interface RecordList extends RecordsMap<Omit<NormalizedRecords, "journal" | "patient">> {}
 
 export interface JournalListItem extends Pick<Journal, "doc" | "date" | "uid"> {}

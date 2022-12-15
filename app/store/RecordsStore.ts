@@ -1,4 +1,4 @@
-import { cast, flow, toGenerator, types } from "mobx-state-tree"
+import { cast, flow, Instance, toGenerator, types } from "mobx-state-tree"
 import { getMedicalRecords } from "../services/passbase"
 import { AnalysisStore } from "./models/analysis/Analysis"
 import { ConsultationStore } from "./models/consultation/Consultation"
@@ -10,10 +10,10 @@ import { OperationProtocolStore } from "./models/operationProtocol/OperationProt
 import { PatientStore } from "./models/patient/Patient"
 import { DiagnosisStore } from "./models/diagnosis/Diagnosis"
 import { ResearchStore } from "./models/research/Research"
-import { NormalizedRecords, RecordType } from "../interfaces"
+import { NormalizedRecords, RecordList, RecordType } from "../interfaces"
 
-const RecordStore = types
-  .model("RecordStore")
+const RecordsStore = types
+  .model("RecordsStore")
   .props({
     loading: false,
     error: types.optional(types.string, ""),
@@ -46,6 +46,7 @@ const RecordStore = types
           })
         }
       } catch (error) {
+        console.log("error ---> ", error)
         self.error = "errors.network"
       } finally {
         self.loading = false
@@ -55,9 +56,35 @@ const RecordStore = types
       self.error = ""
     },
   }))
+  .views((self) => ({
+    get recordsList(): RecordList {
+      const list: RecordList = {}
+      const neededElems = [
+        "analysis",
+        "consultation",
+        "diagnosis",
+        "epicrisis",
+        "extract",
+        "initialInspection",
+        "operationProtocol",
+        "research",
+      ]
+
+      for (const storeKey of Object.keys(self)) {
+        if (neededElems.includes(storeKey) && self[storeKey].items.length > 0) {
+          list[storeKey] = {
+            name: recordsListDictionary[storeKey],
+            count: self[storeKey].items.length,
+          }
+        }
+      }
+
+      return list
+    },
+  }))
 
 export const createRecordsStoreDefault = () =>
-  types.optional(RecordStore, {
+  types.optional(RecordsStore, {
     analysis: {},
     consultation: {},
     diagnosis: {},
@@ -83,6 +110,17 @@ const recordsDictionary = {
   Исследование: "research",
 } as const
 
+const recordsListDictionary = {
+  analysis: "Результаты анализов",
+  consultation: "Консультация",
+  diagnosis: "Диагнозы",
+  epicrisis: "Эпикризы",
+  extract: "Выписки",
+  initialInspection: "Первичный осмотр",
+  operationProtocol: "Операции",
+  research: "Результаты исследований",
+} as const
+
 const normalizeRecords = (data: RecordType[]): NormalizedRecords => {
   const result = data.reduce((prev, record) => {
     const docType = record.doc
@@ -98,3 +136,5 @@ const normalizeRecords = (data: RecordType[]): NormalizedRecords => {
   }, {})
   return result
 }
+
+export interface RecordsStore extends Instance<typeof RecordsStore> {}

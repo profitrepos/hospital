@@ -1,7 +1,7 @@
 import React, { FC } from "react"
 import { View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { Avatar, BackButton, Button, Screen, ScreenTitle, TextField } from "../components/ui"
+import { Avatar, BackButton, Screen, ScreenTitle, TextField } from "../components/ui"
 import { COLORS, spacing } from "../theme"
 import { HomeTabParamList } from "../navigators"
 import { AppError, AppModal, SearchList } from "../components"
