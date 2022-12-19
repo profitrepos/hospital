@@ -1,4 +1,4 @@
-import { Instance, types, cast } from "mobx-state-tree"
+import { Instance, types } from "mobx-state-tree"
 
 export const PatientModel = types.model("Patient").props({
   uid: types.identifier,
@@ -20,17 +20,7 @@ export const PatientStore = types
   .model("PatientStore")
   .props({
     items: types.optional(types.array(PatientModel), []),
-    filter: "",
-    search: "",
   })
-  .actions((self) => ({
-    setFilter: (value: string) => {
-      self.filter = value
-    },
-    setSearch: (value: string) => {
-      self.search = value
-    },
-  }))
   .views((self) => ({
     get currentPatient() {
       if (self.items.length) {

@@ -1,4 +1,4 @@
-import { Instance, types, cast } from "mobx-state-tree"
+import { Instance, types } from "mobx-state-tree"
 import { ChapterModel } from "../common-models/common-models"
 
 export const EpicrisisModel = types.model("Epicrisis").props({
@@ -11,21 +11,8 @@ export const EpicrisisModel = types.model("Epicrisis").props({
   chapters: types.array(ChapterModel),
 })
 
-export const EpicrisisStore = types
-  .model("EpicrisisStore")
-  .props({
-    items: types.optional(types.array(EpicrisisModel), []),
-    filter: "",
-    search: "",
-  })
-  .actions((self) => ({
-    setFilter: (value: string) => {
-      self.filter = value
-    },
-    setSearch: (value: string) => {
-      self.search = value
-    },
-  }))
-  .views((self) => ({}))
+export const EpicrisisStore = types.model("EpicrisisStore").props({
+  items: types.optional(types.array(EpicrisisModel), []),
+})
 
 export interface Epicrisis extends Instance<typeof EpicrisisModel> {}

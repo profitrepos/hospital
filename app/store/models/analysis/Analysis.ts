@@ -1,4 +1,4 @@
-import { Instance, types, cast } from "mobx-state-tree"
+import { Instance, types } from "mobx-state-tree"
 import { IndicatorModel } from "../common-models/common-models"
 
 export const AnalysisModel = types.model("Analysis").props({
@@ -13,21 +13,8 @@ export const AnalysisModel = types.model("Analysis").props({
   indicators: types.array(IndicatorModel),
 })
 
-export const AnalysisStore = types
-  .model("AnalysisStore")
-  .props({
-    items: types.optional(types.array(AnalysisModel), []),
-    filter: "",
-    search: "",
-  })
-  .actions((self) => ({
-    setFilter: (value: string) => {
-      self.filter = value
-    },
-    setSearch: (value: string) => {
-      self.search = value
-    },
-  }))
-  .views((self) => ({}))
+export const AnalysisStore = types.model("AnalysisStore").props({
+  items: types.optional(types.array(AnalysisModel), []),
+})
 
 export interface Analysis extends Instance<typeof AnalysisModel> {}

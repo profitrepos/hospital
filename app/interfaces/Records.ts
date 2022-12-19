@@ -23,7 +23,7 @@ export type RecordType =
   | Patient
   | Research
 
-export interface RecordInfo {
+export interface RecordsInfo {
   error: string
   data: RecordType[]
 }

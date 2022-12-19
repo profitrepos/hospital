@@ -1,4 +1,4 @@
-import { Instance, types, cast } from "mobx-state-tree"
+import { Instance, types } from "mobx-state-tree"
 import { ChapterModel } from "../common-models/common-models"
 
 export const InitialInspectionModel = types.model("InitialInspection").props({
@@ -10,21 +10,8 @@ export const InitialInspectionModel = types.model("InitialInspection").props({
   chapters: types.array(ChapterModel),
 })
 
-export const InitialInspectionStore = types
-  .model("InitialInspectionStore")
-  .props({
-    items: types.optional(types.array(InitialInspectionModel), []),
-    filter: "",
-    search: "",
-  })
-  .actions((self) => ({
-    setFilter: (value: string) => {
-      self.filter = value
-    },
-    setSearch: (value: string) => {
-      self.search = value
-    },
-  }))
-  .views((self) => ({}))
+export const InitialInspectionStore = types.model("InitialInspectionStore").props({
+  items: types.optional(types.array(InitialInspectionModel), []),
+})
 
 export interface InitialInspection extends Instance<typeof InitialInspectionModel> {}

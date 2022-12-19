@@ -1,4 +1,4 @@
-import { Instance, types, cast } from "mobx-state-tree"
+import { Instance, types } from "mobx-state-tree"
 
 export const DiagnosisModel = types.model("Diagnosis").props({
   uid: types.string,
@@ -12,21 +12,8 @@ export const DiagnosisModel = types.model("Diagnosis").props({
   description: types.string,
 })
 
-export const DiagnosisStore = types
-  .model("DiagnosisStore")
-  .props({
-    items: types.optional(types.array(DiagnosisModel), []),
-    filter: "",
-    search: "",
-  })
-  .actions((self) => ({
-    setFilter: (value: string) => {
-      self.filter = value
-    },
-    setSearch: (value: string) => {
-      self.search = value
-    },
-  }))
-  .views((self) => ({}))
+export const DiagnosisStore = types.model("DiagnosisStore").props({
+  items: types.optional(types.array(DiagnosisModel), []),
+})
 
 export interface Diagnosis extends Instance<typeof DiagnosisModel> {}

@@ -4,7 +4,6 @@ import i18n from "i18next"
 import { ASYNC_STORAGE_KEYS, SECURE_STORAGE_KEYS } from "../interfaces/Common"
 import asyncStorage from "../utils/async-storage/async-storage"
 import secureStorage from "../utils/secure-storage/secure-storage"
-import { withSetPropAction } from "./helpers/withSetPropAction"
 
 export const AppStore = types
   .model("AppStore")

@@ -1,3 +1,4 @@
+import { AssignmentsInfo } from "../../interfaces/Assignments"
 import { api } from "../api"
 
 export const getMedicalAssignments = async (orgId: string, cardId: string) => {
@@ -6,7 +7,7 @@ export const getMedicalAssignments = async (orgId: string, cardId: string) => {
   params.append("orgId", orgId)
   params.append("searchRequest", cardId)
 
-  const { data } = await api.apisauce.post(
+  const { data } = await api.apisauce.post<AssignmentsInfo>(
     "getMedicalAssignments",
     {},
     {

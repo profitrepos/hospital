@@ -1,4 +1,4 @@
-import { Instance, types, cast } from "mobx-state-tree"
+import { Instance, types } from "mobx-state-tree"
 import { ChapterModel } from "../common-models/common-models"
 
 export const ExtractModel = types.model("Extract").props({
@@ -10,21 +10,8 @@ export const ExtractModel = types.model("Extract").props({
   chapters: types.array(ChapterModel),
 })
 
-export const ExtractStore = types
-  .model("ExtractStore")
-  .props({
-    items: types.optional(types.array(ExtractModel), []),
-    filter: "",
-    search: "",
-  })
-  .actions((self) => ({
-    setFilter: (value: string) => {
-      self.filter = value
-    },
-    setSearch: (value: string) => {
-      self.search = value
-    },
-  }))
-  .views((self) => ({}))
+export const ExtractStore = types.model("ExtractStore").props({
+  items: types.optional(types.array(ExtractModel), []),
+})
 
 export interface Extract extends Instance<typeof ExtractModel> {}

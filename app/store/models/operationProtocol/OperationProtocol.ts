@@ -1,4 +1,4 @@
-import { Instance, types, cast } from "mobx-state-tree"
+import { Instance, types } from "mobx-state-tree"
 
 export const OperationProtocolModel = types.model("OperationProtocol").props({
   uid: types.string,
@@ -10,21 +10,8 @@ export const OperationProtocolModel = types.model("OperationProtocol").props({
   protocol: types.string,
 })
 
-export const OperationProtocolStore = types
-  .model("OperationProtocolStore")
-  .props({
-    items: types.optional(types.array(OperationProtocolModel), []),
-    filter: "",
-    search: "",
-  })
-  .actions((self) => ({
-    setFilter: (value: string) => {
-      self.filter = value
-    },
-    setSearch: (value: string) => {
-      self.search = value
-    },
-  }))
-  .views((self) => ({}))
+export const OperationProtocolStore = types.model("OperationProtocolStore").props({
+  items: types.optional(types.array(OperationProtocolModel), []),
+})
 
 export interface OperationProtocol extends Instance<typeof OperationProtocolModel> {}
