@@ -10,6 +10,7 @@ interface ScreenWithActionSheetProps {
   onClose?: () => void
   loading?: boolean
   scrollEnabled?: boolean
+  animateOnMount?: boolean
 }
 
 const snapPoints = ["90%", "100%"]
@@ -19,6 +20,7 @@ export const ScreenWithActionSheet: FC<ScreenWithActionSheetProps> = ({
   onClose,
   loading,
   scrollEnabled = true,
+  animateOnMount = true,
 }) => {
   const sheetRef = useRef<BottomSheet>(null)
 
@@ -57,7 +59,7 @@ export const ScreenWithActionSheet: FC<ScreenWithActionSheetProps> = ({
         backgroundStyle={$backgroundStyle}
         enablePanDownToClose
         onClose={handleClose}
-        animateOnMount={true}
+        animateOnMount={animateOnMount}
       >
         {renderContent()}
       </BottomSheet>

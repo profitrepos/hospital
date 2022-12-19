@@ -1,7 +1,7 @@
 import React, { FC } from "react"
 import { View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { Avatar, BackButton, Screen, ScreenTitle, TextField } from "../components/ui"
+import { Avatar, BackButton, Button, Screen, ScreenTitle, TextField } from "../components/ui"
 import { COLORS, spacing } from "../theme"
 import { HomeTabParamList } from "../navigators"
 import { AppError, AppModal, SearchList } from "../components"
@@ -12,7 +12,15 @@ import { observer } from "mobx-react-lite"
 export const SearchPatientsScreen: FC<StackScreenProps<HomeTabParamList, "SearchPatients">> =
   observer(function SearchPatientsScreen() {
     const { search } = useStores()
-    const { searchText, setSearchText, error, clearError, activePatient } = search
+    const {
+      searchText,
+      setSearchText,
+      error,
+      clearError,
+      activePatient,
+      onlyClosed,
+      setOnlyClosed,
+    } = search
 
     if (error) {
       return (
@@ -27,6 +35,13 @@ export const SearchPatientsScreen: FC<StackScreenProps<HomeTabParamList, "Search
         <View style={$container}>
           <View style={$header}>
             <BackButton />
+            <Button
+              style={{ flex: 1, marginHorizontal: 10 }}
+              onPress={() => setOnlyClosed(!onlyClosed)}
+              preset={onlyClosed ? "default" : "outline"}
+            >
+              {onlyClosed ? "Открытые" : "Закрытые"}
+            </Button>
             <Avatar />
           </View>
           <ScreenTitle text="searchScreen.title" />

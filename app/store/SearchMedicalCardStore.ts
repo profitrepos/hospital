@@ -14,7 +14,7 @@ const SearchMedicalCardStore = types
     error: types.optional(types.string, ""),
     activePatient: types.safeReference(SearchPatientModel),
     searchText: types.optional(types.string, ""),
-    onlyActive: true,
+    onlyClosed: false,
   })
   .views((self) => ({
     get activeOrgId(): string {
@@ -31,7 +31,7 @@ const SearchMedicalCardStore = types
         self.patients = cast([])
 
         const { error, data } = yield* toGenerator(
-          searchMedicalCards(self.activeOrgId, self.searchText),
+          searchMedicalCards(self.activeOrgId, self.searchText, self.onlyClosed),
         )
 
         if (error) {
@@ -56,7 +56,7 @@ const SearchMedicalCardStore = types
         self.medCards = cast([])
 
         const { error, data } = yield* toGenerator(
-          getPatientMedicalCards(self.activeOrgId, self.activePatient.uid),
+          getPatientMedicalCards(self.activeOrgId, self.activePatient.uid, self.onlyClosed),
         )
 
         if (error) {
@@ -81,8 +81,8 @@ const SearchMedicalCardStore = types
     setSearchText: (value: string) => {
       self.searchText = value
     },
-    setOnlyActive: (value: boolean) => {
-      self.onlyActive = value
+    setOnlyClosed: (value: boolean) => {
+      self.onlyClosed = value
     },
   }))
   .views((self) => ({

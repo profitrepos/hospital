@@ -18,12 +18,16 @@ export const getMedicalCards = async (orgId: string, depId: string) => {
   return data
 }
 
-
-export const searchMedicalCards = async (orgId: string, searchRequest: string) => {
+export const searchMedicalCards = async (
+  orgId: string,
+  searchRequest: string,
+  isClosed: boolean,
+) => {
   const params = new URLSearchParams()
 
   params.append("orgId", orgId)
   params.append("searchRequest", searchRequest)
+  params.append("isClosed", String(isClosed))
 
   const { data } = await api.apisauce.post<SearchMedicalCard>(
     "searchMedicalCards",
@@ -36,11 +40,16 @@ export const searchMedicalCards = async (orgId: string, searchRequest: string) =
   return data
 }
 
-export const getPatientMedicalCards = async (orgId: string, patientId: string) => {
+export const getPatientMedicalCards = async (
+  orgId: string,
+  patientId: string,
+  isClosed: boolean,
+) => {
   const params = new URLSearchParams()
 
   params.append("orgId", orgId)
   params.append("patientId", patientId)
+  params.append("isClosed ", String(isClosed))
 
   const { data } = await api.apisauce.post<SearchPatientsMedicalCard>(
     "getPatientMedicalCards",
@@ -49,6 +58,6 @@ export const getPatientMedicalCards = async (orgId: string, patientId: string) =
       params,
     },
   )
-  
+
   return data
 }

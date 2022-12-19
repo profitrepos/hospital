@@ -54,7 +54,7 @@ const defaultTabOptions: BottomTabNavigationOptions = {
     paddingBottom: 3,
   },
   headerShown: false,
-  lazy: false,
+  lazy: true,
 }
 
 const hiddenTabOptions: BottomTabNavigationOptions = {
@@ -80,6 +80,23 @@ const jourlnalScreenOptions: BottomTabNavigationOptions = {
     return <Text style={$style} tx="medcardTabs.journal" />
   },
 }
+const recordsScreenOptions: BottomTabNavigationOptions = {
+  tabBarIcon: () => {
+    const routName: string = getActiveRouteName(navigationRef.getRootState())
+    const color = routName.includes("Records") ? COLORS.mainBlue : COLORS.lightGrayTabIcon
+    return <PencilSVG color={color} />
+  },
+  tabBarLabel: () => {
+    const routName: string = getActiveRouteName(navigationRef.getRootState())
+    const $style: TextStyle = {
+      fontSize: 10,
+      lineHeight: 13,
+      color: routName.includes("Records") ? COLORS.mainBlue : COLORS.lightGrayTabIcon,
+      fontFamily: "Gilroy-SemiBold",
+    }
+    return <Text style={$style} tx="medcardTabs.records" />
+  },
+}
 
 export const MedicalCardNavigator = observer(() => {
   const translate = useTranslate()
@@ -98,14 +115,7 @@ export const MedicalCardNavigator = observer(() => {
           title: translate("medcardTabs.data"),
         }}
       />
-      <Tab.Screen
-        name="Records"
-        component={RecordsScreen}
-        options={{
-          tabBarIcon: ({ color }) => <PencilSVG color={color} />,
-          title: translate("medcardTabs.records"),
-        }}
-      />
+      <Tab.Screen name="Records" component={RecordsScreen} options={recordsScreenOptions} />
       <Tab.Screen name="Journals" component={JournalsScreen} options={jourlnalScreenOptions} />
       <Tab.Screen
         name="Assignments"

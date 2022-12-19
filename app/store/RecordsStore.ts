@@ -1,4 +1,4 @@
-import { cast, flow, Instance, toGenerator, types } from "mobx-state-tree"
+import { flow, Instance, toGenerator, types } from "mobx-state-tree"
 import { getMedicalRecords } from "../services/passbase"
 import { AnalysisStore } from "./models/analysis/Analysis"
 import { ConsultationStore } from "./models/consultation/Consultation"
@@ -46,7 +46,6 @@ const RecordsStore = types
           })
         }
       } catch (error) {
-        console.log("error ---> ", error)
         self.error = "errors.network"
       } finally {
         self.loading = false
