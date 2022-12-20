@@ -13,7 +13,7 @@ export const AnalysisModel = types.model("Analysis").props({
   indicators: types.array(IndicatorModel),
 })
 
-export const AnalysisStore = types.model("AnalysisStore").props({
+export const AnalyzesStore = types.model("AnalyzesStore").props({
   items: types.optional(types.array(AnalysisModel), []),
 })
 

@@ -124,6 +124,9 @@ const ru = {
   researchRecordsScreen: {
     title: "Исследования",
   },
+  substantiationRecordsScreen: {
+    title: "Обоснования диагнозов",
+  },
 }
 
 export default ru

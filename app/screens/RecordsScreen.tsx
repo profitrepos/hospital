@@ -9,14 +9,15 @@ import { useStores } from "../store"
 import { spacing } from "../theme"
 
 const navigateToDictionary = {
-  analyzes: "AnalyzesRecords",
-  consultations: "ConsultationsRecords",
+  analyzes: "AnalysisRecords",
+  consultations: "ConsultationRecords",
   diagnosis: "DiagnosisRecords",
   epicrisis: "EpicrisisRecords",
-  extracts: "ExtractsRecords",
-  initialInspections: "InitialInspectionsRecords",
-  operationProtocols: "OperationProtocolsRecords",
+  extracts: "ExtractRecords",
+  initialInspections: "InitialInspectionRecords",
+  operationProtocols: "OperationProtocolRecords",
   research: "ResearchRecords",
+  substantiations: "SubstantiationRecords",
 }
 
 export const RecordsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Records">> = observer(

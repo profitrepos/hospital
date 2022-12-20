@@ -5,4 +5,8 @@ export const ProcedureModel = AssignmentModel.named("Procedure").props({
   type: types.literal("Процедуры"),
 })
 
+export const ProceduresStore = types.model("ProceduresStore").props({
+  items: types.optional(types.array(ProcedureModel), []),
+})
+
 export interface Procedure extends Instance<typeof ProcedureModel> {}

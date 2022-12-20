@@ -5,4 +5,8 @@ export const ResearchAssignedModel = AssignmentModel.named("ResearchAssigned").p
   type: types.literal("Исследования"),
 })
 
+export const ResearchAssignedStore = types.model("ResearchAssignedStore").props({
+  items: types.optional(types.array(ResearchAssignedModel), []),
+})
+
 export interface ResearchAssigned extends Instance<typeof ResearchAssignedModel> {}

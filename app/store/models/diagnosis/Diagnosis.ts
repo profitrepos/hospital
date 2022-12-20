@@ -1,4 +1,5 @@
 import { Instance, types } from "mobx-state-tree"
+import { SubstantiationModel } from "../substantiation/Substantiation"
 
 export const DiagnosisModel = types.model("Diagnosis").props({
   uid: types.string,
@@ -10,9 +11,10 @@ export const DiagnosisModel = types.model("Diagnosis").props({
   kind: types.string,
   type: types.string,
   description: types.string,
+  substantiation: types.maybe(SubstantiationModel),
 })
 
-export const DiagnosisStore = types.model("DiagnosisStore").props({
+export const DiagnosesStore = types.model("DiagnosesStore").props({
   items: types.optional(types.array(DiagnosisModel), []),
 })
 

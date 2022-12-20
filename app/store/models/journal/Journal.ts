@@ -11,8 +11,8 @@ export const JournalModel = types.model("Journal").props({
   chapters: types.array(ChapterModel),
 })
 
-export const JournalStore = types
-  .model("JournalStore")
+export const JournalsStore = types
+  .model("JournalsStore")
   .props({
     items: types.optional(types.array(JournalModel), []),
     activeJournal: types.safeReference(JournalModel),

@@ -16,8 +16,8 @@ export const PatientModel = types.model("Patient").props({
 
 export const SearchPatientModel = PatientModel.named("SearchPatientModel")
 
-export const PatientStore = types
-  .model("PatientStore")
+export const PatientsStore = types
+  .model("PatientsStore")
   .props({
     items: types.optional(types.array(PatientModel), []),
   })

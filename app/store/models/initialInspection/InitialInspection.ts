@@ -10,7 +10,7 @@ export const InitialInspectionModel = types.model("InitialInspection").props({
   chapters: types.array(ChapterModel),
 })
 
-export const InitialInspectionStore = types.model("InitialInspectionStore").props({
+export const InitialInspectionsStore = types.model("InitialInspectionsStore").props({
   items: types.optional(types.array(InitialInspectionModel), []),
 })
 

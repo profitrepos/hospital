@@ -5,4 +5,8 @@ export const MixtureModel = AssignmentModel.named("Mixture").props({
   type: types.literal("Смеси"),
 })
 
+export const MixturesStore = types.model("MixturesStore").props({
+  items: types.optional(types.array(MixtureModel), []),
+})
+
 export interface Mixture extends Instance<typeof MixtureModel> {}

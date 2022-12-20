@@ -10,7 +10,7 @@ export const OperationProtocolModel = types.model("OperationProtocol").props({
   protocol: types.string,
 })
 
-export const OperationProtocolStore = types.model("OperationProtocolStore").props({
+export const OperationProtocolsStore = types.model("OperationProtocolsStore").props({
   items: types.optional(types.array(OperationProtocolModel), []),
 })
 

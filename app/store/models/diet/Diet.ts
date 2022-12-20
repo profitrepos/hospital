@@ -5,4 +5,8 @@ export const DietModel = AssignmentModel.named("Diet").props({
   type: types.literal("Диета"),
 })
 
+export const DietsStore = types.model("DietsStore").props({
+  items: types.optional(types.array(DietModel), []),
+})
+
 export interface Diet extends Instance<typeof DietModel> {}

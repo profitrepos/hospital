@@ -10,7 +10,7 @@ export const ExtractModel = types.model("Extract").props({
   chapters: types.array(ChapterModel),
 })
 
-export const ExtractStore = types.model("ExtractStore").props({
+export const ExtractsStore = types.model("ExtractsStore").props({
   items: types.optional(types.array(ExtractModel), []),
 })
 

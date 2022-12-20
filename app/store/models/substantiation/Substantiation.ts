@@ -10,7 +10,7 @@ export const SubstantiationModel = types.model("Substantiation").props({
   chapters: types.array(ChapterModel),
 })
 
-export const SubstantiationStore = types.model("SubstantiationStore").props({
+export const SubstantiationsStore = types.model("SubstantiationsStore").props({
   items: types.optional(types.array(SubstantiationModel), []),
 })
 

@@ -13,7 +13,7 @@ export const ConsultationModel = types.model("Consultation").props({
   conclusion: types.string,
 })
 
-export const ConsultationStore = types.model("ConsultationStore").props({
+export const ConsultationsStore = types.model("ConsultationsStore").props({
   items: types.optional(types.array(ConsultationModel), []),
 })
 

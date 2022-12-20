@@ -11,7 +11,7 @@ export const EpicrisisModel = types.model("Epicrisis").props({
   chapters: types.array(ChapterModel),
 })
 
-export const EpicrisisStore = types.model("EpicrisisStore").props({
+export const EpicrisesStore = types.model("EpicrisesStore").props({
   items: types.optional(types.array(EpicrisisModel), []),
 })
 

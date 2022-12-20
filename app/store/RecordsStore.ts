@@ -1,34 +1,34 @@
 import { flow, Instance, toGenerator, types } from "mobx-state-tree"
 import { getMedicalRecords } from "../services/passbase"
-import { AnalysisStore } from "./models/analysis/Analysis"
-import { ConsultationStore } from "./models/consultation/Consultation"
-import { ExtractStore } from "./models/extract/Extract"
-import { EpicrisisStore } from "./models/epicrisis/Epicrisis"
-import { InitialInspectionStore } from "./models/initialInspection/InitialInspection"
-import { JournalStore } from "./models/journal/Journal"
-import { OperationProtocolStore } from "./models/operationProtocol/OperationProtocol"
-import { PatientStore } from "./models/patient/Patient"
-import { DiagnosisStore } from "./models/diagnosis/Diagnosis"
+import { AnalyzesStore } from "./models/analysis/Analysis"
+import { ConsultationsStore } from "./models/consultation/Consultation"
+import { ExtractsStore } from "./models/extract/Extract"
+import { EpicrisesStore } from "./models/epicrisis/Epicrisis"
+import { InitialInspectionsStore } from "./models/initialInspection/InitialInspection"
+import { JournalsStore } from "./models/journal/Journal"
+import { OperationProtocolsStore } from "./models/operationProtocol/OperationProtocol"
+import { PatientsStore } from "./models/patient/Patient"
+import { DiagnosesStore } from "./models/diagnosis/Diagnosis"
 import { ResearchStore } from "./models/research/Research"
 import { NormalizedRecords, RecordList, RecordType } from "../interfaces"
-import { SubstantiationStore } from "./models/substantiation/Substantiation"
+import { SubstantiationsStore } from "./models/substantiation/Substantiation"
 
 const RecordsStore = types
   .model("RecordsStore")
   .props({
     loading: false,
     error: types.optional(types.string, ""),
-    analyzes: AnalysisStore,
-    consultations: ConsultationStore,
-    diagnosis: DiagnosisStore,
-    epicrises: EpicrisisStore,
-    extracts: ExtractStore,
-    initialInspections: InitialInspectionStore,
-    journals: JournalStore,
-    operationProtocols: OperationProtocolStore,
-    patients: PatientStore,
+    analyzes: AnalyzesStore,
+    consultations: ConsultationsStore,
+    diagnosis: DiagnosesStore,
+    epicrises: EpicrisesStore,
+    extracts: ExtractsStore,
+    initialInspections: InitialInspectionsStore,
+    journals: JournalsStore,
+    operationProtocols: OperationProtocolsStore,
+    patients: PatientsStore,
     research: ResearchStore,
-    substantiations: SubstantiationStore,
+    substantiations: SubstantiationsStore,
     filter: "all", //TODO: сделать фильтр здесь, получать в сторах через getRootStore
   })
   .actions((self) => ({
@@ -49,7 +49,6 @@ const RecordsStore = types
           })
         }
       } catch (error) {
-        console.log("ERROR --- ", error)
         self.error = "errors.network"
       } finally {
         self.loading = false
