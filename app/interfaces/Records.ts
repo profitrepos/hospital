@@ -9,6 +9,7 @@ import {
   OperationProtocol,
   Patient,
   Research,
+  Substantiation,
 } from "../store"
 
 export type RecordType =
@@ -22,6 +23,7 @@ export type RecordType =
   | OperationProtocol
   | Patient
   | Research
+  | Substantiation
 
 export interface RecordsInfo {
   error: string
@@ -30,16 +32,17 @@ export interface RecordsInfo {
 
 export interface NormalizedRecords
   extends Partial<{
-    analysis: Analysis[]
-    consultation: Consultation[]
+    analyzes: Analysis[]
+    consultationы: Consultation[]
     diagnosis: Diagnosis[]
-    epicrisis: Epicrisis[]
-    extract: Extract[]
-    initialInspection: InitialInspection[]
-    journal: Journal[]
-    operationProtocol: OperationProtocol[]
-    patient: Patient[]
+    epicrises: Epicrisis[]
+    extracts: Extract[]
+    initialInspections: InitialInspection[]
+    journals: Journal[]
+    operationProtocols: OperationProtocol[]
+    patients: Patient[]
     research: Research[]
+    substantiations: Substantiation[]
   }> {}
 
 export interface RecordListItem {
@@ -51,6 +54,6 @@ type RecordsMap<T> = {
   [Key in keyof T]: RecordListItem
 }
 
-export interface RecordList extends RecordsMap<Omit<NormalizedRecords, "journal" | "patient">> {}
+export interface RecordList extends RecordsMap<Omit<NormalizedRecords, "journals" | "patients">> {}
 
 export interface JournalListItem extends Pick<Journal, "doc" | "date" | "uid"> {}

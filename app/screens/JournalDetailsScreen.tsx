@@ -13,8 +13,8 @@ export const JournalDetailsScreen: FC<
   StackScreenProps<MedicalCardTabsParamList, "JournalDetails">
 > = observer(function JournalDetailsScreen({ navigation }) {
   const { records } = useStores()
-  const { journal } = records
-  const { activeJournal } = journal
+  const { journals } = records
+  const { activeJournal } = journals
 
   return (
     <ScreenWithActionSheet>

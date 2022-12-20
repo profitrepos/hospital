@@ -11,22 +11,25 @@ import { PatientStore } from "./models/patient/Patient"
 import { DiagnosisStore } from "./models/diagnosis/Diagnosis"
 import { ResearchStore } from "./models/research/Research"
 import { NormalizedRecords, RecordList, RecordType } from "../interfaces"
+import { SubstantiationStore } from "./models/substantiation/Substantiation"
 
 const RecordsStore = types
   .model("RecordsStore")
   .props({
     loading: false,
     error: types.optional(types.string, ""),
-    analysis: AnalysisStore,
-    consultation: ConsultationStore,
+    analyzes: AnalysisStore,
+    consultations: ConsultationStore,
     diagnosis: DiagnosisStore,
-    epicrisis: EpicrisisStore,
-    extract: ExtractStore,
-    initialInspection: InitialInspectionStore,
-    journal: JournalStore,
-    operationProtocol: OperationProtocolStore,
-    patient: PatientStore,
+    epicrises: EpicrisisStore,
+    extracts: ExtractStore,
+    initialInspections: InitialInspectionStore,
+    journals: JournalStore,
+    operationProtocols: OperationProtocolStore,
+    patients: PatientStore,
     research: ResearchStore,
+    substantiations: SubstantiationStore,
+    filter: "all", //TODO: сделать фильтр здесь, получать в сторах через getRootStore
   })
   .actions((self) => ({
     load: flow(function* (orgId: string, cardId: string) {
@@ -46,6 +49,7 @@ const RecordsStore = types
           })
         }
       } catch (error) {
+        console.log("ERROR --- ", error)
         self.error = "errors.network"
       } finally {
         self.loading = false
@@ -59,14 +63,15 @@ const RecordsStore = types
     get recordsList(): RecordList {
       const list: RecordList = {}
       const neededElems = [
-        "analysis",
-        "consultation",
+        "analyzes",
+        "consultations",
         "diagnosis",
-        "epicrisis",
-        "extract",
-        "initialInspection",
-        "operationProtocol",
+        "epicrises",
+        "extracts",
+        "initialInspections",
+        "operationProtocols",
         "research",
+        "substantiations",
       ]
 
       for (const storeKey of Object.keys(self)) {
@@ -84,40 +89,43 @@ const RecordsStore = types
 
 export const createRecordsStoreDefault = () =>
   types.optional(RecordsStore, {
-    analysis: {},
-    consultation: {},
+    analyzes: {},
+    consultations: {},
     diagnosis: {},
-    epicrisis: {},
-    extract: {},
-    initialInspection: {},
-    journal: {},
-    operationProtocol: {},
-    patient: {},
+    epicrises: {},
+    extracts: {},
+    initialInspections: {},
+    journals: {},
+    operationProtocols: {},
+    patients: {},
     research: {},
+    substantiations: {},
   })
 
 const recordsDictionary = {
-  Анализ: "analysis",
-  Консультация: "consultation",
+  Анализ: "analyzes",
+  Консультация: "consultations",
   Диагноз: "diagnosis",
-  Эпикриз: "epicrisis",
-  Выписка: "extract",
-  "Первичный осмотр": "initialInspection",
-  Дневник: "journal",
-  "Протокол операции": "operationProtocol",
-  Пациент: "patient",
+  Эпикриз: "epicrises",
+  Выписка: "extracts",
+  "Первичный осмотр": "initialInspections",
+  Дневник: "journals",
+  "Протокол операции": "operationProtocols",
+  Пациент: "patients",
   Исследование: "research",
+  "Обоснование диагноза": "substantiations",
 } as const
 
 const recordsListDictionary = {
-  analysis: "Результаты анализов",
-  consultation: "Консультация",
+  analyzes: "Результаты анализов",
+  consultations: "Консультация",
   diagnosis: "Диагнозы",
-  epicrisis: "Эпикризы",
-  extract: "Выписки",
-  initialInspection: "Первичный осмотр",
-  operationProtocol: "Операции",
+  epicrises: "Эпикризы",
+  extracts: "Выписки",
+  initialInspections: "Первичный осмотр",
+  operationProtocols: "Операции",
   research: "Результаты исследований",
+  substantiations: "Обоснования диагнозов",
 } as const
 
 const normalizeRecords = (data: RecordType[]): NormalizedRecords => {

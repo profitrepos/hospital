@@ -11,8 +11,8 @@ import { spacing } from "../theme"
 export const PatientsDataScreen: FC<StackScreenProps<MedicalCardTabsParamList, "PatientsData">> =
   observer(function PatientsDataScreen({ navigation }) {
     const { records } = useStores()
-    const { loading, patient, error, clearError } = records
-    const { currentPatient } = patient
+    const { loading, patients, error, clearError } = records
+    const { currentPatient } = patients
 
     if (error) {
       return (

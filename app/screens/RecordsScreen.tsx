@@ -9,13 +9,13 @@ import { useStores } from "../store"
 import { spacing } from "../theme"
 
 const navigateToDictionary = {
-  analysis: "AnalysisRecords",
-  consultation: "ConsultationRecords",
+  analyzes: "AnalyzesRecords",
+  consultations: "ConsultationsRecords",
   diagnosis: "DiagnosisRecords",
   epicrisis: "EpicrisisRecords",
-  extract: "ExtractRecords",
-  initialInspection: "InitialInspectionRecords",
-  operationProtocol: "OperationProtocolRecords",
+  extracts: "ExtractsRecords",
+  initialInspections: "InitialInspectionsRecords",
+  operationProtocols: "OperationProtocolsRecords",
   research: "ResearchRecords",
 }
 

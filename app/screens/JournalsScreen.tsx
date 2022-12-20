@@ -12,8 +12,8 @@ import { MedicalCardTabsParamList } from "../navigators"
 export const JournalsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Journals">> = observer(
   function JournalsScreen({ navigation }) {
     const { records } = useStores()
-    const { loading, journal, clearError, error } = records
-    const { list, setActiveJournal } = journal
+    const { loading, journals, clearError, error } = records
+    const { list, setActiveJournal } = journals
 
     const journalHandler = (item: JournalListItem) => {
       setActiveJournal(item.uid)
