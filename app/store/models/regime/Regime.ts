@@ -6,7 +6,7 @@ export const RegimeModel = AssignmentModel.named("Regime").props({
 })
 
 export const RegimesStore = types.model("RegimesStore").props({
-  items: types.optional(types.array(RegimeModel), []),
+  map: types.map(types.array(RegimeModel)),
 })
 
 export interface Regime extends Instance<typeof RegimeModel> {}

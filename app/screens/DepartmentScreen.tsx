@@ -13,16 +13,18 @@ import { delay } from "../utils/delay"
 
 export const DepartmentScreen: FC<StackScreenProps<HomeTabParamList, "Department">> = observer(
   function DepartmentScreen({ navigation }) {
-    const { medicalCard, userInfo, records } = useStores()
+    const { medicalCard, userInfo, records, assignments } = useStores()
     const { all, allSearch, setSearch, loading, error, clearError, load } = medicalCard
     const { activeOrg } = userInfo
     const { load: recordsLoad } = records
+    const { load: assignmentsLoad } = assignments
 
     const medCardHandler = async (item: MedicalCardListItem) => {
       if (activeOrg) {
         navigation.navigate("MedicalCard")
         await delay(200)
         recordsLoad(activeOrg.organisationId, item.uid)
+        assignmentsLoad(activeOrg.organisationId, item.uid)
       }
     }
 

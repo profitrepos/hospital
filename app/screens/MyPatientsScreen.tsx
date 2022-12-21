@@ -13,11 +13,12 @@ import { delay } from "../utils/delay"
 
 export const MyPatientsScreen: FC<StackScreenProps<HomeTabParamList, "MyPatients">> = observer(
   function MyPatientsScreen({ navigation }) {
-    const { userInfo, medicalCard, records } = useStores()
+    const { userInfo, medicalCard, records, assignments } = useStores()
     const { my, mySearch, setSearch, loading, load, error, clearError } = medicalCard
 
     const { activeOrg } = userInfo
     const { load: recordsLoad } = records
+    const { load: assignmentsLoad } = assignments
 
     const onSearchChange = (value: string) => {
       setSearch(value, "mySearch")
@@ -28,6 +29,7 @@ export const MyPatientsScreen: FC<StackScreenProps<HomeTabParamList, "MyPatients
         navigation.navigate("MedicalCard")
         await delay(200)
         recordsLoad(activeOrg.organisationId, item.uid)
+        assignmentsLoad(activeOrg.organisationId, item.uid)
       }
     }
 

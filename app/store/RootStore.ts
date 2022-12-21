@@ -4,6 +4,7 @@ import { createAppStoreDefault } from "./AppStore"
 import { createUserInfoStoreDefault } from "./UserInfoStore"
 import { createRecordsStoreDefault } from "./RecordsStore"
 import { createSearchMedicalCardStoreDefault } from "./SearchMedicalCardStore"
+import { createAssignmentsStoreDefault } from "./AssignmentsStore"
 
 export const RootStoreModel = types.model("RootStore").props({
   app: createAppStoreDefault(),
@@ -11,6 +12,7 @@ export const RootStoreModel = types.model("RootStore").props({
   userInfo: createUserInfoStoreDefault(),
   records: createRecordsStoreDefault(),
   search: createSearchMedicalCardStoreDefault(),
+  assignments: createAssignmentsStoreDefault(),
 })
 
 export interface RootStore extends Instance<typeof RootStoreModel> {}

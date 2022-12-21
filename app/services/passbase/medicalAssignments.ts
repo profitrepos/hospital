@@ -5,7 +5,7 @@ export const getMedicalAssignments = async (orgId: string, cardId: string) => {
   const params = new URLSearchParams()
 
   params.append("orgId", orgId)
-  params.append("searchRequest", cardId)
+  params.append("cardId", cardId)
 
   const { data } = await api.apisauce.post<AssignmentsInfo>(
     "getMedicalAssignments",

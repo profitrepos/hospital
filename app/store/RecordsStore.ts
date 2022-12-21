@@ -29,7 +29,7 @@ const RecordsStore = types
     patients: PatientsStore,
     research: ResearchStore,
     substantiations: SubstantiationsStore,
-    filter: "all", //TODO: сделать фильтр здесь, получать в сторах через getRootStore
+    filter: "all", //TODO: сделать фильтр здесь, получать в сторах с записями через getRootStore
   })
   .actions((self) => ({
     load: flow(function* (orgId: string, cardId: string) {

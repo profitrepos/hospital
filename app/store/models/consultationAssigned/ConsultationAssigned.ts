@@ -5,8 +5,8 @@ export const ConsultationAssignedModel = AssignmentModel.named("ConsultationAssi
   type: types.literal("Консультации"),
 })
 
-export const ConsultationAssignedStore = types.model("ConsultationAssignedStore").props({
-  items: types.optional(types.array(ConsultationAssignedModel), []),
+export const ConsultationsAssignedStore = types.model("ConsultationsAssignedStore").props({
+  map: types.map(types.array(ConsultationAssignedModel)),
 })
 
 export interface ConsultationAssigned extends Instance<typeof ConsultationAssignedModel> {}

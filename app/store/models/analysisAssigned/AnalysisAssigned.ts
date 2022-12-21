@@ -6,7 +6,7 @@ export const AnalysisAssignedModel = AssignmentModel.named("AnalysisAssigned").p
 })
 
 export const AnalyzesAssignedStore = types.model("AnalyzesAssignedStore").props({
-  items: types.optional(types.array(AnalysisAssignedModel), []),
+  map: types.map(types.array(AnalysisAssignedModel)),
 })
 
 export interface AnalysisAssigned extends Instance<typeof AnalysisAssignedModel> {}

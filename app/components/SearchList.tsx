@@ -15,9 +15,10 @@ interface SearchListProps {}
 export const SearchList: FC<SearchListProps> = observer(() => {
   const [patientIndex, setPatientIndex] = useState(0)
 
-  const { search, userInfo, records } = useStores()
+  const { search, userInfo, records, assignments } = useStores()
   const { activeOrg } = userInfo
-  const { load } = records
+  const { load: recordsLoad } = records
+  const { load: assignmentsLoad } = assignments
   const {
     loading,
     patientsList,
@@ -39,7 +40,8 @@ export const SearchList: FC<SearchListProps> = observer(() => {
     if (activeOrg) {
       navigate("MedicalCard")
       await delay(200)
-      load(activeOrg.organisationId, item.uid)
+      recordsLoad(activeOrg.organisationId, item.uid)
+      assignmentsLoad(activeOrg.organisationId, item.uid)
     }
   }
 
