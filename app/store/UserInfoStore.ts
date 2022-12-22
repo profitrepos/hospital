@@ -32,7 +32,8 @@ const UserInfoStore = types
         }
       } catch (error) {
         console.log("ERROR ---> ", error)
-        self.error = "errors.network"
+        // self.error = "errors.network"
+        self.error = error
       } finally {
         self.loading = false
       }

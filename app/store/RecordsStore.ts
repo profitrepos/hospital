@@ -49,7 +49,9 @@ const RecordsStore = types
           })
         }
       } catch (error) {
-        self.error = "errors.network"
+        console.log("error ---> ", error)
+        // self.error = "errors.network"
+        self.error = error
       } finally {
         self.loading = false
       }

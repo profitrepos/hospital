@@ -6,7 +6,7 @@ export const MedicineModel = AssignmentModel.named("Medicine").props({
 })
 
 export const MedicinesStore = types.model("MedicinesStore").props({
-  map: types.map(types.array(MedicineModel)),
+  map: types.optional(types.map(types.array(MedicineModel)), {}),
 })
 
 export interface Medicine extends Instance<typeof MedicineModel> {}

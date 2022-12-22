@@ -12,15 +12,7 @@ import { observer } from "mobx-react-lite"
 export const SearchPatientsScreen: FC<StackScreenProps<HomeTabParamList, "SearchPatients">> =
   observer(function SearchPatientsScreen() {
     const { search } = useStores()
-    const {
-      searchText,
-      setSearchText,
-      error,
-      clearError,
-      activePatient,
-      onlyClosed,
-      setOnlyClosed,
-    } = search
+    const { searchText, setSearchText, error, clearError, activePatient } = search
 
     if (error) {
       return (
@@ -35,13 +27,6 @@ export const SearchPatientsScreen: FC<StackScreenProps<HomeTabParamList, "Search
         <View style={$container}>
           <View style={$header}>
             <BackButton />
-            <Button
-              style={{ flex: 1, marginHorizontal: 10 }}
-              onPress={() => setOnlyClosed(!onlyClosed)}
-              preset={onlyClosed ? "default" : "outline"}
-            >
-              {onlyClosed ? "Открытые" : "Закрытые"}
-            </Button>
             <Avatar />
           </View>
           <ScreenTitle text="searchScreen.title" />

@@ -34,7 +34,8 @@ const MedicalCardStore = types
           self.medCards = cast(data)
         }
       } catch (error) {
-        self.error = "errors.network"
+        // self.error = "errors.network"
+        self.error = error
       } finally {
         self.loading = false
       }

@@ -46,7 +46,8 @@ export const AssignmentsStore = types
         }
       } catch (error) {
         console.log("error ---> ", error)
-        self.error = "errors.network"
+        // self.error = "errors.network"
+        self.error = error
       } finally {
         self.loading = false
       }
@@ -77,33 +78,27 @@ const assignmentsDictionary = {
   Процедуры: "procedures",
   Режим: "regimes",
   Исследования: "researhAssigned",
-}
+} as const
 
 const normalizeAssignments = (data: AssignmentsForDay[]): NormalizedAssignments => {
-  const result = {
-    analyzesAssigned: new Map(),
-    consultationsAssigned: new Map(),
-    diets: new Map(),
-    medicines: new Map(),
-    mixtures: new Map(),
-    procedures: new Map(),
-    regimes: new Map(),
-    researhAssigned: new Map(),
-  }
+  const result = {}
 
   for (const day of data) {
     const { date, assignments } = day
 
     for (const assignment of assignments) {
-      const resultKey = assignmentsDictionary[assignment.type] as keyof typeof result
+      const resultKey = assignmentsDictionary[assignment.type]
 
       const currentMap = result[resultKey] as Map<string, AssignmentType[]>
-
-      if (currentMap.has(date)) {
-        const prevArr = currentMap.get(date)
-        currentMap.set(date, [...prevArr, assignment])
+      if (currentMap) {
+        if (currentMap.has(date)) {
+          const prevArr = currentMap.get(date)
+          currentMap.set(date, [...prevArr, assignment])
+        } else {
+          currentMap.set(date, [assignment])
+        }
       } else {
-        currentMap.set(date, [assignment])
+        result[resultKey] = new Map().set(date, [assignment])
       }
     }
   }

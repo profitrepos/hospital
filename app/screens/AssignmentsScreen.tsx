@@ -24,6 +24,15 @@ export const AssignmentsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "A
       researhAssigned,
     } = assignments
 
+    // console.log(analyzesAssigned.map.has("asdasd"))
+    // console.log(consultationsAssigned.map.has("asdasd"))
+    // console.log(diets.map.has("asdasd"))
+    // console.log(medicines.map.has("asdasd"))
+    // console.log(mixtures.map.has("asdasd"))
+    // console.log(procedures.map.has("asdasd"))
+    // console.log(regimes.map.has("asdasd"))
+    // console.log(researhAssigned.map.has("asdasd"))
+
     if (error) {
       return (
         <AppModal containerStyle={$modal}>
