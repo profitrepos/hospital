@@ -4,6 +4,10 @@ import { getMedicalCards } from "../services/passbase"
 import { getRootStore } from "./helpers/getRootStore"
 import { MedicalCardModel } from "./models/medicalCard/MedicalCard"
 
+//TODO: Добавить поиск с задержкой на главные экраны
+//TODO: Добавить фильтры и поиск на экран с медзаписями
+//TODO: Сделать список назначений
+
 const MedicalCardStore = types
   .model("MedicalCardStore")
   .props({

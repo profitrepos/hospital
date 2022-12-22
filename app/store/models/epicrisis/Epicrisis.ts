@@ -1,4 +1,5 @@
 import { Instance, types } from "mobx-state-tree"
+import { getRootStore } from "../../helpers/getRootStore"
 import { ChapterModel } from "../common-models/common-models"
 
 export const EpicrisisModel = types.model("Epicrisis").props({
@@ -11,8 +12,17 @@ export const EpicrisisModel = types.model("Epicrisis").props({
   chapters: types.array(ChapterModel),
 })
 
-export const EpicrisesStore = types.model("EpicrisesStore").props({
-  items: types.optional(types.array(EpicrisisModel), []),
-})
+export const EpicrisesStore = types
+  .model("EpicrisesStore")
+  .props({
+    items: types.optional(types.array(EpicrisisModel), []),
+  })
+  .views((self) => ({
+    get filteredItems(): Epicrisis[] {
+      const { records } = getRootStore(self)
+      const { search } = records
+      return self.items.filter((epicris) => epicris.doc.includes(search)) //TODO: как фильтровать?
+    },
+  }))
 
 export interface Epicrisis extends Instance<typeof EpicrisisModel> {}

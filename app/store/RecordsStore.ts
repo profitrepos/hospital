@@ -1,4 +1,4 @@
-import { flow, Instance, toGenerator, types } from "mobx-state-tree"
+import { flow, Instance, toGenerator, types, cast } from "mobx-state-tree"
 import { getMedicalRecords } from "../services/passbase"
 import { AnalyzesStore } from "./models/analysis/Analysis"
 import { ConsultationsStore } from "./models/consultation/Consultation"
@@ -12,6 +12,18 @@ import { DiagnosesStore } from "./models/diagnosis/Diagnosis"
 import { ResearchStore } from "./models/research/Research"
 import { NormalizedRecords, RecordList, RecordType } from "../interfaces"
 import { SubstantiationsStore } from "./models/substantiation/Substantiation"
+
+const allCategories = [
+  "analyzes",
+  "consultations",
+  "diagnosis",
+  "epicrises",
+  "extracts",
+  "initialInspections",
+  "operationProtocols",
+  "research",
+  "substantiations",
+]
 
 const RecordsStore = types
   .model("RecordsStore")
@@ -29,7 +41,8 @@ const RecordsStore = types
     patients: PatientsStore,
     research: ResearchStore,
     substantiations: SubstantiationsStore,
-    filter: "all", //TODO: сделать фильтр здесь, получать в сторах с записями через getRootStore
+    search: "",
+    selectedCategories: types.optional(types.array(types.string), allCategories),
   })
   .actions((self) => ({
     load: flow(function* (orgId: string, cardId: string) {
@@ -59,28 +72,28 @@ const RecordsStore = types
     clearError: () => {
       self.error = ""
     },
+    setSelectedCategories: (categories: string[]) => {
+      self.selectedCategories = cast(categories)
+    },
+    setSearch: (text: string) => {
+      self.search = text
+    },
+  }))
+  .views((self) => ({
+    get availableCategories() {
+      // Категории для фильтра
+      return allCategories.filter(
+        (category) => self[category].items.length > 0 && self.selectedCategories.includes(category),
+      )
+    },
   }))
   .views((self) => ({
     get recordsList(): RecordList {
       const list: RecordList = {}
-      const neededElems = [
-        "analyzes",
-        "consultations",
-        "diagnosis",
-        "epicrises",
-        "extracts",
-        "initialInspections",
-        "operationProtocols",
-        "research",
-        "substantiations",
-      ]
-
-      for (const storeKey of Object.keys(self)) {
-        if (neededElems.includes(storeKey) && self[storeKey].items.length > 0) {
-          list[storeKey] = {
-            name: recordsListDictionary[storeKey],
-            count: self[storeKey].items.length,
-          }
+      for (const key of self.availableCategories) {
+        list[key] = {
+          name: recordsListDictionary[key],
+          count: self[key].filteredItems.length,
         }
       }
 

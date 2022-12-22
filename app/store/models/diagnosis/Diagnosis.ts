@@ -1,4 +1,5 @@
 import { Instance, types } from "mobx-state-tree"
+import { getRootStore } from "../../helpers/getRootStore"
 import { SubstantiationModel } from "../substantiation/Substantiation"
 
 export const DiagnosisModel = types.model("Diagnosis").props({
@@ -14,8 +15,17 @@ export const DiagnosisModel = types.model("Diagnosis").props({
   substantiation: types.maybe(SubstantiationModel),
 })
 
-export const DiagnosesStore = types.model("DiagnosesStore").props({
-  items: types.optional(types.array(DiagnosisModel), []),
-})
+export const DiagnosesStore = types
+  .model("DiagnosesStore")
+  .props({
+    items: types.optional(types.array(DiagnosisModel), []),
+  })
+  .views((self) => ({
+    get filteredItems(): Diagnosis[] {
+      const { records } = getRootStore(self)
+      const { search } = records
+      return self.items.filter((diagnosis) => diagnosis.description.includes(search))
+    },
+  }))
 
 export interface Diagnosis extends Instance<typeof DiagnosisModel> {}
