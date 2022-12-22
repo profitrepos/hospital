@@ -65,9 +65,10 @@ export const AppStore = types
           self.isVerify = false
         }
       } catch (error) {
-        console.log("error ---> ", error)
+        console.log("resetPassword error ---> ", error)
 
-        self.error = "errors.unknown"
+        // self.error = "errors.unknown"
+        self.error = error
       }
     }),
   }))

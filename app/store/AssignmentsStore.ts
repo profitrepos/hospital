@@ -1,17 +1,14 @@
-import { flow, toGenerator, types } from "mobx-state-tree"
-import { AssignmentsForDay, AssignmentType, NormalizedAssignments } from "../interfaces/Assignments"
+import { cast, flow, toGenerator, types } from "mobx-state-tree"
+import { AssignmentsForDay, NormalizedAssignments } from "../interfaces/Assignments"
 import { getMedicalAssignments } from "../services/passbase"
-import { AnalysisAssigned, AnalyzesAssignedStore } from "./models/analysisAssigned/AnalysisAssigned"
-import {
-  ConsultationAssigned,
-  ConsultationsAssignedStore,
-} from "./models/consultationAssigned/ConsultationAssigned"
-import { Diet, DietsStore } from "./models/diet/Diet"
-import { Medicine, MedicinesStore } from "./models/medicine/Medicine"
-import { Mixture, MixturesStore } from "./models/mixture/Mixture"
-import { Procedure, ProceduresStore } from "./models/procedure/Procedure"
-import { Regime, RegimesStore } from "./models/regime/Regime"
-import { ResearchAssigned, ResearchAssignedStore } from "./models/researchAssigned/ResearchAssigned"
+import { AnalyzesAssignedStore } from "./models/analysisAssigned/AnalysisAssigned"
+import { ConsultationsAssignedStore } from "./models/consultationAssigned/ConsultationAssigned"
+import { DietsStore } from "./models/diet/Diet"
+import { MedicinesStore } from "./models/medicine/Medicine"
+import { MixturesStore } from "./models/mixture/Mixture"
+import { ProceduresStore } from "./models/procedure/Procedure"
+import { RegimesStore } from "./models/regime/Regime"
+import { ResearchAssignedStore } from "./models/researchAssigned/ResearchAssigned"
 
 export const AssignmentsStore = types
   .model("AssignmentsStore")
@@ -41,11 +38,11 @@ export const AssignmentsStore = types
           const normalizedAssignments = normalizeAssignments(data)
 
           Object.keys(normalizedAssignments).forEach((key) => {
-            self[key].map = normalizedAssignments[key]
+            self[key].map = cast(normalizedAssignments[key])
           })
         }
       } catch (error) {
-        console.log("error ---> ", error)
+        console.log("AssignmentsStore load error ---> ", error)
         // self.error = "errors.network"
         self.error = error
       } finally {
@@ -89,16 +86,16 @@ const normalizeAssignments = (data: AssignmentsForDay[]): NormalizedAssignments 
     for (const assignment of assignments) {
       const resultKey = assignmentsDictionary[assignment.type]
 
-      const currentMap = result[resultKey] as Map<string, AssignmentType[]>
+      const currentMap = result[resultKey]
       if (currentMap) {
-        if (currentMap.has(date)) {
-          const prevArr = currentMap.get(date)
-          currentMap.set(date, [...prevArr, assignment])
+        if (currentMap[date]) {
+          const prevArr = currentMap[date]
+          currentMap[date] = [...prevArr, assignment]
         } else {
-          currentMap.set(date, [assignment])
+          currentMap[date] = [assignment]
         }
       } else {
-        result[resultKey] = new Map().set(date, [assignment])
+        result[resultKey] = { [date]: [assignment] }
       }
     }
   }

@@ -31,7 +31,7 @@ const UserInfoStore = types
           self.organizations = cast(data)
         }
       } catch (error) {
-        console.log("ERROR ---> ", error)
+        console.log("UserInfoStore load error ---> ", error)
         // self.error = "errors.network"
         self.error = error
       } finally {

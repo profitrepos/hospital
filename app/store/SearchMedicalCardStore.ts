@@ -44,7 +44,10 @@ const SearchMedicalCardStore = types
           }
         }
       } catch (error) {
-        self.error = "errors.network"
+        console.log("searchMedCards error ----> ", error)
+
+        // self.error = "errors.network"
+        self.error = error
       } finally {
         self.loading = false
       }
@@ -65,7 +68,7 @@ const SearchMedicalCardStore = types
           self.medCards = cast(data)
         }
       } catch (error) {
-        console.log("ERROR ----- > ", error)
+        console.log("searchByPatient error ----- > ", error)
         // self.error = "errors.network"
         self.error = error
       } finally {

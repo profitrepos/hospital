@@ -49,7 +49,7 @@ const RecordsStore = types
           })
         }
       } catch (error) {
-        console.log("error ---> ", error)
+        console.log("RecordsStore load error ---> ", error)
         // self.error = "errors.network"
         self.error = error
       } finally {
