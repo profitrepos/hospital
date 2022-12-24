@@ -4,14 +4,30 @@ import { View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { ScreenTitle } from "../components/ui"
 import { MedicalCardTabsParamList, navigateToDictionary } from "../navigators"
-import { AppError, AppModal, RecordsMenu, ScreenWithActionSheet } from "../components"
+import {
+  AppError,
+  AppModal,
+  RecordsFilter,
+  RecordsMenu,
+  ScreenWithActionSheet,
+} from "../components"
 import { useStores } from "../store"
 import { spacing } from "../theme"
 
 export const RecordsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Records">> = observer(
   function RecordsScreen({ navigation }) {
     const { records } = useStores()
-    const { loading, recordsMenu, error, clearError } = records
+    const {
+      loading,
+      recordsMenu,
+      error,
+      clearError,
+      search,
+      setSearch,
+      setSelectedCategories,
+      selectedCategories,
+      availableCategories,
+    } = records
 
     const handlerRecord = (key: string) => {
       navigation.navigate(navigateToDictionary[key])
@@ -30,6 +46,14 @@ export const RecordsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Recor
         <View style={$root}>
           <View style={$records}>
             <ScreenTitle text="recordsScreen.title" />
+            <RecordsFilter
+              availableCategories={availableCategories}
+              selectedCategories={selectedCategories}
+              setSelectedCategories={setSelectedCategories}
+              style={$filter}
+              search={search}
+              setSearch={setSearch}
+            />
             <View style={$listContainer}>
               <RecordsMenu records={recordsMenu} onPress={handlerRecord} />
             </View>
@@ -52,4 +76,7 @@ const $listContainer: ViewStyle = {
 }
 const $modal: ViewStyle = {
   backgroundColor: "#fff",
+}
+const $filter: ViewStyle = {
+  paddingHorizontal: spacing.medium,
 }

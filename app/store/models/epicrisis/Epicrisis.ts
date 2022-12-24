@@ -21,7 +21,9 @@ export const EpicrisesStore = types
     get filteredItems(): Epicrisis[] {
       const { records } = getRootStore(self)
       const { search } = records
-      return self.items.filter((epicris) => epicris.doc.includes(search)) //TODO: как фильтровать?
+      return self.items.filter((epicris) =>
+        epicris.doc.toLowerCase().includes(search.toLowerCase()),
+      )
     },
   }))
 

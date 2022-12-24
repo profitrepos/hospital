@@ -1,5 +1,4 @@
-import { observer } from "mobx-react-lite"
-import React, { FC, useEffect } from "react"
+import React, { FC } from "react"
 import {
   FlatList,
   ListRenderItem,
@@ -9,11 +8,10 @@ import {
   View,
   ViewStyle,
 } from "react-native"
+import Icon from "react-native-vector-icons/MaterialIcons"
 import { OrganizationListItem } from "../interfaces"
-import { navigate } from "../navigators"
-import { Organization, useStores } from "../store"
+import { Organization } from "../store"
 import { COLORS, spacing } from "../theme"
-import { ArrowRightSVG } from "./svg"
 import { Preloader, Text } from "./ui"
 
 interface OrganizationListProps {
@@ -43,7 +41,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({
             <Text preset="subheading" style={$name} text={item.organisationName} />
             <Text preset="helper" style={$info} text={item.departmentName} />
           </View>
-          <ArrowRightSVG style={$arrow} width={10} height={14} color={COLORS.lightBlue} />
+          <Icon name="chevron-right" style={$arrow} />
         </View>
       </TouchableOpacity>
     )
@@ -92,6 +90,8 @@ const $name: TextStyle = {
 const $info: TextStyle = {
   color: COLORS.subtitleGray,
 }
-const $arrow: ViewStyle = {
+const $arrow: TextStyle = {
   paddingLeft: spacing.large,
+  color: COLORS.lightBlue,
+  fontSize: 24,
 }

@@ -23,7 +23,9 @@ export const AnalyzesStore = types
     get filteredItems(): Analysis[] {
       const { records } = getRootStore(self)
       const { search } = records
-      return self.items.filter((analysis) => analysis.name.includes(search))
+      return self.items.filter((analysis) =>
+        analysis.doc.toLowerCase().includes(search.toLowerCase()),
+      )
     },
   }))
 

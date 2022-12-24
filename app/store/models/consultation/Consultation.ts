@@ -23,7 +23,9 @@ export const ConsultationsStore = types
     get filteredItems(): Consultation[] {
       const { records } = getRootStore(self)
       const { search } = records
-      return self.items.filter((consultation) => consultation.name.includes(search))
+      return self.items.filter((consultation) =>
+        consultation.doc.toLowerCase().includes(search.toLowerCase()),
+      )
     },
   }))
 

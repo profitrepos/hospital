@@ -56,7 +56,10 @@ const ru = {
     refusal: "Отказ",
   },
   search: {
-    medcards: "Поиск",
+    medcards: "Поиск медкарт по пациенту",
+    records: "Поиск записей",
+    myPatients: "Поиск моих пациентов",
+    department: "Поиск по отделению",
   },
   departmentScreen: {
     title: "Приемное отделение",

@@ -1,5 +1,4 @@
-import { observer } from "mobx-react-lite"
-import React, { FC, useState } from "react"
+import React, { FC } from "react"
 import {
   FlatList,
   ListRenderItem,
@@ -9,9 +8,9 @@ import {
   View,
   ViewStyle,
 } from "react-native"
+import Icon from "react-native-vector-icons/MaterialIcons"
 import { MedicalCardListItem } from "../interfaces"
 import { COLORS, spacing } from "../theme"
-import { ArrowRightSVG } from "./svg"
 import { Preloader, Text } from "./ui"
 
 interface MedCardsListProps {
@@ -40,7 +39,7 @@ export const MedCardsList: FC<MedCardsListProps> = ({ data, onPress, loading, on
               text={`${item.age}, госпитализация: ${item.admissionDate}`}
             />
           </View>
-          <ArrowRightSVG style={$arrow} width={10} height={14} color={COLORS.lightBlue} />
+          <Icon name="chevron-right" style={$arrow} />
         </View>
       </TouchableOpacity>
     )
@@ -88,6 +87,8 @@ const $name: TextStyle = {
 const $info: TextStyle = {
   color: COLORS.subtitleGray,
 }
-const $arrow: ViewStyle = {
+const $arrow: TextStyle = {
   paddingLeft: spacing.large,
+  color: COLORS.lightBlue,
+  fontSize: 24,
 }

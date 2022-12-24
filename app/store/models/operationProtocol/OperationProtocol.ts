@@ -1,4 +1,5 @@
 import { Instance, types } from "mobx-state-tree"
+import { getRootStore } from "../../helpers/getRootStore"
 
 export const OperationProtocolModel = types.model("OperationProtocol").props({
   uid: types.string,
@@ -10,8 +11,19 @@ export const OperationProtocolModel = types.model("OperationProtocol").props({
   protocol: types.string,
 })
 
-export const OperationProtocolsStore = types.model("OperationProtocolsStore").props({
-  items: types.optional(types.array(OperationProtocolModel), []),
-})
+export const OperationProtocolsStore = types
+  .model("OperationProtocolsStore")
+  .props({
+    items: types.optional(types.array(OperationProtocolModel), []),
+  })
+  .views((self) => ({
+    get filteredItems(): OperationProtocol[] {
+      const { records } = getRootStore(self)
+      const { search } = records
+      return self.items.filter((protocol) =>
+        protocol.doc.toLowerCase().includes(search.toLowerCase()),
+      )
+    },
+  }))
 
 export interface OperationProtocol extends Instance<typeof OperationProtocolModel> {}

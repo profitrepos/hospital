@@ -7,9 +7,9 @@ import {
   View,
   ViewStyle,
 } from "react-native"
+import Icon from "react-native-vector-icons/MaterialIcons"
 import { PatientListItem } from "../interfaces"
 import { COLORS, spacing } from "../theme"
-import { ArrowRightSVG } from "./svg"
 import { Preloader, Text } from "./ui"
 
 interface PatientsListProps {
@@ -50,7 +50,7 @@ export const PatientsList: FC<PatientsListProps> = ({ loading, onPress, data, sc
               <Text preset="helper" style={$info} text={item.address} numberOfLines={2} />
             )}
           </View>
-          <ArrowRightSVG style={$arrow} width={10} height={14} color={COLORS.lightBlue} />
+          <Icon name="chevron-right" style={$arrow} />
         </View>
       </TouchableOpacity>
     )
@@ -105,6 +105,8 @@ const $name: TextStyle = {
 const $info: TextStyle = {
   color: COLORS.subtitleGray,
 }
-const $arrow: ViewStyle = {
+const $arrow: TextStyle = {
   paddingLeft: spacing.large,
+  color: COLORS.lightBlue,
+  fontSize: 24,
 }

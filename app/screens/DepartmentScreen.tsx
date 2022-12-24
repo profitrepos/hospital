@@ -14,7 +14,8 @@ import { delay } from "../utils/delay"
 export const DepartmentScreen: FC<StackScreenProps<HomeTabParamList, "Department">> = observer(
   function DepartmentScreen({ navigation }) {
     const { medicalCard, userInfo, records, assignments } = useStores()
-    const { all, allSearch, setSearch, loading, error, clearError, load } = medicalCard
+    const { departmentCards, departmentSearch, setSearch, loading, error, clearError, load } =
+      medicalCard
     const { activeOrg } = userInfo
     const { load: recordsLoad } = records
     const { load: assignmentsLoad } = assignments
@@ -53,20 +54,20 @@ export const DepartmentScreen: FC<StackScreenProps<HomeTabParamList, "Department
         </View>
         <View style={[$list, $container]}>
           <TextField
-            value={allSearch}
+            value={departmentSearch}
             onChangeText={setSearch}
             LeftIcon={({ style }) => (
               <SearchSVG height={16} width={24} style={[style, $searchIcon]} color={COLORS.icons} />
             )}
             wrapperStyle={$search}
             inputStyle={$searchInput}
-            placeholderInner={"search.medcards"}
+            placeholderInner={"search.department"}
           />
           <MedCardsList
             onRefresh={loadMedicalCard}
             loading={loading}
             onPress={medCardHandler}
-            data={all}
+            data={departmentCards}
           />
         </View>
       </Screen>

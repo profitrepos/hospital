@@ -24,7 +24,9 @@ export const DiagnosesStore = types
     get filteredItems(): Diagnosis[] {
       const { records } = getRootStore(self)
       const { search } = records
-      return self.items.filter((diagnosis) => diagnosis.description.includes(search))
+      return self.items.filter((diagnosis) =>
+        diagnosis.doc.toLowerCase().includes(search.toLowerCase()),
+      )
     },
   }))
 

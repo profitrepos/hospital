@@ -80,10 +80,10 @@ const RecordsStore = types
     },
   }))
   .views((self) => ({
-    get availableCategories() {
-      // Категории для фильтра
+    get availableCategories(): string[] {
       return allCategories.filter(
-        (category) => self[category].items.length > 0 && self.selectedCategories.includes(category),
+        (category) =>
+          self[category].filteredItems.length > 0 && self.selectedCategories.includes(category),
       )
     },
   }))
@@ -93,7 +93,7 @@ const RecordsStore = types
       for (const key of self.availableCategories) {
         list[key] = {
           name: recordsListDictionary[key],
-          count: self[key].items.length,
+          count: self[key].filteredItems.length,
         }
       }
 

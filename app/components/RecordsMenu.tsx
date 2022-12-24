@@ -1,8 +1,8 @@
 import React, { FC } from "react"
 import { TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
+import Icon from "react-native-vector-icons/MaterialIcons"
 import { RecordMenu } from "../interfaces"
 import { COLORS, spacing } from "../theme"
-import { ArrowRightSVG } from "./svg"
 import { Text } from "./ui"
 
 interface RecordsMenuProps {
@@ -24,7 +24,7 @@ export const RecordsMenu: FC<RecordsMenuProps> = ({ records, onPress }) => {
                 <Text preset="subheading" style={$name} text={records[key].name} />
                 <Text preset="helper" style={$count} text={`(${records[key].count})`} />
               </View>
-              <ArrowRightSVG style={$arrow} width={10} height={14} color={COLORS.lightBlue} />
+              <Icon name="chevron-right" style={$arrow} />
             </View>
           </TouchableOpacity>
         )
@@ -39,8 +39,10 @@ const $values: ViewStyle = {
   flexDirection: "row",
   alignItems: "center",
 }
-const $arrow: ViewStyle = {
+const $arrow: TextStyle = {
   paddingLeft: spacing.large,
+  color: COLORS.lightBlue,
+  fontSize: 24,
 }
 const $item: ViewStyle = {
   flexDirection: "row",

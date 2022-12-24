@@ -65,7 +65,7 @@ export const MyPatientsScreen: FC<StackScreenProps<HomeTabParamList, "MyPatients
             )}
             wrapperStyle={$search}
             inputStyle={$searchInput}
-            placeholderInner={"search.medcards"}
+            placeholderInner={"search.myPatients"}
           />
           <MedCardsList
             onRefresh={loadMedicalCard}

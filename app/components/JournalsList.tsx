@@ -1,8 +1,8 @@
 import React, { FC, memo } from "react"
 import { TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
+import Icon from "react-native-vector-icons/MaterialIcons"
 import { JournalListItem } from "../interfaces"
 import { COLORS, spacing } from "../theme"
-import { ArrowRightSVG } from "./svg"
 import { Preloader, Text } from "./ui"
 
 interface JournalsListProps {
@@ -28,7 +28,7 @@ const Journal: FC<JournalProps> = memo(({ item, onPress }) => {
           <Text preset="subheading" style={$name} text={item.doc} />
           <Text preset="helper" style={$info} text={item.date} />
         </View>
-        <ArrowRightSVG style={$arrow} width={10} height={14} color={COLORS.lightBlue} />
+        <Icon name="chevron-right" style={$arrow} />
       </View>
     </TouchableOpacity>
   )
@@ -71,6 +71,8 @@ const $name: TextStyle = {
 const $info: TextStyle = {
   color: COLORS.subtitleGray,
 }
-const $arrow: ViewStyle = {
+const $arrow: TextStyle = {
   paddingLeft: spacing.large,
+  color: COLORS.lightBlue,
+  fontSize: 24,
 }

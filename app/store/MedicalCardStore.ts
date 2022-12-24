@@ -6,7 +6,6 @@ import { MedicalCardModel } from "./models/medicalCard/MedicalCard"
 
 //TODO: Добавить поиск с задержкой на главные экраны
 //TODO: Добавить фильтры и поиск на экран с медзаписями
-//TODO: Сделать список назначений
 
 const MedicalCardStore = types
   .model("MedicalCardStore")
@@ -14,7 +13,7 @@ const MedicalCardStore = types
     medCards: types.optional(types.array(MedicalCardModel), []),
     loading: false,
     error: types.optional(types.string, ""),
-    allSearch: types.optional(types.string, ""),
+    departmentSearch: types.optional(types.string, ""),
     mySearch: types.optional(types.string, ""),
   })
   .views((self) => ({
@@ -48,17 +47,14 @@ const MedicalCardStore = types
     clearError: () => {
       self.error = ""
     },
-    setSearch: (value: string, field: "allSearch" | "mySearch" = "allSearch") => {
+    setSearch: (value: string, field: "departmentSearch" | "mySearch" = "departmentSearch") => {
       self[field] = value
     },
   }))
   .views((self) => ({
-    get all() {
+    get departmentCards() {
       return self.medCards.reduce<MedicalCardListItem[]>((prev, card) => {
-        const values: string[] = Object.values(card)
-
-        if (values.some((v) => String(v).includes(self.allSearch))) {
-          //ФИЛЬТРАЦИЯ ПО ВСЕМ ПОЛЯМ
+        if (card.patient.toLowerCase().includes(self.departmentSearch.toLowerCase())) {
           const { admissionDate, patient, age, uid } = card
           return [...prev, { admissionDate, patient, age, uid }]
         }
@@ -72,10 +68,7 @@ const MedicalCardStore = types
           return prev
         }
 
-        const values: string[] = Object.values(card)
-
-        if (values.some((v) => String(v).includes(self.mySearch))) {
-          //ФИЛЬТРАЦИЯ ПО ВСЕМ ПОЛЯМ
+        if (card.patient.toLowerCase().includes(self.mySearch.toLowerCase())) {
           const { admissionDate, patient, age, uid } = card
           return [...prev, { admissionDate, patient, age, uid }]
         }
