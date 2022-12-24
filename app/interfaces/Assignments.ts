@@ -30,18 +30,21 @@ export interface AssignmentsInfo {
   data: AssignmentsForDay[]
 }
 
-interface AssignmentsMap<T> {
-  [key: string]: T[]
-}
-
 export interface NormalizedAssignments
   extends Partial<{
-    analyzesAssigned: AssignmentsMap<AnalysisAssigned>
-    consultationsAssigned: AssignmentsMap<ConsultationAssigned>
-    diets: AssignmentsMap<Diet>
-    medicines: AssignmentsMap<Medicine>
-    mixtures: AssignmentsMap<Mixture>
-    procedures: AssignmentsMap<Procedure>
-    regimes: AssignmentsMap<Regime>
-    researhAssigned: AssignmentsMap<ResearchAssigned>
+    analyzesAssigned: Record<string, AnalysisAssigned>
+    consultationsAssigned: Record<string, ConsultationAssigned>
+    diets: Record<string, Diet>
+    medicines: Record<string, Medicine>
+    mixtures: Record<string, Mixture>
+    procedures: Record<string, Procedure>
+    regimes: Record<string, Regime>
+    researhAssigned: Record<string, ResearchAssigned>
   }> {}
+
+interface AssignmentMenuItem {
+  name: string
+  key: string
+}
+export interface AssignmentMenu
+  extends Partial<Record<keyof NormalizedAssignments, AssignmentMenuItem>> {}

@@ -21,6 +21,13 @@ import {
   OperationProtocolRecordsScreen,
   ResearchRecordsScreen,
   SubstantiationRecordsScreen,
+  MedicinesAndMixturesScreen,
+  AnalyzesAssignedScreen,
+  ResearhAssignedScreen,
+  ConsultationsAssignedScreen,
+  RegimesScreen,
+  ProceduresScreen,
+  DietsScreen,
 } from "../screens"
 import { COLORS } from "../theme"
 import { getActiveRouteName, navigationRef } from "./navigationUtilities"
@@ -41,6 +48,13 @@ export type MedicalCardTabsParamList = {
   OperationProtocolRecords: undefined
   ResearchRecords: undefined
   SubstantiationRecords: undefined
+  MedicinesAndMixtures: undefined
+  AnalyzesAssigned: undefined
+  ResearhAssigned: undefined
+  ConsultationsAssigned: undefined
+  Regimes: undefined
+  Diets: undefined
+  Procedures: undefined
 }
 
 const Tab = createBottomTabNavigator<MedicalCardTabsParamList>()
@@ -185,6 +199,29 @@ export const MedicalCardNavigator = observer(() => {
         component={SubstantiationRecordsScreen}
         options={hiddenTabOptions}
       />
+      <Tab.Screen
+        name="MedicinesAndMixtures"
+        component={MedicinesAndMixturesScreen}
+        options={hiddenTabOptions}
+      />
+      <Tab.Screen
+        name="AnalyzesAssigned"
+        component={AnalyzesAssignedScreen}
+        options={hiddenTabOptions}
+      />
+      <Tab.Screen
+        name="ResearhAssigned"
+        component={ResearhAssignedScreen}
+        options={hiddenTabOptions}
+      />
+      <Tab.Screen
+        name="ConsultationsAssigned"
+        component={ConsultationsAssignedScreen}
+        options={hiddenTabOptions}
+      />
+      <Tab.Screen name="Regimes" component={RegimesScreen} options={hiddenTabOptions} />
+      <Tab.Screen name="Procedures" component={ProceduresScreen} options={hiddenTabOptions} />
+      <Tab.Screen name="Diets" component={DietsScreen} options={hiddenTabOptions} />
     </Tab.Navigator>
   )
 })

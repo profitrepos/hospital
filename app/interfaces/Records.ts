@@ -45,15 +45,15 @@ export interface NormalizedRecords
     substantiations: Substantiation[]
   }> {}
 
-export interface RecordListItem {
+export interface RecordMenuItem {
   name: string
   count: number
 }
 
 type RecordsMap<T> = {
-  [Key in keyof T]: RecordListItem
+  [Key in keyof T]: RecordMenuItem
 }
 
-export interface RecordList extends RecordsMap<Omit<NormalizedRecords, "journals" | "patients">> {}
+export interface RecordMenu extends RecordsMap<Omit<NormalizedRecords, "journals" | "patients">> {}
 
 export interface JournalListItem extends Pick<Journal, "doc" | "date" | "uid"> {}

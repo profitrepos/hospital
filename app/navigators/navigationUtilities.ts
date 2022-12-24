@@ -141,3 +141,23 @@ export function resetRoot(params = { index: 0, routes: [] }) {
     navigationRef.resetRoot(params)
   }
 }
+
+export const navigateToDictionary = {
+  analyzes: "AnalysisRecords",
+  consultations: "ConsultationRecords",
+  diagnosis: "DiagnosisRecords",
+  epicrisis: "EpicrisisRecords",
+  extracts: "ExtractRecords",
+  initialInspections: "InitialInspectionRecords",
+  operationProtocols: "OperationProtocolRecords",
+  research: "ResearchRecords",
+  substantiations: "SubstantiationRecords",
+  analyzesAssigned: "AnalyzesAssigned",
+  consultationsAssigned: "ConsultationsAssigned",
+  regimes: "Regimes",
+  diets: "Diets",
+  medicines: "MedicinesAndMixtures",
+  mixtures: "MedicinesAndMixtures",
+  procedures: "Procedures",
+  researhAssigned: "ResearhAssigned",
+}

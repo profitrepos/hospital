@@ -10,7 +10,7 @@ import { OperationProtocolsStore } from "./models/operationProtocol/OperationPro
 import { PatientsStore } from "./models/patient/Patient"
 import { DiagnosesStore } from "./models/diagnosis/Diagnosis"
 import { ResearchStore } from "./models/research/Research"
-import { NormalizedRecords, RecordList, RecordType } from "../interfaces"
+import { NormalizedRecords, RecordMenu, RecordType } from "../interfaces"
 import { SubstantiationsStore } from "./models/substantiation/Substantiation"
 
 const allCategories = [
@@ -88,12 +88,12 @@ const RecordsStore = types
     },
   }))
   .views((self) => ({
-    get recordsList(): RecordList {
-      const list: RecordList = {}
+    get recordsMenu(): RecordMenu {
+      const list: RecordMenu = {}
       for (const key of self.availableCategories) {
         list[key] = {
           name: recordsListDictionary[key],
-          count: self[key].filteredItems.length,
+          count: self[key].items.length,
         }
       }
 

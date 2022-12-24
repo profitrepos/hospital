@@ -1,5 +1,5 @@
 import { cast, flow, toGenerator, types } from "mobx-state-tree"
-import { AssignmentsForDay, NormalizedAssignments } from "../interfaces/Assignments"
+import { AssignmentMenu, AssignmentsForDay, NormalizedAssignments } from "../interfaces"
 import { getMedicalAssignments } from "../services/passbase"
 import { AnalyzesAssignedStore } from "./models/analysisAssigned/AnalysisAssigned"
 import { ConsultationsAssignedStore } from "./models/consultationAssigned/ConsultationAssigned"
@@ -51,6 +51,25 @@ export const AssignmentsStore = types
     }),
     clearError: () => {
       self.error = ""
+    },
+  }))
+  .views((self) => ({
+    get assignmentsMenu() {
+      return Object.entries(assignmentsDictionary).reduce<AssignmentMenu>(
+        (prev, [humanKey, serviceKey]) => {
+          const store = self[serviceKey]
+
+          if (store.map.size) {
+            prev[serviceKey] = {
+              name: humanKey,
+              key: serviceKey,
+            }
+          }
+
+          return prev
+        },
+        {},
+      )
     },
   }))
 

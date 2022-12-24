@@ -1,16 +1,16 @@
 import React, { FC } from "react"
 import { TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
-import { RecordList } from "../interfaces"
+import { RecordMenu } from "../interfaces"
 import { COLORS, spacing } from "../theme"
 import { ArrowRightSVG } from "./svg"
 import { Text } from "./ui"
 
-interface RecordsListProps {
-  records: RecordList
+interface RecordsMenuProps {
+  records: RecordMenu
   onPress: (item: string) => void
 }
 
-export const RecordsList: FC<RecordsListProps> = ({ records, onPress }) => {
+export const RecordsMenu: FC<RecordsMenuProps> = ({ records, onPress }) => {
   return (
     <View style={$container}>
       {Object.keys(records).map((key) => {

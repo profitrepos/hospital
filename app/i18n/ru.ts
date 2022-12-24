@@ -127,6 +127,30 @@ const ru = {
   substantiationRecordsScreen: {
     title: "Обоснования диагнозов",
   },
+  assignmentsScreen: {
+    title: "Назначения",
+  },
+  medicinesAndMixturesScreen: {
+    title: "Медикаменты и смеси",
+  },
+  analyzesAssignedScreen: {
+    title: "Анализы",
+  },
+  researhAssignedScreen: {
+    title: "Исследования",
+  },
+  consultationsAssignedScreen: {
+    title: "Консультация",
+  },
+  regimesScreen: {
+    title: "Режим",
+  },
+  dietsScreen: {
+    title: "Диета",
+  },
+  proceduresScreen: {
+    title: "Процедуры",
+  },
 }
 
 export default ru

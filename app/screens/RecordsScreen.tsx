@@ -3,27 +3,15 @@ import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { ScreenTitle } from "../components/ui"
-import { MedicalCardTabsParamList } from "../navigators"
-import { AppError, AppModal, RecordsList, ScreenWithActionSheet } from "../components"
+import { MedicalCardTabsParamList, navigateToDictionary } from "../navigators"
+import { AppError, AppModal, RecordsMenu, ScreenWithActionSheet } from "../components"
 import { useStores } from "../store"
 import { spacing } from "../theme"
-
-const navigateToDictionary = {
-  analyzes: "AnalysisRecords",
-  consultations: "ConsultationRecords",
-  diagnosis: "DiagnosisRecords",
-  epicrisis: "EpicrisisRecords",
-  extracts: "ExtractRecords",
-  initialInspections: "InitialInspectionRecords",
-  operationProtocols: "OperationProtocolRecords",
-  research: "ResearchRecords",
-  substantiations: "SubstantiationRecords",
-}
 
 export const RecordsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Records">> = observer(
   function RecordsScreen({ navigation }) {
     const { records } = useStores()
-    const { loading, recordsList, error, clearError } = records
+    const { loading, recordsMenu, error, clearError } = records
 
     const handlerRecord = (key: string) => {
       navigation.navigate(navigateToDictionary[key])
@@ -31,7 +19,7 @@ export const RecordsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Recor
 
     if (error) {
       return (
-        <AppModal>
+        <AppModal containerStyle={$modal}>
           <AppError closeError={clearError} customSubtitle={error} />
         </AppModal>
       )
@@ -43,7 +31,7 @@ export const RecordsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Recor
           <View style={$records}>
             <ScreenTitle text="recordsScreen.title" />
             <View style={$listContainer}>
-              <RecordsList records={recordsList} onPress={handlerRecord} />
+              <RecordsMenu records={recordsMenu} onPress={handlerRecord} />
             </View>
           </View>
         </View>
@@ -61,4 +49,7 @@ const $records: ViewStyle = {
 }
 const $listContainer: ViewStyle = {
   padding: spacing.large,
+}
+const $modal: ViewStyle = {
+  backgroundColor: "#fff",
 }
