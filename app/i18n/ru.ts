@@ -111,6 +111,10 @@ const ru = {
     operationProtocols: "Операции",
     research: "Результаты исследований",
     substantiations: "Обоснования диагнозов",
+    filter: {
+      category: "Категория",
+      date: "Дата",
+    },
   },
   analysisRecordsScreen: {
     title: "Анализы",

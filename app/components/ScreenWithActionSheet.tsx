@@ -11,6 +11,8 @@ interface ScreenWithActionSheetProps {
   loading?: boolean
   scrollEnabled?: boolean
   animateOnMount?: boolean
+  contentContainerStyle?: ViewStyle
+  handleStyle?: ViewStyle
 }
 
 const snapPoints = ["90%", "100%"]
@@ -21,6 +23,8 @@ export const ScreenWithActionSheet: FC<ScreenWithActionSheetProps> = ({
   loading,
   scrollEnabled = true,
   animateOnMount = true,
+  contentContainerStyle,
+  handleStyle,
 }) => {
   const sheetRef = useRef<BottomSheet>(null)
 
@@ -37,14 +41,14 @@ export const ScreenWithActionSheet: FC<ScreenWithActionSheetProps> = ({
       return (
         <BottomSheetScrollView
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={$contentContainer}
+          contentContainerStyle={[$contentContainer, contentContainerStyle]}
         >
           {loading ? <Preloader style={$preloader} /> : children}
         </BottomSheetScrollView>
       )
     }
     return (
-      <View style={{ flex: 1, borderWidth: 1, borderColor: "red" }}>
+      <View style={[$root, contentContainerStyle]}>
         {loading ? <Preloader style={$preloader} /> : children}
       </View>
     )
@@ -60,6 +64,7 @@ export const ScreenWithActionSheet: FC<ScreenWithActionSheetProps> = ({
         enablePanDownToClose
         onClose={handleClose}
         animateOnMount={animateOnMount}
+        handleStyle={handleStyle}
       >
         {renderContent()}
       </BottomSheet>

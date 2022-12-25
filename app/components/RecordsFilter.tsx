@@ -1,55 +1,102 @@
 import React, { FC } from "react"
-import { ScrollView, TextStyle, View, ViewStyle } from "react-native"
+import { TextStyle, View, ViewStyle } from "react-native"
 import Icon from "react-native-vector-icons/MaterialIcons"
 import { COLORS, spacing } from "../theme"
-import { SearchSVG } from "./svg"
-import { Button, TextField } from "./ui"
+import { Button, Text } from "./ui"
 
 interface RecordsFilterProps {
-  search: string
-  setSearch: (value: string) => void
-  availableCategories: string[]
-  selectedCategories: string[]
-  setSelectedCategories: (categories: string[]) => void
   style?: ViewStyle
+  categoryHandler: () => void
+  clearCategoryFilter: () => void
+  dateHandler: () => void
+  clearDateFilter: () => void
+  showClearDateFilter: boolean
+  showClearCategoryFilter: boolean
 }
 
-export const RecordsFilter: FC<RecordsFilterProps> = ({ search, setSearch, style }) => {
+export const RecordsFilter: FC<RecordsFilterProps> = ({
+  style,
+  categoryHandler,
+  clearCategoryFilter,
+  dateHandler,
+  clearDateFilter,
+  showClearDateFilter,
+  showClearCategoryFilter,
+}) => {
+  const resetCategoryFilter = () => {
+    console.log("ICON PRESS")
+  }
+
+  const resetDateFilter = () => {
+    console.log("ICON PRESS")
+  }
+
+  const categoryFilter = () => {
+    console.log("BUTTON PRESS")
+    categoryHandler()
+  }
+
+  const dateFilter = () => {
+    dateHandler()
+  }
+
   return (
-    <View style={style}>
-      <ScrollView style={{ marginBottom: spacing.medium }} horizontal>
-        <Button
-          preset="disabled"
-          RightAccessory={() => <Icon name="expand-more" style={$clearIcon} />}
-          style={{ alignItems: "center" }}
-        >
-          Категория
-        </Button>
-      </ScrollView>
-      <TextField
-        value={search}
-        onChangeText={setSearch}
-        LeftIcon={({ style }) => (
-          <SearchSVG height={16} width={24} style={[style, $searchIcon]} color={COLORS.icons} />
+    <View style={[$container, style]}>
+      <Button
+        preset="outline"
+        onPress={categoryFilter}
+        RightAccessory={() => (
+          <Icon
+            onPress={showClearCategoryFilter ? resetCategoryFilter : undefined}
+            name={showClearCategoryFilter ? "close" : "expand-more"}
+            style={$clearIcon}
+          />
         )}
-        inputStyle={$searchInput}
-        placeholderInner={"search.records"}
+        style={$btn}
+        textStyle={$btnText}
+        tx="recordsScreen.filter.category"
+      />
+      <Button
+        preset="outline"
+        onPress={dateFilter}
+        RightAccessory={() => (
+          <Icon
+            onPress={showClearDateFilter ? resetDateFilter : undefined}
+            name={showClearDateFilter ? "close" : "expand-more"}
+            style={$clearIcon}
+          />
+        )}
+        style={$btn}
+        textStyle={$btnText}
+        tx="recordsScreen.filter.date"
       />
     </View>
   )
 }
 
-// expand-more
-// close
-
-const $searchIcon: ViewStyle = {
-  left: 10,
-}
-const $searchInput: ViewStyle = {
-  paddingLeft: 40,
+const $container: ViewStyle = {
+  flexDirection: "row",
+  flexWrap: "wrap",
 }
 const $clearIcon: TextStyle = {
   fontSize: 24,
   color: COLORS.mainBlue,
-  marginTop: 2,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  marginLeft: spacing.small,
+}
+const $btn: ViewStyle = {
+  width: "auto",
+  paddingVertical: spacing.extraSmall,
+  paddingHorizontal: spacing.extraSmall,
+  height: 30,
+  minHeight: 40,
+  marginRight: spacing.small,
+  marginBottom: spacing.small,
+}
+
+const $btnText: TextStyle = {
+  color: COLORS.mainTextBlack,
+  fontSize: 14,
 }

@@ -13,8 +13,6 @@ export const AssignmentsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "A
     const { assignments } = useStores()
     const { loading, error, clearError, assignmentsMenu, medicinesAndMixtures } = assignments
 
-    console.log("medicinesAndMixtures ---> ", medicinesAndMixtures.map)
-
     const handlerAssignment = (key: string) => {
       navigation.navigate(navigateToDictionary[key])
     }

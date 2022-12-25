@@ -13,6 +13,7 @@ import { Button } from "./ui"
 interface SearchListProps {}
 
 export const SearchList: FC<SearchListProps> = observer(() => {
+  //TODO: сделать сохранение позиции скролла https://translated.turbopages.org/proxy_u/en-ru.ru.6e50d9e4-63a82324-3eb021c2-74722d776562/https/stackoverflow.com/questions/41270949/how-can-i-keep-position-on-scrollview-or-listview
   const [patientIndex, setPatientIndex] = useState(0)
 
   const { search, userInfo, records, assignments } = useStores()
