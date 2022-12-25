@@ -92,7 +92,7 @@ const RecordsStore = types
       const list: RecordMenu = {}
       for (const key of self.availableCategories) {
         list[key] = {
-          name: recordsListDictionary[key],
+          name: `recordsScreen.${key}`,
           count: self[key].filteredItems.length,
         }
       }
@@ -128,18 +128,6 @@ const recordsDictionary = {
   Пациент: "patients",
   Исследование: "research",
   "Обоснование диагноза": "substantiations",
-} as const
-
-const recordsListDictionary = {
-  analyzes: "Результаты анализов",
-  consultations: "Консультация",
-  diagnosis: "Диагнозы",
-  epicrises: "Эпикризы",
-  extracts: "Выписки",
-  initialInspections: "Первичный осмотр",
-  operationProtocols: "Операции",
-  research: "Результаты исследований",
-  substantiations: "Обоснования диагнозов",
 } as const
 
 const normalizeRecords = (data: RecordType[]): NormalizedRecords => {

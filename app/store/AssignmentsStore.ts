@@ -4,8 +4,7 @@ import { getMedicalAssignments } from "../services/passbase"
 import { AnalyzesAssignedStore } from "./models/analysisAssigned/AnalysisAssigned"
 import { ConsultationsAssignedStore } from "./models/consultationAssigned/ConsultationAssigned"
 import { DietsStore } from "./models/diet/Diet"
-import { MedicinesStore } from "./models/medicine/Medicine"
-import { MixturesStore } from "./models/mixture/Mixture"
+import { MedicinesAndMixturesStore } from "./models/medicineAndMixture/medicineAndMixture"
 import { ProceduresStore } from "./models/procedure/Procedure"
 import { RegimesStore } from "./models/regime/Regime"
 import { ResearchAssignedStore } from "./models/researchAssigned/ResearchAssigned"
@@ -16,8 +15,7 @@ export const AssignmentsStore = types
     analyzesAssigned: AnalyzesAssignedStore,
     consultationsAssigned: ConsultationsAssignedStore,
     diets: DietsStore,
-    medicines: MedicinesStore,
-    mixtures: MixturesStore,
+    medicinesAndMixtures: MedicinesAndMixturesStore,
     procedures: ProceduresStore,
     regimes: RegimesStore,
     researhAssigned: ResearchAssignedStore,
@@ -55,21 +53,18 @@ export const AssignmentsStore = types
   }))
   .views((self) => ({
     get assignmentsMenu() {
-      return Object.entries(assignmentsDictionary).reduce<AssignmentMenu>(
-        (prev, [humanKey, serviceKey]) => {
-          const store = self[serviceKey]
+      return Object.values(assignmentsDictionary).reduce<AssignmentMenu>((prev, key) => {
+        const store = self[key]
 
-          if (store.map.size) {
-            prev[serviceKey] = {
-              name: humanKey,
-              key: serviceKey,
-            }
+        if (store.map.size) {
+          prev[key] = {
+            name: `assignmentsScreen.${key}`,
+            key: key,
           }
+        }
 
-          return prev
-        },
-        {},
-      )
+        return prev
+      }, {})
     },
   }))
 
@@ -78,8 +73,7 @@ export const createAssignmentsStoreDefault = () =>
     analyzesAssigned: {},
     consultationsAssigned: {},
     diets: {},
-    medicines: {},
-    mixtures: {},
+    medicinesAndMixtures: {},
     procedures: {},
     regimes: {},
     researhAssigned: {},
@@ -89,8 +83,8 @@ const assignmentsDictionary = {
   Анализы: "analyzesAssigned",
   Консультации: "consultationsAssigned",
   Диета: "diets",
-  Медикаменты: "medicines",
-  Смеси: "mixtures",
+  Медикаменты: "medicinesAndMixtures",
+  Смеси: "medicinesAndMixtures",
   Процедуры: "procedures",
   Режим: "regimes",
   Исследования: "researhAssigned",

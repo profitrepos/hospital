@@ -1,3 +1,4 @@
+import { TxKeyPath } from "../i18n"
 import {
   AnalysisAssigned,
   ConsultationAssigned,
@@ -43,7 +44,7 @@ export interface NormalizedAssignments
   }> {}
 
 interface AssignmentMenuItem {
-  name: string
+  name: TxKeyPath
   key: string
 }
 export interface AssignmentMenu

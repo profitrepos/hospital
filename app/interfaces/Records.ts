@@ -1,3 +1,4 @@
+import { TxKeyPath } from "../i18n"
 import {
   Analysis,
   Consultation,
@@ -46,7 +47,7 @@ export interface NormalizedRecords
   }> {}
 
 export interface RecordMenuItem {
-  name: string
+  name: TxKeyPath
   count: number
 }
 

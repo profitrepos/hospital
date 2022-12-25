@@ -156,8 +156,7 @@ export const navigateToDictionary = {
   consultationsAssigned: "ConsultationsAssigned",
   regimes: "Regimes",
   diets: "Diets",
-  medicines: "MedicinesAndMixtures",
-  mixtures: "MedicinesAndMixtures",
+  medicinesAndMixtures: "MedicinesAndMixtures",
   procedures: "Procedures",
   researhAssigned: "ResearhAssigned",
 }

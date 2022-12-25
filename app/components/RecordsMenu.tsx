@@ -21,7 +21,7 @@ export const RecordsMenu: FC<RecordsMenuProps> = ({ records, onPress }) => {
           <TouchableOpacity key={key} onPress={handlePress} activeOpacity={0.6}>
             <View style={$item}>
               <View style={$values}>
-                <Text preset="subheading" style={$name} text={records[key].name} />
+                <Text preset="subheading" style={$name} tx={records[key].name} />
                 <Text preset="helper" style={$count} text={`(${records[key].count})`} />
               </View>
               <Icon name="chevron-right" style={$arrow} />

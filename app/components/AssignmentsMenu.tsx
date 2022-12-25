@@ -21,7 +21,7 @@ export const AssignmentsMenu: FC<AssignmentsMenuProps> = ({ assignments, onPress
           <TouchableOpacity key={key} onPress={handlePress} activeOpacity={0.6}>
             <View style={$item}>
               <View style={$values}>
-                <Text preset="subheading" style={$name} text={assignments[key].name} />
+                <Text preset="subheading" style={$name} tx={assignments[key].name} />
               </View>
               <Icon name="chevron-right" style={$arrow} />
             </View>

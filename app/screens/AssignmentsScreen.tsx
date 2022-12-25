@@ -11,7 +11,9 @@ import { spacing } from "../theme"
 export const AssignmentsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Assignments">> =
   observer(function AssignmentsScreen({ navigation }) {
     const { assignments } = useStores()
-    const { loading, error, clearError, assignmentsMenu } = assignments
+    const { loading, error, clearError, assignmentsMenu, medicinesAndMixtures } = assignments
+
+    console.log("medicinesAndMixtures ---> ", medicinesAndMixtures.map)
 
     const handlerAssignment = (key: string) => {
       navigation.navigate(navigateToDictionary[key])

@@ -102,6 +102,15 @@ const ru = {
   },
   recordsScreen: {
     title: "Медзаписи",
+    analyzes: "Результаты анализов",
+    consultations: "Консультация",
+    diagnosis: "Диагнозы",
+    epicrises: "Эпикризы",
+    extracts: "Выписки",
+    initialInspections: "Первичный осмотр",
+    operationProtocols: "Операции",
+    research: "Результаты исследований",
+    substantiations: "Обоснования диагнозов",
   },
   analysisRecordsScreen: {
     title: "Анализы",
@@ -132,6 +141,13 @@ const ru = {
   },
   assignmentsScreen: {
     title: "Назначения",
+    analyzesAssigned: "Анализы",
+    consultationsAssigned: "Консультации",
+    diets: "Диета",
+    medicinesAndMixtures: "Медикаменты и смеси",
+    procedures: "Процедуры",
+    regimes: "Режим",
+    researhAssigned: "Исследования",
   },
   medicinesAndMixturesScreen: {
     title: "Медикаменты и смеси",
