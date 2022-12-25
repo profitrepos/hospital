@@ -1,9 +1,8 @@
 import React, { FC } from "react"
-import { ScrollView, TextStyle, View, ViewStyle } from "react-native"
-import Icon from "react-native-vector-icons/MaterialIcons"
-import { COLORS, spacing } from "../theme"
+import { View, ViewStyle } from "react-native"
+import { COLORS } from "../theme"
 import { SearchSVG } from "./svg"
-import { Button, TextField } from "./ui"
+import { TextField } from "./ui"
 
 interface RecordsSearchProps {
   search: string
@@ -27,8 +26,6 @@ export const RecordsSearch: FC<RecordsSearchProps> = ({ search, setSearch, style
   )
 }
 
-// expand-more
-// close
 const $container: ViewStyle = {}
 const $searchIcon: ViewStyle = {
   left: 10,

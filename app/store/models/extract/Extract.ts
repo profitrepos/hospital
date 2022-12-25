@@ -19,9 +19,10 @@ export const ExtractsStore = types
   .views((self) => ({
     get filteredItems(): Extract[] {
       const { records } = getRootStore(self)
-      const { search } = records
-      return self.items.filter((extract) =>
-        extract.doc.toLowerCase().includes(search.toLowerCase()),
+      const { search, untilDate } = records
+      return self.items.filter(
+        (extract) =>
+          extract.doc.toLowerCase().includes(search.toLowerCase()) && extract.timestamp > untilDate,
       )
     },
   }))

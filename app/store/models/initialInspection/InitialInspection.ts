@@ -19,9 +19,11 @@ export const InitialInspectionsStore = types
   .views((self) => ({
     get filteredItems(): InitialInspection[] {
       const { records } = getRootStore(self)
-      const { search } = records
-      return self.items.filter((inspection) =>
-        inspection.doc.toLowerCase().includes(search.toLowerCase()),
+      const { search, untilDate } = records
+      return self.items.filter(
+        (inspection) =>
+          inspection.doc.toLowerCase().includes(search.toLowerCase()) &&
+          inspection.timestamp > untilDate,
       )
     },
   }))

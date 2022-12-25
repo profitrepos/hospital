@@ -20,9 +20,10 @@ export const EpicrisesStore = types
   .views((self) => ({
     get filteredItems(): Epicrisis[] {
       const { records } = getRootStore(self)
-      const { search } = records
-      return self.items.filter((epicris) =>
-        epicris.doc.toLowerCase().includes(search.toLowerCase()),
+      const { search, untilDate } = records
+      return self.items.filter(
+        (epicris) =>
+          epicris.doc.toLowerCase().includes(search.toLowerCase()) && epicris.timestamp > untilDate,
       )
     },
   }))

@@ -19,9 +19,11 @@ export const OperationProtocolsStore = types
   .views((self) => ({
     get filteredItems(): OperationProtocol[] {
       const { records } = getRootStore(self)
-      const { search } = records
-      return self.items.filter((protocol) =>
-        protocol.doc.toLowerCase().includes(search.toLowerCase()),
+      const { search, untilDate } = records
+      return self.items.filter(
+        (protocol) =>
+          protocol.doc.toLowerCase().includes(search.toLowerCase()) &&
+          protocol.timestamp > untilDate,
       )
     },
   }))

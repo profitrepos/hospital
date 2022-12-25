@@ -23,9 +23,11 @@ export const DiagnosesStore = types
   .views((self) => ({
     get filteredItems(): Diagnosis[] {
       const { records } = getRootStore(self)
-      const { search } = records
-      return self.items.filter((diagnosis) =>
-        diagnosis.doc.toLowerCase().includes(search.toLowerCase()),
+      const { search, untilDate } = records
+      return self.items.filter(
+        (diagnosis) =>
+          diagnosis.doc.toLowerCase().includes(search.toLowerCase()) &&
+          diagnosis.timestamp > untilDate,
       )
     },
   }))

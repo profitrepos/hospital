@@ -22,9 +22,11 @@ export const ResearchStore = types
   .views((self) => ({
     get filteredItems(): Research[] {
       const { records } = getRootStore(self)
-      const { search } = records
-      return self.items.filter((research) =>
-        research.doc.toLowerCase().includes(search.toLowerCase()),
+      const { search, untilDate } = records
+      return self.items.filter(
+        (research) =>
+          research.doc.toLowerCase().includes(search.toLowerCase()) &&
+          research.timestamp > untilDate,
       )
     },
   }))

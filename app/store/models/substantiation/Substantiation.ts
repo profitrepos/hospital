@@ -19,9 +19,11 @@ export const SubstantiationsStore = types
   .views((self) => ({
     get filteredItems(): Substantiation[] {
       const { records } = getRootStore(self)
-      const { search } = records
-      return self.items.filter((substantiation) =>
-        substantiation.doc.toLowerCase().includes(search.toLowerCase()),
+      const { search, untilDate } = records
+      return self.items.filter(
+        (substantiation) =>
+          substantiation.doc.toLowerCase().includes(search.toLowerCase()) &&
+          substantiation.timestamp > untilDate,
       )
     },
   }))

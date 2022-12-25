@@ -43,6 +43,7 @@ const RecordsStore = types
     substantiations: SubstantiationsStore,
     search: "",
     selectedCategories: types.optional(types.array(types.string), allCategories),
+    untilDate: types.maybeNull(types.number),
   })
   .actions((self) => ({
     load: flow(function* (orgId: string, cardId: string) {

@@ -2,7 +2,7 @@ import React, { FC, useCallback, useRef, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { ScreenTitle, Text } from "../components/ui"
+import { AppCheckbox, AppCustomCheckbox, ScreenTitle, Text } from "../components/ui"
 import { MedicalCardTabsParamList, navigateToDictionary } from "../navigators"
 import {
   AppError,
@@ -14,7 +14,11 @@ import {
 } from "../components"
 import { useStores } from "../store"
 import { spacing } from "../theme"
-import { BottomSheetModal, BottomSheetModalProvider } from "@gorhom/bottom-sheet"
+import {
+  BottomSheetModal,
+  BottomSheetModalProvider,
+  BottomSheetScrollView,
+} from "@gorhom/bottom-sheet"
 
 const snapPoints = ["70%", "80%"]
 
@@ -24,6 +28,8 @@ const backdropComponent = () => {
 
 export const RecordsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Records">> = observer(
   function RecordsScreen({ navigation }) {
+    const [first, setFirst] = useState(false)
+
     const { records } = useStores()
     const {
       loading,
@@ -93,15 +99,17 @@ export const RecordsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Recor
             onDismiss={onSheetDismiss}
             backdropComponent={backdropComponent}
           >
-            <Text>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur, harum!
-            </Text>
-            <Text>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur, harum!
-            </Text>
-            <Text>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur, harum!
-            </Text>
+            <BottomSheetScrollView showsVerticalScrollIndicator={false}>
+              <View style={$filterSheet}>
+                <AppCheckbox title="Test checkbox" value={first} onChange={setFirst} reverse />
+                <AppCustomCheckbox
+                  title="Test checkbox"
+                  active={first}
+                  onPress={() => setFirst(!first)}
+                  reverse
+                />
+              </View>
+            </BottomSheetScrollView>
           </BottomSheetModal>
         </BottomSheetModalProvider>
       </View>
@@ -137,8 +145,9 @@ const $filter: ViewStyle = {
 const $search: ViewStyle = {
   paddingHorizontal: spacing.medium,
 }
-const $transparent: ViewStyle = {
-  backgroundColor: "rgba(0,0,0, 0.7)",
+const $filterSheet: ViewStyle = {
+  paddingVertical: spacing.medium,
+  paddingHorizontal: spacing.large,
 }
 const $backdrop: ViewStyle = {
   flex: 1,
