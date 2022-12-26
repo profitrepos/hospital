@@ -116,6 +116,13 @@ const ru = {
       date: "Дата",
       reset: "Сбросить",
       apply: "Применить",
+      one: "Сегодня",
+      two: "Сегодня, завтра",
+      three: "До 2 дней",
+      six: "До 5 дней",
+      eight: "До 7 дней",
+      ten: "До 9 дней",
+      twelve: "До 11 дней",
     },
   },
   analysisRecordsScreen: {

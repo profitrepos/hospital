@@ -3,7 +3,7 @@ import { TextStyle, View, ViewStyle } from "react-native"
 import Icon from "react-native-vector-icons/MaterialIcons"
 import { TxKeyPath } from "../i18n"
 import { COLORS, spacing } from "../theme"
-import { AppCheckbox, Button, ScreenTitle, Text } from "./ui"
+import { AppCheckbox, AppCustomCheckbox, Button, ScreenTitle, Text } from "./ui"
 
 interface RecordsFilterHeaderProps {
   style?: ViewStyle
@@ -111,8 +111,8 @@ export const RecordsFilterCategories: FC<RecordsFilterCategoriesProps> = ({
             <AppCheckbox
               key={category}
               value={tempCategories[category]}
-              titleStyle={$categoryTitleCheckbox}
-              wrapperStyle={$categoryWrapperCheckbox}
+              titleStyle={$titleCheckbox}
+              wrapperStyle={$wrapperCheckbox}
               tx={text}
               onChange={(value) => onChange(category, value)}
               reverse
@@ -135,12 +135,50 @@ export const RecordsFilterCategories: FC<RecordsFilterCategoriesProps> = ({
 
 interface RecordsFilterDateProps {
   style?: ViewStyle
+  untilDate: number
+  saveDateFilter: (untilDate: number) => void
+  resetDateFilter: () => void
 }
 
-export const RecordsFilterDate: FC<RecordsFilterDateProps> = ({ style }) => {
+export const RecordsFilterDate: FC<RecordsFilterDateProps> = ({
+  style,
+  untilDate,
+  saveDateFilter,
+  resetDateFilter,
+}) => {
+  const [tempDate, setTempDate] = useState<number | null>(null)
+
+  const save = () => {
+    saveDateFilter(tempDate)
+  }
+
   return (
     <View style={[$containerDates, style]}>
       <ScreenTitle containerStyle={$filterTitle} text="recordsScreen.filter.date" />
+      <View style={$filterList}>
+        {Object.keys(dateFilter).map((key) => {
+          return (
+            <AppCustomCheckbox
+              wrapperStyle={$wrapperCheckbox}
+              titleStyle={$titleCheckbox}
+              key={key}
+              active={tempDate === dateFilter[key]}
+              onPress={() => setTempDate(dateFilter[key])}
+              tx={`recordsScreen.filter.${key}` as TxKeyPath}
+              reverse
+            />
+          )
+        })}
+      </View>
+      <View style={$filterFooter}>
+        <Button
+          style={[$filterFooterBtn, $filterBtnFirst]}
+          tx="recordsScreen.filter.reset"
+          preset="outline"
+          onPress={resetDateFilter}
+        />
+        <Button style={$filterFooterBtn} tx="recordsScreen.filter.apply" onPress={save} />
+      </View>
     </View>
   )
 }
@@ -152,7 +190,9 @@ const $containerHeader: ViewStyle = {
 const $containerCategories: ViewStyle = {
   flex: 1,
 }
-const $containerDates: ViewStyle = {}
+const $containerDates: ViewStyle = {
+  flex: 1,
+}
 const $clearIcon: TextStyle = {
   fontSize: 24,
   color: COLORS.mainBlue,
@@ -178,18 +218,20 @@ const $btnText: TextStyle = {
 const $filterTitle: ViewStyle = {
   alignItems: "flex-start",
 }
-const $categoryTitleCheckbox: TextStyle = {
+const $titleCheckbox: TextStyle = {
   flex: 1,
   paddingLeft: 0,
   fontSize: 16,
+  maxWidth: "100%",
 }
-const $categoryWrapperCheckbox: ViewStyle = {
+const $wrapperCheckbox: ViewStyle = {
   paddingVertical: spacing.medium,
   borderTopWidth: 1,
   borderTopColor: "#DEDEDE",
   borderBottomWidth: 1,
   borderBottomColor: "#DEDEDE",
 }
+
 const $filterList: ViewStyle = {
   flex: 1,
 }
@@ -201,4 +243,14 @@ const $filterFooterBtn: ViewStyle = {
 }
 const $filterBtnFirst: ViewStyle = {
   marginRight: spacing.small,
+}
+
+const dateFilter = {
+  one: new Date(),
+  two: new Date(),
+  three: new Date(),
+  six: new Date(),
+  eight: new Date(),
+  ten: new Date(),
+  twelve: new Date(),
 }

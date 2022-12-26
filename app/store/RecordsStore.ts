@@ -105,7 +105,6 @@ const RecordsStore = types
           self.error = error
         } else {
           const normalizedRecords = normalizeRecords(data)
-          console.log("normalizedRecords --> ", Object.keys(normalizedRecords))
 
           Object.keys(normalizedRecords).forEach((key) => {
             if (self[key]) {
