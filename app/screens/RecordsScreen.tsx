@@ -1,13 +1,15 @@
-import React, { FC, useCallback, useRef, useState } from "react"
+import React, { FC, useRef, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { AppCheckbox, AppCustomCheckbox, ScreenTitle, Text } from "../components/ui"
+import { ScreenTitle } from "../components/ui"
 import { MedicalCardTabsParamList, navigateToDictionary } from "../navigators"
 import {
   AppError,
   AppModal,
-  RecordsFilter,
+  RecordsFilterCategories,
+  RecordsFilterDate,
+  RecordsFilterHeader,
   RecordsMenu,
   RecordsSearch,
   ScreenWithActionSheet,
@@ -28,7 +30,7 @@ const backdropComponent = () => {
 
 export const RecordsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Records">> = observer(
   function RecordsScreen({ navigation }) {
-    const [first, setFirst] = useState(false)
+    const [filterType, setFilterType] = useState<"category" | "date" | null>(null)
 
     const { records } = useStores()
     const {
@@ -41,6 +43,11 @@ export const RecordsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Recor
       setSelectedCategories,
       selectedCategories,
       availableCategories,
+      resetCategoryFilter,
+      medCardCategories,
+      resetDateFilter,
+      setUntilDate,
+      untilDate,
     } = records
 
     const bottomSheetModalRef = useRef<BottomSheetModal>(null)
@@ -49,17 +56,23 @@ export const RecordsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Recor
       navigation.navigate(navigateToDictionary[key])
     }
 
-    const onSheetDismiss = () => {}
+    const onSheetDismiss = () => {
+      setFilterType(null)
+    }
 
     const openCategoryFilter = () => {
+      setFilterType("category")
       bottomSheetModalRef.current?.present()
     }
     const openDateFilter = () => {
+      setFilterType("date")
       bottomSheetModalRef.current?.present()
     }
 
-    const clearCategoryFilter = () => {}
-    const clearDateFilter = () => {}
+    const saveCategoriesFilter = (categories: string[]) => {
+      setSelectedCategories(categories)
+      bottomSheetModalRef.current?.dismiss()
+    }
 
     if (error) {
       return (
@@ -75,12 +88,12 @@ export const RecordsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Recor
           <View style={$root}>
             <View style={$records}>
               <ScreenTitle text="recordsScreen.title" />
-              <RecordsFilter
-                clearCategoryFilter={clearCategoryFilter}
+              <RecordsFilterHeader
+                clearCategoryFilter={resetCategoryFilter}
                 categoryHandler={openCategoryFilter}
                 dateHandler={openDateFilter}
-                clearDateFilter={clearDateFilter}
-                showClearCategoryFilter={false}
+                clearDateFilter={resetDateFilter}
+                showClearCategoryFilter={medCardCategories.length !== availableCategories.length}
                 showClearDateFilter={false}
                 style={$filter}
               />
@@ -99,15 +112,20 @@ export const RecordsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Recor
             onDismiss={onSheetDismiss}
             backdropComponent={backdropComponent}
           >
-            <BottomSheetScrollView showsVerticalScrollIndicator={false}>
+            <BottomSheetScrollView
+              contentContainerStyle={$flexGrow}
+              showsVerticalScrollIndicator={false}
+            >
               <View style={$filterSheet}>
-                <AppCheckbox title="Test checkbox" value={first} onChange={setFirst} reverse />
-                <AppCustomCheckbox
-                  title="Test checkbox"
-                  active={first}
-                  onPress={() => setFirst(!first)}
-                  reverse
-                />
+                {filterType === "category" && (
+                  <RecordsFilterCategories
+                    saveCategories={saveCategoriesFilter}
+                    allCategories={medCardCategories}
+                    availableCategories={availableCategories}
+                    resetCategories={resetCategoryFilter}
+                  />
+                )}
+                {filterType === "date" && <RecordsFilterDate />}
               </View>
             </BottomSheetScrollView>
           </BottomSheetModal>
@@ -148,6 +166,7 @@ const $search: ViewStyle = {
 const $filterSheet: ViewStyle = {
   paddingVertical: spacing.medium,
   paddingHorizontal: spacing.large,
+  flex: 1,
 }
 const $backdrop: ViewStyle = {
   flex: 1,
@@ -157,4 +176,7 @@ const $backdrop: ViewStyle = {
   bottom: 0,
   left: 0,
   right: 0,
+}
+const $flexGrow: ViewStyle = {
+  flexGrow: 1,
 }

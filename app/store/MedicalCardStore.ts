@@ -32,6 +32,7 @@ const MedicalCardStore = types
         const { error, data } = yield* toGenerator(getMedicalCards(orgId, depId))
 
         if (error) {
+          console.log("medcard response error ----> ", error)
           self.error = error
         } else {
           self.medCards = cast(data)

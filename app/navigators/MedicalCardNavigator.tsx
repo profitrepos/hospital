@@ -1,6 +1,6 @@
 import { BottomTabNavigationOptions, createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { observer } from "mobx-react-lite"
-import React from "react"
+import React, { useEffect } from "react"
 import { TextStyle, ViewStyle } from "react-native"
 import { DataSVG, JournalSVG, MoreSVG, PencilSVG, СapsuleSVG } from "../components/svg"
 import { Text } from "../components/ui"
@@ -29,6 +29,7 @@ import {
   ProceduresScreen,
   DietsScreen,
 } from "../screens"
+import { useStores } from "../store"
 import { COLORS } from "../theme"
 import { getActiveRouteName, navigationRef } from "./navigationUtilities"
 

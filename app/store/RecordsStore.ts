@@ -46,14 +46,62 @@ const RecordsStore = types
     untilDate: types.maybeNull(types.number),
   })
   .actions((self) => ({
+    clearError: () => {
+      self.error = ""
+    },
+    setSelectedCategories: (categories: string[]) => {
+      self.selectedCategories = cast(categories)
+    },
+    resetCategoryFilter: () => {
+      self.selectedCategories = cast(allCategories)
+    },
+    setSearch: (text: string) => {
+      self.search = text
+    },
+    setUntilDate: (timestamp: number) => {
+      self.untilDate = timestamp
+    },
+    resetDateFilter: () => {
+      self.untilDate = null
+    },
+  }))
+  .views((self) => ({
+    get availableCategories(): string[] {
+      return allCategories.filter(
+        (category) =>
+          self[category].filteredItems.length > 0 && self.selectedCategories.includes(category),
+      )
+    },
+    get medCardCategories(): string[] {
+      return allCategories.filter((category) => self[category].filteredItems.length > 0)
+    },
+  }))
+  .views((self) => ({
+    get recordsMenu(): RecordMenu {
+      const list: RecordMenu = {}
+      for (const key of self.availableCategories) {
+        list[key] = {
+          name: `recordsScreen.${key}`,
+          count: self[key].filteredItems.length,
+        }
+      }
+
+      return list
+    },
+  }))
+  .actions((self) => ({
     load: flow(function* (orgId: string, cardId: string) {
       try {
-        self.error = ""
+        self.clearError()
+        self.resetCategoryFilter()
+        self.resetDateFilter()
         self.loading = true
 
         const { error, data } = yield* toGenerator(getMedicalRecords(orgId, cardId))
 
         if (error) {
+          console.log("records response error ----> ", error)
+
           self.error = error
         } else {
           const normalizedRecords = normalizeRecords(data)
@@ -70,36 +118,6 @@ const RecordsStore = types
         self.loading = false
       }
     }),
-    clearError: () => {
-      self.error = ""
-    },
-    setSelectedCategories: (categories: string[]) => {
-      self.selectedCategories = cast(categories)
-    },
-    setSearch: (text: string) => {
-      self.search = text
-    },
-  }))
-  .views((self) => ({
-    get availableCategories(): string[] {
-      return allCategories.filter(
-        (category) =>
-          self[category].filteredItems.length > 0 && self.selectedCategories.includes(category),
-      )
-    },
-  }))
-  .views((self) => ({
-    get recordsMenu(): RecordMenu {
-      const list: RecordMenu = {}
-      for (const key of self.availableCategories) {
-        list[key] = {
-          name: `recordsScreen.${key}`,
-          count: self[key].filteredItems.length,
-        }
-      }
-
-      return list
-    },
   }))
 
 export const createRecordsStoreDefault = () =>

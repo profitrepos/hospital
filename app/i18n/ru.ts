@@ -112,8 +112,10 @@ const ru = {
     research: "Результаты исследований",
     substantiations: "Обоснования диагнозов",
     filter: {
-      category: "Категория",
+      category: "Категории",
       date: "Дата",
+      reset: "Сбросить",
+      apply: "Применить",
     },
   },
   analysisRecordsScreen: {
