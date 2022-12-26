@@ -23,6 +23,6 @@ const $title: ViewStyle = {
   marginBottom: spacing.medium,
 }
 const $text: TextStyle = {
-  color: COLORS.darkingBlue,
+  color: COLORS.mainBlue,
   textAlign: "center",
 }

@@ -105,9 +105,12 @@ const RecordsStore = types
           self.error = error
         } else {
           const normalizedRecords = normalizeRecords(data)
+          console.log("normalizedRecords --> ", Object.keys(normalizedRecords))
 
           Object.keys(normalizedRecords).forEach((key) => {
-            self[key].items = normalizedRecords[key]
+            if (self[key]) {
+              self[key].items = normalizedRecords[key]
+            }
           })
         }
       } catch (error) {
@@ -147,6 +150,7 @@ const recordsDictionary = {
   Пациент: "patients",
   Исследование: "research",
   "Обоснование диагноза": "substantiations",
+  // "Медицинская карта": "" //TODO: сделать новую модель
 } as const
 
 const normalizeRecords = (data: RecordType[]): NormalizedRecords => {

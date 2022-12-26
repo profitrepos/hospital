@@ -1,9 +1,10 @@
 import React, { FC, useRef } from "react"
-import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet"
+import BottomSheet, { BottomSheetProps, BottomSheetScrollView } from "@gorhom/bottom-sheet"
 import { Preloader, Screen } from "./ui"
 import { View, ViewStyle } from "react-native"
 import { navigate } from "../navigators"
 import { spacing } from "../theme"
+import { BottomSheetMethods } from "@gorhom/bottom-sheet/lib/typescript/types"
 
 interface ScreenWithActionSheetProps {
   children?: React.ReactNode
@@ -13,6 +14,7 @@ interface ScreenWithActionSheetProps {
   animateOnMount?: boolean
   contentContainerStyle?: ViewStyle
   handleStyle?: ViewStyle
+  enableContentPanningGesture?: boolean
 }
 
 const snapPoints = ["90%", "100%"]
@@ -25,6 +27,7 @@ export const ScreenWithActionSheet: FC<ScreenWithActionSheetProps> = ({
   animateOnMount = true,
   contentContainerStyle,
   handleStyle,
+  enableContentPanningGesture = false,
 }) => {
   const sheetRef = useRef<BottomSheet>(null)
 
@@ -65,6 +68,7 @@ export const ScreenWithActionSheet: FC<ScreenWithActionSheetProps> = ({
         onClose={handleClose}
         animateOnMount={animateOnMount}
         handleStyle={handleStyle}
+        enableContentPanningGesture={enableContentPanningGesture}
       >
         {renderContent()}
       </BottomSheet>
