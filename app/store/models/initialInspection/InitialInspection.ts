@@ -3,7 +3,7 @@ import { getRootStore } from "../../helpers/getRootStore"
 import { ChapterModel } from "../common-models/common-models"
 
 export const InitialInspectionModel = types.model("InitialInspection").props({
-  uid: types.string,
+  uid: types.identifier,
   timestamp: types.number,
   doc: types.literal("Первичный осмотр"),
   date: types.string,

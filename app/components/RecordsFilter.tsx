@@ -135,7 +135,7 @@ export const RecordsFilterCategories: FC<RecordsFilterCategoriesProps> = ({
 
 interface RecordsFilterDateProps {
   style?: ViewStyle
-  untilDate: number
+  untilDate: number | null
   saveDateFilter: (untilDate: number) => void
   resetDateFilter: () => void
 }
@@ -146,10 +146,21 @@ export const RecordsFilterDate: FC<RecordsFilterDateProps> = ({
   saveDateFilter,
   resetDateFilter,
 }) => {
+  const dateFilter = useMemo(() => getDateFilter(), [])
+
   const [tempDate, setTempDate] = useState<number | null>(null)
+
+  useEffect(() => {
+    setTempDate(untilDate)
+  }, [untilDate])
 
   const save = () => {
     saveDateFilter(tempDate)
+  }
+
+  const reset = () => {
+    setTempDate(null)
+    resetDateFilter()
   }
 
   return (
@@ -175,7 +186,7 @@ export const RecordsFilterDate: FC<RecordsFilterDateProps> = ({
           style={[$filterFooterBtn, $filterBtnFirst]}
           tx="recordsScreen.filter.reset"
           preset="outline"
-          onPress={resetDateFilter}
+          onPress={reset}
         />
         <Button style={$filterFooterBtn} tx="recordsScreen.filter.apply" onPress={save} />
       </View>
@@ -245,12 +256,27 @@ const $filterBtnFirst: ViewStyle = {
   marginRight: spacing.small,
 }
 
-const dateFilter = {
-  one: new Date(),
-  two: new Date(),
-  three: new Date(),
-  six: new Date(),
-  eight: new Date(),
-  ten: new Date(),
-  twelve: new Date(),
+const getDateFilter = () => {
+  const today = new Date()
+  const year = today.getFullYear()
+  const month = today.getMonth()
+  const day = today.getDate()
+
+  const one = new Date(year, month, day - 1).getTime() / 1000
+  const two = new Date(year, month, day - 2).getTime() / 1000
+  const three = new Date(year, month, day - 3).getTime() / 1000
+  const six = new Date(year, month, day - 6).getTime() / 1000
+  const eight = new Date(year, month, day - 8).getTime() / 1000
+  const ten = new Date(year, month, day - 10).getTime() / 1000
+  const twelve = new Date(year, month, day - 12).getTime() / 1000
+
+  return {
+    one,
+    two,
+    three,
+    six,
+    eight,
+    ten,
+    twelve,
+  }
 }

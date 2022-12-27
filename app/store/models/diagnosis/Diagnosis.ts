@@ -3,7 +3,7 @@ import { getRootStore } from "../../helpers/getRootStore"
 import { SubstantiationModel } from "../substantiation/Substantiation"
 
 export const DiagnosisModel = types.model("Diagnosis").props({
-  uid: types.string,
+  uid: types.identifier,
   timestamp: types.number,
   doc: types.literal("Диагноз"),
   date: types.string,

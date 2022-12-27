@@ -3,7 +3,7 @@ import { getRootStore } from "../../helpers/getRootStore"
 import { ChapterModel } from "../common-models/common-models"
 
 export const ExtractModel = types.model("Extract").props({
-  uid: types.string,
+  uid: types.identifier,
   timestamp: types.number,
   doc: types.literal("Выписка"),
   date: types.string,

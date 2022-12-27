@@ -11,8 +11,9 @@ import { spacing } from "../theme"
 export const PatientsDataScreen: FC<StackScreenProps<MedicalCardTabsParamList, "PatientsData">> =
   observer(function PatientsDataScreen({ navigation }) {
     const { records } = useStores()
-    const { loading, patients, error, clearError } = records
+    const { loading, patients, error, clearError, recordMedCards } = records
     const { currentPatient } = patients
+    const { currentMedCard } = recordMedCards
 
     if (error) {
       return (
@@ -26,7 +27,9 @@ export const PatientsDataScreen: FC<StackScreenProps<MedicalCardTabsParamList, "
       <ScreenWithActionSheet loading={loading}>
         <View style={$root}>
           <ScreenTitle customText={currentPatient?.patient} />
-          {currentPatient && <PatientData patient={currentPatient} />}
+          {currentPatient && currentMedCard && (
+            <PatientData medCard={currentMedCard} patient={currentPatient} />
+          )}
         </View>
       </ScreenWithActionSheet>
     )

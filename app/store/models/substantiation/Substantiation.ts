@@ -3,7 +3,7 @@ import { getRootStore } from "../../helpers/getRootStore"
 import { ChapterModel } from "../common-models/common-models"
 
 export const SubstantiationModel = types.model("Substantiation").props({
-  uid: types.string,
+  uid: types.identifier,
   timestamp: types.number,
   doc: types.literal("Обоснование диагноза"),
   date: types.string,

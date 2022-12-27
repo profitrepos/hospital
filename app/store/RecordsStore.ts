@@ -12,6 +12,7 @@ import { DiagnosesStore } from "./models/diagnosis/Diagnosis"
 import { ResearchStore } from "./models/research/Research"
 import { NormalizedRecords, RecordMenu, RecordType } from "../interfaces"
 import { SubstantiationsStore } from "./models/substantiation/Substantiation"
+import { RecordMedCardsStore } from "./models/recordMedCard/recordMedCard"
 
 const allCategories = [
   "analyzes",
@@ -41,6 +42,7 @@ const RecordsStore = types
     patients: PatientsStore,
     research: ResearchStore,
     substantiations: SubstantiationsStore,
+    recordMedCards: RecordMedCardsStore,
     search: "",
     selectedCategories: types.optional(types.array(types.string), allCategories),
     untilDate: types.maybeNull(types.number),
@@ -135,6 +137,7 @@ export const createRecordsStoreDefault = () =>
     patients: {},
     research: {},
     substantiations: {},
+    recordMedCards: {},
   })
 
 const recordsDictionary = {
@@ -149,7 +152,7 @@ const recordsDictionary = {
   Пациент: "patients",
   Исследование: "research",
   "Обоснование диагноза": "substantiations",
-  // "Медицинская карта": "" //TODO: сделать новую модель
+  "Медицинская карта": "recordMedCards",
 } as const
 
 const normalizeRecords = (data: RecordType[]): NormalizedRecords => {

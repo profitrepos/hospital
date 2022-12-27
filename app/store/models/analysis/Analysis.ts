@@ -3,7 +3,7 @@ import { getRootStore } from "../../helpers/getRootStore"
 import { IndicatorModel } from "../common-models/common-models"
 
 export const AnalysisModel = types.model("Analysis").props({
-  uid: types.string,
+  uid: types.identifier,
   timestamp: types.number,
   doc: types.literal("Анализ"),
   date: types.string,

@@ -3,7 +3,7 @@ import { getRootStore } from "../../helpers/getRootStore"
 import { ChapterModel } from "../common-models/common-models"
 
 export const EpicrisisModel = types.model("Epicrisis").props({
-  uid: types.string,
+  uid: types.identifier,
   timestamp: types.number,
   doc: types.literal("Эпикриз"),
   date: types.string,

@@ -41,7 +41,6 @@ export const RecordsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Recor
       search,
       setSearch,
       setSelectedCategories,
-      selectedCategories,
       availableCategories,
       resetCategoryFilter,
       medCardCategories,
@@ -74,6 +73,11 @@ export const RecordsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Recor
       bottomSheetModalRef.current?.dismiss()
     }
 
+    const saveDateFilter = (untilDate: number) => {
+      setUntilDate(untilDate)
+      bottomSheetModalRef.current?.dismiss()
+    }
+
     if (error) {
       return (
         <AppModal containerStyle={$modal}>
@@ -94,7 +98,7 @@ export const RecordsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Recor
                 dateHandler={openDateFilter}
                 clearDateFilter={resetDateFilter}
                 showClearCategoryFilter={medCardCategories.length !== availableCategories.length}
-                showClearDateFilter={false}
+                showClearDateFilter={Boolean(untilDate)}
                 style={$filter}
               />
               <RecordsSearch setSearch={setSearch} search={search} style={$search} />
@@ -125,7 +129,13 @@ export const RecordsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Recor
                     resetCategories={resetCategoryFilter}
                   />
                 )}
-                {filterType === "date" && <RecordsFilterDate />}
+                {filterType === "date" && (
+                  <RecordsFilterDate
+                    saveDateFilter={saveDateFilter}
+                    resetDateFilter={resetDateFilter}
+                    untilDate={untilDate}
+                  />
+                )}
               </View>
             </BottomSheetScrollView>
           </BottomSheetModal>

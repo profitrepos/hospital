@@ -93,6 +93,7 @@ const ru = {
     cardNumber: "Номер мед.карты",
     diagnosis: "Диагноз",
     department: "Отделение госпитализации",
+    hospitalization: "Госпитализация",
   },
   journalsScreen: {
     title: "Дневники",

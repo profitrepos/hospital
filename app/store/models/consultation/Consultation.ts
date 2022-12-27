@@ -2,7 +2,7 @@ import { Instance, types } from "mobx-state-tree"
 import { getRootStore } from "../../helpers/getRootStore"
 
 export const ConsultationModel = types.model("Consultation").props({
-  uid: types.string,
+  uid: types.identifier,
   timestamp: types.number,
   doc: types.literal("Консультация"),
   date: types.string,
