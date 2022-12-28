@@ -88,6 +88,7 @@ export const SearchList: FC<SearchListProps> = observer(() => {
             onPress={searchMedCards}
             style={$btn}
             tx="search.medcards"
+            preset={searchText.length < 5 ? "disabled" : "default"}
             disabled={searchText.length < 5}
           />
         </>

@@ -13,7 +13,7 @@ export const SettingsScreen: FC<StackScreenProps<AppStackParamList, "Settings">>
   function SettingsScreen({ navigation }) {
     const { app } = useStores()
 
-    const { resetPassword, error, clearError } = app
+    const { resetPassword, error, clearError, setLocale } = app
 
     if (error) {
       return (
@@ -30,6 +30,12 @@ export const SettingsScreen: FC<StackScreenProps<AppStackParamList, "Settings">>
         </Button>
         <Button onPress={() => navigation.navigate("ResetPassword")} style={{ marginBottom: 20 }}>
           Сбросить пароль
+        </Button>
+        <Button onPress={() => setLocale("kz")} style={{ marginBottom: 20 }}>
+          KZ
+        </Button>
+        <Button onPress={() => setLocale("ru")} style={{ marginBottom: 20 }}>
+          RU
         </Button>
       </Screen>
     )
