@@ -154,9 +154,9 @@ export const navigateToDictionary = {
   substantiations: "SubstantiationRecords",
   analyzesAssigned: "AnalyzesAssigned",
   consultationsAssigned: "ConsultationsAssigned",
-  regimes: "Regimes",
-  diets: "Diets",
-  medicinesAndMixtures: "MedicinesAndMixtures",
-  procedures: "Procedures",
+  regimes: "RegimesAssigned",
+  diets: "DietsAssigned",
+  medicinesAndMixtures: "MedicinesAndMixturesAssigned",
+  procedures: "ProceduresAssigned",
   researhAssigned: "ResearhAssigned",
 }

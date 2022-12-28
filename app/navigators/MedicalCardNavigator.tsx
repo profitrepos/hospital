@@ -29,7 +29,6 @@ import {
   ProceduresScreen,
   DietsScreen,
 } from "../screens"
-import { useStores } from "../store"
 import { COLORS } from "../theme"
 import { getActiveRouteName, navigationRef } from "./navigationUtilities"
 
@@ -38,7 +37,7 @@ export type MedicalCardTabsParamList = {
   Records: undefined
   Journals: undefined
   JournalDetails: undefined
-  Assignments: undefined
+  Assigned: undefined
   More: undefined
   AnalysisRecords: undefined
   ConsultationRecords: undefined
@@ -49,13 +48,13 @@ export type MedicalCardTabsParamList = {
   OperationProtocolRecords: undefined
   ResearchRecords: undefined
   SubstantiationRecords: undefined
-  MedicinesAndMixtures: undefined
+  MedicinesAndMixturesAssigned: undefined
   AnalyzesAssigned: undefined
   ResearhAssigned: undefined
   ConsultationsAssigned: undefined
-  Regimes: undefined
-  Diets: undefined
-  Procedures: undefined
+  RegimesAssigned: undefined
+  DietsAssigned: undefined
+  ProceduresAssigned: undefined
 }
 
 const Tab = createBottomTabNavigator<MedicalCardTabsParamList>()
@@ -114,6 +113,23 @@ const recordsScreenOptions: BottomTabNavigationOptions = {
     return <Text style={$style} tx="medcardTabs.records" />
   },
 }
+const assignesScreenOptions: BottomTabNavigationOptions = {
+  tabBarIcon: () => {
+    const routName: string = getActiveRouteName(navigationRef.getRootState())
+    const color = routName.includes("Assigned") ? COLORS.mainBlue : COLORS.lightGrayTabIcon
+    return <СapsuleSVG color={color} />
+  },
+  tabBarLabel: () => {
+    const routName: string = getActiveRouteName(navigationRef.getRootState())
+    const $style: TextStyle = {
+      fontSize: 10,
+      lineHeight: 13,
+      color: routName.includes("Assigned") ? COLORS.mainBlue : COLORS.lightGrayTabIcon,
+      fontFamily: "Gilroy-SemiBold",
+    }
+    return <Text style={$style} tx="medcardTabs.assignments" />
+  },
+}
 
 export const MedicalCardNavigator = observer(() => {
   const translate = useTranslate()
@@ -134,14 +150,7 @@ export const MedicalCardNavigator = observer(() => {
       />
       <Tab.Screen name="Records" component={RecordsScreen} options={recordsScreenOptions} />
       <Tab.Screen name="Journals" component={JournalsScreen} options={jourlnalScreenOptions} />
-      <Tab.Screen
-        name="Assignments"
-        component={AssignmentsScreen}
-        options={{
-          tabBarIcon: ({ color }) => <СapsuleSVG color={color} />,
-          title: translate("medcardTabs.assignments"),
-        }}
-      />
+      <Tab.Screen name="Assigned" component={AssignmentsScreen} options={assignesScreenOptions} />
       <Tab.Screen
         name="More"
         component={MoreScreen}
@@ -201,7 +210,7 @@ export const MedicalCardNavigator = observer(() => {
         options={hiddenTabOptions}
       />
       <Tab.Screen
-        name="MedicinesAndMixtures"
+        name="MedicinesAndMixturesAssigned"
         component={MedicinesAndMixturesScreen}
         options={hiddenTabOptions}
       />
@@ -220,9 +229,13 @@ export const MedicalCardNavigator = observer(() => {
         component={ConsultationsAssignedScreen}
         options={hiddenTabOptions}
       />
-      <Tab.Screen name="Regimes" component={RegimesScreen} options={hiddenTabOptions} />
-      <Tab.Screen name="Procedures" component={ProceduresScreen} options={hiddenTabOptions} />
-      <Tab.Screen name="Diets" component={DietsScreen} options={hiddenTabOptions} />
+      <Tab.Screen name="RegimesAssigned" component={RegimesScreen} options={hiddenTabOptions} />
+      <Tab.Screen
+        name="ProceduresAssigned"
+        component={ProceduresScreen}
+        options={hiddenTabOptions}
+      />
+      <Tab.Screen name="DietsAssigned" component={DietsScreen} options={hiddenTabOptions} />
     </Tab.Navigator>
   )
 })

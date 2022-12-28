@@ -94,21 +94,21 @@ const normalizeAssignments = (data: AssignmentsForDay[]): NormalizedAssignments 
   const result = {}
 
   for (const day of data) {
-    const { date, assignments } = day
+    const { timestamp, assignments } = day
 
     for (const assignment of assignments) {
       const resultKey = assignmentsDictionary[assignment.type]
 
       const currentMap = result[resultKey]
       if (currentMap) {
-        if (currentMap[date]) {
-          const prevArr = currentMap[date]
-          currentMap[date] = [...prevArr, assignment]
+        if (currentMap[timestamp]) {
+          const prevArr = currentMap[timestamp]
+          currentMap[timestamp] = [...prevArr, assignment]
         } else {
-          currentMap[date] = [assignment]
+          currentMap[timestamp] = [assignment]
         }
       } else {
-        result[resultKey] = { [date]: [assignment] }
+        result[resultKey] = { [timestamp]: [assignment] }
       }
     }
   }

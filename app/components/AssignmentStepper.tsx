@@ -2,11 +2,13 @@ import React, { FC } from "react"
 import { TextStyle, View, ViewProps, ViewStyle } from "react-native"
 import Icon from "react-native-vector-icons/MaterialIcons"
 import { COLORS, spacing } from "../theme"
+import { formatDate } from "../utils/formatDate"
 import { Button, Text } from "./ui"
 
 interface AssignmentStepperProps extends ViewProps {
   containerStyle?: ViewStyle
-  text: string
+  dates: string[]
+  activeIndex: number
   onPrev: () => void
   onNext: () => void
   prevDisabled?: boolean
@@ -19,7 +21,8 @@ export const AssignmentStepper: FC<AssignmentStepperProps> = ({
   onNext,
   prevDisabled = false,
   nextDisabled = false,
-  text,
+  dates,
+  activeIndex,
   ...props
 }) => {
   return (
@@ -34,7 +37,11 @@ export const AssignmentStepper: FC<AssignmentStepperProps> = ({
         disabled={prevDisabled}
       />
       <View style={$date}>
-        <Text preset="subheading" style={$dateText} text={text} />
+        <Text
+          preset="subheading"
+          style={$dateText}
+          text={formatDate(new Date(Number(dates[activeIndex]) * 1000))}
+        />
       </View>
       <Button
         preset="text"

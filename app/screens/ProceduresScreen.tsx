@@ -8,19 +8,20 @@ import { ScreenWithActionSheet } from "../components"
 import { useStores } from "../store"
 import { spacing } from "../theme"
 
-export const ProceduresScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Procedures">> =
-  observer(function ProceduresScreen({ navigation }) {
-    const { records } = useStores()
-    const { loading } = records
+export const ProceduresScreen: FC<
+  StackScreenProps<MedicalCardTabsParamList, "ProceduresAssigned">
+> = observer(function ProceduresScreen({ navigation }) {
+  const { records } = useStores()
+  const { loading } = records
 
-    return (
-      <ScreenWithActionSheet loading={loading}>
-        <View style={$root}>
-          <ScreenTitle text="proceduresScreen.title" />
-        </View>
-      </ScreenWithActionSheet>
-    )
-  })
+  return (
+    <ScreenWithActionSheet loading={loading}>
+      <View style={$root}>
+        <ScreenTitle text="proceduresScreen.title" />
+      </View>
+    </ScreenWithActionSheet>
+  )
+})
 
 const $modal: ViewStyle = {
   backgroundColor: "#fff",

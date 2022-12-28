@@ -14,7 +14,7 @@ const ru = {
   medcardTabs: {
     data: "Данные",
     records: "Мед.записи",
-    journal: "Дневник",
+    journal: "Дневники",
     assignments: "Назначения",
     more: "Еще",
   },
