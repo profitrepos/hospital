@@ -4,11 +4,10 @@ import { TextStyle, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { ScreenTitle, Text } from "../components/ui"
 import { MedicalCardTabsParamList } from "../navigators"
-import { ScreenWithActionSheet } from "../components"
+import { AssignmentsList, ScreenWithActionSheet } from "../components"
 import { Diet, useStores } from "../store"
 import { COLORS, spacing } from "../theme"
 import Icon from "react-native-vector-icons/MaterialIcons"
-import { AssignmentsList } from "../components/AssignmentsList"
 
 interface DietProps {
   title: string
@@ -34,7 +33,7 @@ export const DietsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "DietsAs
     )
 
     return (
-      <ScreenWithActionSheet contentContainerStyle={$sheet} loading={loading}>
+      <ScreenWithActionSheet contentContainerStyle={$flex} loading={loading}>
         <View style={$root}>
           <ScreenTitle text="dietsScreen.title" />
           <AssignmentsList<Diet>
@@ -47,7 +46,7 @@ export const DietsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "DietsAs
     )
   })
 
-const $sheet: ViewStyle = {
+const $flex: ViewStyle = {
   flex: 1,
 }
 const $root: ViewStyle = {
@@ -55,21 +54,10 @@ const $root: ViewStyle = {
   paddingHorizontal: spacing.extraSmall,
   flex: 1,
 }
-const $scrollView: ViewStyle = {
-  flexGrow: 1,
-}
 const $arrow: TextStyle = {
   paddingLeft: spacing.large,
   color: COLORS.lightBlue,
   fontSize: 24,
-}
-const $list: ViewStyle = {
-  marginVertical: spacing.medium,
-  paddingHorizontal: spacing.small,
-  flex: 1,
-}
-const $listItem: ViewStyle = {
-  width: "100%",
 }
 const $diet: ViewStyle = {
   flexDirection: "row",

@@ -4,11 +4,10 @@ import { TextStyle, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { ScreenTitle, Text } from "../components/ui"
 import { MedicalCardTabsParamList } from "../navigators"
-import { ScreenWithActionSheet } from "../components"
+import { AssignmentsList, ScreenWithActionSheet } from "../components"
 import { MedicinesAndMixtures, useStores } from "../store"
 import { COLORS, spacing } from "../theme"
 import Icon from "react-native-vector-icons/MaterialIcons"
-import { AssignmentsList } from "../components/AssignmentsList"
 
 interface MedicineItemProps {
   medicine: MedicinesAndMixtures
