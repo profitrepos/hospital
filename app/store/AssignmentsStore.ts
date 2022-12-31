@@ -3,10 +3,9 @@ import { AssignmentMenu, AssignmentsForDay, NormalizedAssignments } from "../int
 import { getMedicalAssignments } from "../services/passbase"
 import { AnalyzesAssignedStore } from "./models/analysisAssigned/AnalysisAssigned"
 import { ConsultationsAssignedStore } from "./models/consultationAssigned/ConsultationAssigned"
-import { DietsStore } from "./models/diet/Diet"
 import { MedicinesAndMixturesStore } from "./models/medicineAndMixture/medicineAndMixture"
 import { ProceduresStore } from "./models/procedure/Procedure"
-import { RegimesStore } from "./models/regime/Regime"
+import { RegimesAndDietsStore } from "./models/regimeAndDiet/regimeAndDiet"
 import { ResearchAssignedStore } from "./models/researchAssigned/ResearchAssigned"
 
 export const AssignmentsStore = types
@@ -14,10 +13,9 @@ export const AssignmentsStore = types
   .props({
     analyzesAssigned: AnalyzesAssignedStore,
     consultationsAssigned: ConsultationsAssignedStore,
-    diets: DietsStore,
     medicinesAndMixtures: MedicinesAndMixturesStore,
     procedures: ProceduresStore,
-    regimes: RegimesStore,
+    regimesAndDiets: RegimesAndDietsStore,
     researhAssigned: ResearchAssignedStore,
     loading: false,
     error: types.optional(types.string, ""),
@@ -72,21 +70,20 @@ export const createAssignmentsStoreDefault = () =>
   types.optional(AssignmentsStore, {
     analyzesAssigned: {},
     consultationsAssigned: {},
-    diets: {},
     medicinesAndMixtures: {},
     procedures: {},
-    regimes: {},
+    regimesAndDiets: {},
     researhAssigned: {},
   })
 
 const assignmentsDictionary = {
   Анализы: "analyzesAssigned",
   Консультации: "consultationsAssigned",
-  Диета: "diets",
+  Диета: "regimesAndDiets",
   Медикаменты: "medicinesAndMixtures",
   Смеси: "medicinesAndMixtures",
   Процедуры: "procedures",
-  Режим: "regimes",
+  Режим: "regimesAndDiets",
   Исследования: "researhAssigned",
 } as const
 

@@ -6,7 +6,6 @@ import { navigate } from "../navigators"
 import { COLORS, spacing } from "../theme"
 import { useStores } from "../store"
 
-//TODO: поменять местами мои пациенты и отделение
 //TODO: обьединить режимы и диеты
 //TODO: очищать список в поиске и добавить отделение госпитализации и код диагноза
 //TODO: сделать списки медзаписей
@@ -51,7 +50,7 @@ export const ScreenWithActionSheet: FC<ScreenWithActionSheetProps> = ({
   const sheetRef = useRef<BottomSheet>(null)
 
   const patientInfo = useMemo(() => {
-    if (patients) {
+    if (currentPatient && currentMedCard) {
       const [lastName, firstName, patronymic] = currentPatient.patient.split(" ")
 
       return `${lastName ? lastName : ""} ${firstName ? `${firstName[0]}.` : ""} ${

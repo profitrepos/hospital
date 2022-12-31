@@ -25,9 +25,8 @@ import {
   AnalyzesAssignedScreen,
   ResearhAssignedScreen,
   ConsultationsAssignedScreen,
-  RegimesScreen,
+  RegimesAndDietsScreen,
   ProceduresScreen,
-  DietsScreen,
 } from "../screens"
 import { COLORS } from "../theme"
 import { getActiveRouteName, navigationRef } from "./navigationUtilities"
@@ -52,8 +51,7 @@ export type MedicalCardTabsParamList = {
   AnalyzesAssigned: undefined
   ResearhAssigned: undefined
   ConsultationsAssigned: undefined
-  RegimesAssigned: undefined
-  DietsAssigned: undefined
+  RegimesAndDietsAssigned: undefined
   ProceduresAssigned: undefined
 }
 
@@ -229,13 +227,16 @@ export const MedicalCardNavigator = observer(() => {
         component={ConsultationsAssignedScreen}
         options={hiddenTabOptions}
       />
-      <Tab.Screen name="RegimesAssigned" component={RegimesScreen} options={hiddenTabOptions} />
+      <Tab.Screen
+        name="RegimesAndDietsAssigned"
+        component={RegimesAndDietsScreen}
+        options={hiddenTabOptions}
+      />
       <Tab.Screen
         name="ProceduresAssigned"
         component={ProceduresScreen}
         options={hiddenTabOptions}
       />
-      <Tab.Screen name="DietsAssigned" component={DietsScreen} options={hiddenTabOptions} />
     </Tab.Navigator>
   )
 })

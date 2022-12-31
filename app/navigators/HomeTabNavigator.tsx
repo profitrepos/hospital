@@ -34,19 +34,19 @@ export const HomeTabNavigator = observer(() => {
   return (
     <Tab.Navigator screenOptions={tabOptions}>
       <Tab.Screen
-        name="Department"
-        component={DepartmentScreen}
-        options={{
-          tabBarIcon: ({ color }) => <DepartmentSVG color={color} />,
-          title: translate("mainTabs.department"),
-        }}
-      />
-      <Tab.Screen
         name="MyPatients"
         component={MyPatientsScreen}
         options={{
           tabBarIcon: ({ color }) => <PatientSVG color={color} width={20} height={20} />,
           title: translate("mainTabs.patients"),
+        }}
+      />
+      <Tab.Screen
+        name="Department"
+        component={DepartmentScreen}
+        options={{
+          tabBarIcon: ({ color }) => <DepartmentSVG color={color} />,
+          title: translate("mainTabs.department"),
         }}
       />
       <Tab.Screen

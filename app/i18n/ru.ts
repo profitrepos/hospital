@@ -162,6 +162,7 @@ const ru = {
     procedures: "Процедуры",
     regimes: "Режим",
     researhAssigned: "Исследования",
+    regimesAndDiets: "Режимы и диеты",
   },
   medicinesAndMixturesScreen: {
     title: "Медикаменты и смеси",
@@ -175,8 +176,8 @@ const ru = {
   consultationsAssignedScreen: {
     title: "Консультация",
   },
-  regimesScreen: {
-    title: "Режим",
+  regimesAndDietsScreen: {
+    title: "Режимы и деты",
   },
   dietsScreen: {
     title: "Диета",

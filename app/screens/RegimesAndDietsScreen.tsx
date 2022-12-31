@@ -5,46 +5,50 @@ import { StackScreenProps } from "@react-navigation/stack"
 import { ScreenTitle, Text } from "../components/ui"
 import { MedicalCardTabsParamList } from "../navigators"
 import { AssignmentsList, ScreenWithActionSheet } from "../components"
-import { Regime, useStores } from "../store"
+import { Regime, RegimeAndDiet, useStores } from "../store"
 import { COLORS, spacing } from "../theme"
 import Icon from "react-native-vector-icons/MaterialIcons"
 
 interface RegimeProps {
   title: string
+  type: string
 }
 
-const RegimeItem: FC<RegimeProps> = ({ title }) => {
+const RegimeItem: FC<RegimeProps> = ({ title, type }) => {
   return (
     <View style={$regime}>
-      <Text text={title} style={$regimeTitle} />
+      <Text text={`${type}: ${title}`} style={$regimeTitle} />
       <Icon name="chevron-right" style={$arrow} />
     </View>
   )
 }
 
-export const RegimesScreen: FC<StackScreenProps<MedicalCardTabsParamList, "RegimesAssigned">> =
-  observer(function RegimesScreen({ navigation }) {
-    const { assignments } = useStores()
-    const { loading, regimes } = assignments
+export const RegimesAndDietsScreen: FC<
+  StackScreenProps<MedicalCardTabsParamList, "RegimesAndDietsAssigned">
+> = observer(function RegimesAndDietsScreen({ navigation }) {
+  const { assignments } = useStores()
+  const { loading, regimesAndDiets } = assignments
 
-    const dates = useMemo(
-      () => [...regimes.map.keys()].sort((a, b) => Number(a) - Number(b)),
-      [regimes],
-    )
+  const dates = useMemo(
+    () => [...regimesAndDiets.map.keys()].sort((a, b) => Number(a) - Number(b)),
+    [regimesAndDiets],
+  )
 
-    return (
-      <ScreenWithActionSheet contentContainerStyle={$flex} loading={loading} showPatientInfo>
-        <View style={$root}>
-          <ScreenTitle text="regimesScreen.title" />
-          <AssignmentsList<Regime>
-            dates={dates}
-            map={regimes.map}
-            renderItem={(elem, index) => <RegimeItem title={elem.description} key={index} />}
-          />
-        </View>
-      </ScreenWithActionSheet>
-    )
-  })
+  return (
+    <ScreenWithActionSheet contentContainerStyle={$flex} loading={loading} showPatientInfo>
+      <View style={$root}>
+        <ScreenTitle text="regimesAndDietsScreen.title" />
+        <AssignmentsList<RegimeAndDiet>
+          dates={dates}
+          map={regimesAndDiets.map}
+          renderItem={(elem, index) => (
+            <RegimeItem type={elem.type} title={elem.description} key={index} />
+          )}
+        />
+      </View>
+    </ScreenWithActionSheet>
+  )
+})
 
 const $flex: ViewStyle = {
   flex: 1,
