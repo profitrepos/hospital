@@ -33,7 +33,7 @@ export const DietsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "DietsAs
     )
 
     return (
-      <ScreenWithActionSheet contentContainerStyle={$flex} loading={loading}>
+      <ScreenWithActionSheet contentContainerStyle={$flex} loading={loading} showPatientInfo>
         <View style={$root}>
           <ScreenTitle text="dietsScreen.title" />
           <AssignmentsList<Diet>

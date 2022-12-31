@@ -8,10 +8,10 @@ import { AppError, AppModal, AssignmentsMenu, ScreenWithActionSheet } from "../c
 import { useStores } from "../store"
 import { spacing } from "../theme"
 
-export const AssignmentsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Assignments">> =
+export const AssignmentsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Assigned">> =
   observer(function AssignmentsScreen({ navigation }) {
     const { assignments } = useStores()
-    const { loading, error, clearError, assignmentsMenu, medicinesAndMixtures } = assignments
+    const { loading, error, clearError, assignmentsMenu } = assignments
 
     const handlerAssignment = (key: string) => {
       navigation.navigate(navigateToDictionary[key])
@@ -26,7 +26,7 @@ export const AssignmentsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "A
     }
 
     return (
-      <ScreenWithActionSheet loading={loading}>
+      <ScreenWithActionSheet loading={loading} showPatientInfo>
         <View style={$root}>
           <View style={$assignments}>
             <ScreenTitle text="assignmentsScreen.title" />

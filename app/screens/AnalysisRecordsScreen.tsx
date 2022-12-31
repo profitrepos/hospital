@@ -15,7 +15,7 @@ export const AnalysisRecordsScreen: FC<
   const { loading } = records
 
   return (
-    <ScreenWithActionSheet loading={loading}>
+    <ScreenWithActionSheet loading={loading} showPatientInfo>
       <View style={$root}>
         <ScreenTitle text="analysisRecordsScreen.title" />
       </View>

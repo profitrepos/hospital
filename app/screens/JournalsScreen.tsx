@@ -29,7 +29,7 @@ export const JournalsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Jour
     }
 
     return (
-      <ScreenWithActionSheet loading={loading}>
+      <ScreenWithActionSheet loading={loading} showPatientInfo>
         <View style={$root}>
           <View style={$journals}>
             <ScreenTitle text="journalsScreen.title" />
@@ -50,7 +50,7 @@ const $root: ViewStyle = {
   paddingHorizontal: spacing.extraSmall,
 }
 const $listContainer: ViewStyle = {
-  padding: spacing.large,
+  paddingHorizontal: spacing.large,
 }
 const $journals: ViewStyle = {
   paddingVertical: spacing.medium,

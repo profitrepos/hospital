@@ -24,7 +24,7 @@ export const PatientsDataScreen: FC<StackScreenProps<MedicalCardTabsParamList, "
     }
 
     return (
-      <ScreenWithActionSheet loading={loading}>
+      <ScreenWithActionSheet handleStyle={$handle} loading={loading}>
         <View style={$root}>
           <ScreenTitle customText={currentPatient?.patient} />
           {currentPatient && currentMedCard && (
@@ -39,6 +39,9 @@ const $modal: ViewStyle = {
   backgroundColor: "#fff",
 }
 const $root: ViewStyle = {
-  paddingVertical: spacing.medium,
+  paddingBottom: spacing.medium,
   paddingHorizontal: spacing.extraSmall,
+}
+const $handle: ViewStyle = {
+  paddingBottom: spacing.extraLarge,
 }

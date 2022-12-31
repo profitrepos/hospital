@@ -17,10 +17,9 @@ export const JournalDetailsScreen: FC<
   const { activeJournal } = journals
 
   return (
-    <ScreenWithActionSheet>
+    <ScreenWithActionSheet showBackBtn showPatientInfo>
       <View style={$root}>
         <View style={$detailContainer}>
-          <BackButton btnStyle={$backBtn} />
           <ScreenTitle text="journalScreen.title" />
           <ChaptersDetails chapters={activeJournal?.chapters} />
         </View>
@@ -33,8 +32,6 @@ const $root: ViewStyle = {
   paddingHorizontal: spacing.extraSmall,
 }
 const $detailContainer: ViewStyle = {
-  padding: spacing.extraSmall,
-}
-const $backBtn: ViewStyle = {
-  backgroundColor: COLORS.iconsBG,
+  paddingVertical: spacing.medium,
+  paddingHorizontal: spacing.extraSmall,
 }

@@ -15,7 +15,7 @@ export const OperationProtocolRecordsScreen: FC<
   const { loading } = records
 
   return (
-    <ScreenWithActionSheet loading={loading}>
+    <ScreenWithActionSheet loading={loading} showPatientInfo>
       <View style={$root}>
         <ScreenTitle text="operationProtocolRecordsScreen.title" />
       </View>

@@ -15,7 +15,7 @@ export const ExtractRecordsScreen: FC<
   const { loading } = records
 
   return (
-    <ScreenWithActionSheet loading={loading}>
+    <ScreenWithActionSheet loading={loading} showPatientInfo>
       <View style={$root}>
         <ScreenTitle text="extractRecordsScreen.title" />
       </View>

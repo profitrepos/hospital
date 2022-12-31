@@ -8,12 +8,18 @@ interface ScreenTitleProps {
   text?: TxKeyPath
   customText?: string
   containerStyle?: ViewStyle
+  textStyle?: TextStyle
 }
 
-export const ScreenTitle: FC<ScreenTitleProps> = ({ text, customText, containerStyle }) => {
+export const ScreenTitle: FC<ScreenTitleProps> = ({
+  text,
+  customText,
+  containerStyle,
+  textStyle,
+}) => {
   return (
     <View style={[$title, containerStyle]}>
-      <Text preset="heading" tx={text} style={$text} text={customText} />
+      <Text preset="heading" tx={text} style={[$text, textStyle]} text={customText} />
     </View>
   )
 }

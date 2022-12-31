@@ -34,7 +34,7 @@ export const AnalyzesAssignedScreen: FC<
   )
 
   return (
-    <ScreenWithActionSheet contentContainerStyle={$flex} loading={loading}>
+    <ScreenWithActionSheet contentContainerStyle={$flex} loading={loading} showPatientInfo>
       <View style={$root}>
         <ScreenTitle text="analyzesAssignedScreen.title" />
         <AssignmentsList<AnalysisAssigned>

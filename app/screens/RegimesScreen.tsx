@@ -33,7 +33,7 @@ export const RegimesScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Regim
     )
 
     return (
-      <ScreenWithActionSheet contentContainerStyle={$flex} loading={loading}>
+      <ScreenWithActionSheet contentContainerStyle={$flex} loading={loading} showPatientInfo>
         <View style={$root}>
           <ScreenTitle text="regimesScreen.title" />
           <AssignmentsList<Regime>

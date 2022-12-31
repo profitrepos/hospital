@@ -19,6 +19,9 @@ const MedicineItem: FC<MedicineItemProps> = memo(({ medicine }) => {
       <View style={$medicineInfo}>
         <Text preset="subheading" text={medicine.description} style={$medicineDescr} />
         <Text preset="helper" text={medicine.comment} style={$medicineComment} />
+        {medicine.executed && (
+          <Text preset="helper" text={medicine.executed} style={$medicineComment} />
+        )}
       </View>
       <Icon name="chevron-right" style={$arrow} />
     </View>
@@ -37,7 +40,12 @@ export const MedicinesAndMixturesScreen: FC<
   )
 
   return (
-    <ScreenWithActionSheet contentContainerStyle={$flex} scrollEnabled={false} loading={loading}>
+    <ScreenWithActionSheet
+      contentContainerStyle={$flex}
+      scrollEnabled={false}
+      loading={loading}
+      showPatientInfo
+    >
       <View style={$root}>
         <ScreenTitle text="medicinesAndMixturesScreen.title" />
         <AssignmentsList<MedicinesAndMixtures>

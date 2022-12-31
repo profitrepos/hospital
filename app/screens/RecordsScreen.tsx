@@ -88,7 +88,7 @@ export const RecordsScreen: FC<StackScreenProps<MedicalCardTabsParamList, "Recor
 
     return (
       <View style={$screenWrapper}>
-        <ScreenWithActionSheet contentContainerStyle={$screen} loading={loading}>
+        <ScreenWithActionSheet contentContainerStyle={$screen} loading={loading} showPatientInfo>
           <View style={$root}>
             <View style={$records}>
               <ScreenTitle text="recordsScreen.title" />
