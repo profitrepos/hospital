@@ -23,7 +23,7 @@ export const SearchList: FC<SearchListProps> = observer(() => {
   const {
     loading,
     patientsList,
-    medCards,
+    medCardsList,
     searchByPatient,
     activePatient,
     setActivePatient,
@@ -59,7 +59,7 @@ export const SearchList: FC<SearchListProps> = observer(() => {
     if (activePatient) {
       return (
         <>
-          <MedCardsList data={medCards} loading={loading} onPress={medCardHandler} />
+          <MedCardsList data={medCardsList} loading={loading} onPress={medCardHandler} />
           <Button onPress={clearActivePatient} style={$btn} tx="common.back" />
         </>
       )
@@ -83,7 +83,7 @@ export const SearchList: FC<SearchListProps> = observer(() => {
     } else {
       return (
         <>
-          <MedCardsList data={medCards} loading={loading} onPress={medCardHandler} />
+          <MedCardsList data={medCardsList} loading={loading} onPress={medCardHandler} />
           <Button
             onPress={searchMedCards}
             style={$btn}

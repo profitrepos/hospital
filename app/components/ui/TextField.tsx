@@ -44,9 +44,20 @@ export const TextField: React.FC<TextFieldProps> = ({
   onPressRightIcon,
   ...props
 }) => {
-
   const translate = useTranslate()
   const [secure, setSecure] = React.useState<boolean>(secureType)
+
+  const toggleSecure = () => setSecure(!secure)
+  const handleRightIcon = () => {
+    if (onPressRightIcon) {
+      onPressRightIcon()
+    }
+  }
+
+  const onClear = () => {
+    onPressRightIcon && onPressRightIcon()
+    onChangeText("")
+  }
 
   return (
     <View style={[$wrapper, wrapperStyle]}>
@@ -66,15 +77,15 @@ export const TextField: React.FC<TextFieldProps> = ({
           {...props}
         />
         {secureType ? (
-          <TouchableOpacity onPress={() => setSecure(!secure)} style={$rightIcon}>
+          <TouchableOpacity onPress={toggleSecure} style={$rightIcon}>
             <Icon name="remove-red-eye" style={$passwordIcon} />
           </TouchableOpacity>
         ) : RightIcon && onPressRightIcon ? (
-          <TouchableOpacity onPress={() => onPressRightIcon()} style={$rightIcon}>
+          <TouchableOpacity onPress={handleRightIcon} style={$rightIcon}>
             <RightIcon width={18} height={18} />
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity onPress={() => onChangeText("")} style={$rightIcon}>
+          <TouchableOpacity onPress={onClear} style={$rightIcon}>
             <Icon name="close" style={$clearIcon} />
           </TouchableOpacity>
         )}

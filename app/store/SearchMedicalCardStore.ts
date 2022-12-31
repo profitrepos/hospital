@@ -1,5 +1,5 @@
 import { cast, flow, toGenerator, types } from "mobx-state-tree"
-import { MedicalCardListItem, PatientListItem } from "../interfaces"
+import { MedicalCardListItem, PatientListItem, PatientMedicalCardListItem } from "../interfaces"
 import { getPatientMedicalCards, searchMedicalCards } from "../services/passbase"
 import { getRootStore } from "./helpers/getRootStore"
 import { PatientMedicalCardModel } from "./models/medicalCard/MedicalCard"
@@ -87,13 +87,18 @@ const SearchMedicalCardStore = types
     setOnlyClosed: (value: boolean) => {
       self.onlyClosed = value
     },
+    clearSearchResult: () => {
+      self.patients = cast([])
+      self.medCards = cast([])
+      self.activePatient = undefined
+    },
   }))
   .views((self) => ({
     get medCardsList() {
-      return self.medCards.reduce<MedicalCardListItem[]>((prev, card) => {
-        const { admissionDate, patient, age, uid } = card
+      return self.medCards.reduce<PatientMedicalCardListItem[]>((prev, card) => {
+        const { admissionDate, patient, age, uid, department, diagnosis } = card
         //TODO: делать фильтрацию "Текущие / активные"
-        return [...prev, { admissionDate, patient, age, uid }]
+        return [...prev, { admissionDate, patient, age, uid, department, diagnosis }]
       }, [])
     },
     get patientsList() {

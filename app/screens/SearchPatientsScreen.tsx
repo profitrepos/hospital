@@ -12,7 +12,8 @@ import { observer } from "mobx-react-lite"
 export const SearchPatientsScreen: FC<StackScreenProps<HomeTabParamList, "SearchPatients">> =
   observer(function SearchPatientsScreen() {
     const { search } = useStores()
-    const { searchText, setSearchText, error, clearError, activePatient } = search
+    const { searchText, setSearchText, error, clearError, activePatient, clearSearchResult } =
+      search
 
     if (error) {
       return (
@@ -47,6 +48,7 @@ export const SearchPatientsScreen: FC<StackScreenProps<HomeTabParamList, "Search
               wrapperStyle={$search}
               inputStyle={$searchInput}
               placeholderInner={"search.medcards"}
+              onPressRightIcon={clearSearchResult}
             />
           )}
           <SearchList />

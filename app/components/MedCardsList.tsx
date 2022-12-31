@@ -9,22 +9,34 @@ import {
   ViewStyle,
 } from "react-native"
 import Icon from "react-native-vector-icons/MaterialIcons"
-import { MedicalCardListItem } from "../interfaces"
+import { MedicalCardListItem, PatientMedicalCardListItem } from "../interfaces"
 import { COLORS, spacing } from "../theme"
 import { Preloader, Text } from "./ui"
 
 interface MedCardsListProps {
-  data: MedicalCardListItem[]
-  onPress: (item: MedicalCardListItem) => void
+  data: MedicalCardListItem[] | PatientMedicalCardListItem[]
+  onPress: (item: MedicalCardListItem | PatientMedicalCardListItem) => void
   loading: boolean
   onRefresh?: () => void
 }
 
 type keyExtractorType = (item: any, index: number) => string
-const keyExtractor: keyExtractorType = (item: MedicalCardListItem) => item.uid
+const keyExtractor: keyExtractorType = (item: MedicalCardListItem | PatientMedicalCardListItem) =>
+  item.uid
+
+const getDiagnosisCode = (diagnosis: string) => {
+  const exec = /^\(.*\)/.exec(diagnosis)
+  return exec ? exec[0] : diagnosis
+}
 
 export const MedCardsList: FC<MedCardsListProps> = ({ data, onPress, loading, onRefresh }) => {
-  const renderItem: ListRenderItem<MedicalCardListItem> = ({ item }) => {
+  const renderItem: ListRenderItem<MedicalCardListItem | PatientMedicalCardListItem> = ({
+    item,
+  }) => {
+    const isPatientMedCard = (item): item is PatientMedicalCardListItem => {
+      return "department" in item
+    }
+
     const handlePress = () => {
       onPress(item)
     }
@@ -38,6 +50,13 @@ export const MedCardsList: FC<MedCardsListProps> = ({ data, onPress, loading, on
               style={$info}
               text={`${item.age}, госпитализация: ${item.admissionDate}`}
             />
+            {isPatientMedCard(item) && (
+              <Text
+                preset="helper"
+                style={$info}
+                text={`${getDiagnosisCode(item.diagnosis)}, ${item.department}`}
+              />
+            )}
           </View>
           <Icon name="chevron-right" style={$arrow} />
         </View>

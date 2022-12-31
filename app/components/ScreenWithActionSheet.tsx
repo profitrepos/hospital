@@ -6,8 +6,6 @@ import { navigate } from "../navigators"
 import { COLORS, spacing } from "../theme"
 import { useStores } from "../store"
 
-//TODO: обьединить режимы и диеты
-//TODO: очищать список в поиске и добавить отделение госпитализации и код диагноза
 //TODO: сделать списки медзаписей
 //TODO: сделать экраны с детальным просмотром
 //TODO: добавить дату и время в детальные экраны

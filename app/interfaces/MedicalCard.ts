@@ -8,6 +8,12 @@ export interface MedicalCardInfo {
 export interface MedicalCardListItem
   extends Pick<MedicalCard, "patient" | "admissionDate" | "age" | "uid"> {}
 
+export interface PatientMedicalCardListItem
+  extends Pick<
+    PatientMedicalCard,
+    "patient" | "admissionDate" | "age" | "uid" | "department" | "diagnosis"
+  > {}
+
 export interface PatientListItem extends Pick<Patient, "uid" | "patient" | "age" | "address"> {}
 
 export interface SearchMedicalCard {
