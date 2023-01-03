@@ -99,7 +99,7 @@ const ru = {
     title: "Дневники",
   },
   journalScreen: {
-    title: "Дневник",
+    title: "Дневник от {{date}}",
   },
   recordsScreen: {
     title: "Медзаписи",

@@ -6,9 +6,7 @@ import { navigate } from "../navigators"
 import { COLORS, spacing } from "../theme"
 import { useStores } from "../store"
 
-//TODO: сделать списки медзаписей
 //TODO: сделать экраны с детальным просмотром
-//TODO: добавить дату и время в детальные экраны
 //TODO: пушы
 //TODO: обновления
 
@@ -51,9 +49,8 @@ export const ScreenWithActionSheet: FC<ScreenWithActionSheetProps> = ({
     if (currentPatient && currentMedCard) {
       const [lastName, firstName, patronymic] = currentPatient.patient.split(" ")
 
-      return `${lastName ? lastName : ""} ${firstName ? `${firstName[0]}.` : ""} ${
-        patronymic ? `${patronymic[0]}.` : ""
-      } ${currentMedCard.cardNumber}`
+      return `${lastName ? lastName : ""} ${firstName ? `${firstName[0]}.` : ""} ${patronymic ? `${patronymic[0]}.` : ""
+        } ${currentMedCard.cardNumber}`
     }
     return ""
   }, [currentPatient, currentMedCard])

@@ -2,10 +2,10 @@ import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { BackButton, ScreenTitle } from "../components/ui"
+import { ScreenTitle } from "../components/ui"
 import { ScreenWithActionSheet } from "../components"
 import { useStores } from "../store"
-import { COLORS, spacing } from "../theme"
+import { spacing } from "../theme"
 import { MedicalCardTabsParamList } from "../navigators"
 import { ChaptersDetails } from "../components/ChaptersDetails"
 
@@ -20,7 +20,9 @@ export const JournalDetailsScreen: FC<
     <ScreenWithActionSheet showBackBtn showPatientInfo>
       <View style={$root}>
         <View style={$detailContainer}>
-          <ScreenTitle text="journalScreen.title" />
+          <ScreenTitle text="journalScreen.title" txOptions={{
+            date: activeJournal?.date
+          }} />
           <ChaptersDetails chapters={activeJournal?.chapters} />
         </View>
       </View>
@@ -35,3 +37,4 @@ const $detailContainer: ViewStyle = {
   paddingVertical: spacing.medium,
   paddingHorizontal: spacing.extraSmall,
 }
+

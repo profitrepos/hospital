@@ -9,6 +9,7 @@ interface ScreenTitleProps {
   customText?: string
   containerStyle?: ViewStyle
   textStyle?: TextStyle
+  txOptions?: any
 }
 
 export const ScreenTitle: FC<ScreenTitleProps> = ({
@@ -16,10 +17,11 @@ export const ScreenTitle: FC<ScreenTitleProps> = ({
   customText,
   containerStyle,
   textStyle,
+  txOptions
 }) => {
   return (
     <View style={[$title, containerStyle]}>
-      <Text preset="heading" tx={text} style={[$text, textStyle]} text={customText} />
+      <Text preset="heading" tx={text} style={[$text, textStyle]} text={customText} txOptions={txOptions} />
     </View>
   )
 }
