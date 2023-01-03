@@ -49,5 +49,5 @@ const $assignments: ViewStyle = {
   paddingVertical: spacing.medium,
 }
 const $listContainer: ViewStyle = {
-  padding: spacing.large,
+  paddingHorizontal: spacing.large,
 }

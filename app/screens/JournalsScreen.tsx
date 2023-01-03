@@ -5,7 +5,7 @@ import { StackScreenProps } from "@react-navigation/stack"
 import { ScreenTitle } from "../components/ui"
 import { AppError, AppModal, JournalsList, ScreenWithActionSheet } from "../components"
 import { useStores } from "../store"
-import { COLORS, spacing } from "../theme"
+import { spacing } from "../theme"
 import { JournalListItem } from "../interfaces"
 import { MedicalCardTabsParamList } from "../navigators"
 
@@ -50,7 +50,7 @@ const $root: ViewStyle = {
   paddingHorizontal: spacing.extraSmall,
 }
 const $listContainer: ViewStyle = {
-  paddingHorizontal: spacing.large,
+  paddingHorizontal: spacing.small,
 }
 const $journals: ViewStyle = {
   paddingVertical: spacing.medium,

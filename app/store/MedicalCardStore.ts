@@ -5,7 +5,6 @@ import { getRootStore } from "./helpers/getRootStore"
 import { MedicalCardModel } from "./models/medicalCard/MedicalCard"
 
 //TODO: Добавить поиск с задержкой на главные экраны
-//TODO: Добавить фильтры и поиск на экран с медзаписями
 
 const MedicalCardStore = types
   .model("MedicalCardStore")

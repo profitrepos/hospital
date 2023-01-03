@@ -161,17 +161,17 @@ const $records: ViewStyle = {
   paddingVertical: spacing.medium,
 }
 const $listContainer: ViewStyle = {
-  padding: spacing.large,
+  padding: spacing.small,
 }
 const $modal: ViewStyle = {
   backgroundColor: "#fff",
 }
 const $filter: ViewStyle = {
-  paddingHorizontal: spacing.medium,
+  paddingHorizontal: spacing.small,
   marginBottom: spacing.small,
 }
 const $search: ViewStyle = {
-  paddingHorizontal: spacing.medium,
+  paddingHorizontal: spacing.small,
 }
 const $filterSheet: ViewStyle = {
   paddingVertical: spacing.medium,
