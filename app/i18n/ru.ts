@@ -5,10 +5,11 @@ const ru = {
     back: "Назад",
     exit: "Выход",
     search: "Найти",
+    updates: "Загружаются последние обновления..."
   },
   mainTabs: {
     department: "Отделение",
-    patients: "Пациенты",
+    patients: "Мои",
     all: "Все",
   },
   medcardTabs: {
