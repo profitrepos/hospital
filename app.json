@@ -4,10 +4,10 @@
   "expo": {
     "name": "hospital",
     "slug": "hospital",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "orientation": "portrait",
     "runtimeVersion": {
-      "policy": "appVersion"
+      "policy": "nativeVersion"
     },
     "ios": {
       "buildNumber": "1"
@@ -35,9 +35,7 @@
     "url": "https://u.expo.dev/d13ca272-0db8-44dd-9e08-11d98a91cbdc"
   },
   "jsEngine": "hermes",
-  "assetBundlePatterns": [
-    "**/*"
-  ],
+  "assetBundlePatterns": ["**/*"],
   "android": {
     "icon": "./assets/images/app-icon-android-legacy.png",
     "package": "com.skomed.hospital",

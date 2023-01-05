@@ -4,13 +4,8 @@
   },
   "build": {
     "development": {
+      "developmentClient": true,
       "distribution": "internal",
-      "android": {
-        "gradleCommand": ":app:assembleDebug"
-      },
-      "ios": {
-        "buildConfiguration": "Debug"
-      },
       "channel": "development"
     },
     "preview": {

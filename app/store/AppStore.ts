@@ -1,6 +1,6 @@
 import { flow, Instance, SnapshotIn, SnapshotOut, toGenerator, types } from "mobx-state-tree"
 import i18n from "i18next"
-import * as Updates from "expo-updates";
+import * as Updates from "expo-updates"
 
 import { ASYNC_STORAGE_KEYS, SECURE_STORAGE_KEYS } from "../interfaces/Common"
 import asyncStorage from "../utils/async-storage/async-storage"
@@ -14,7 +14,7 @@ export const AppStore = types
     isAuth: false,
     IIN: types.optional(types.string, ""),
     error: types.optional(types.string, ""),
-    hasUpdates: false
+    hasUpdates: false,
   })
   .actions((self) => ({
     setPincode: (pincode: string) => {
@@ -74,22 +74,28 @@ export const AppStore = types
       }
     }),
     checkUpdates: flow(function* () {
-      const update = yield* toGenerator(Updates.checkForUpdateAsync());
+      if (!__DEV__) {
+        try {
+          const update = yield* toGenerator(Updates.checkForUpdateAsync())
 
-      if (update.isAvailable) {
-        self.hasUpdates = true
-        yield Updates.fetchUpdateAsync();
-        yield Updates.reloadAsync();
+          if (update.isAvailable) {
+            self.hasUpdates = true
+            yield Updates.fetchUpdateAsync()
+            yield Updates.reloadAsync()
+          }
+        } catch (error) {
+          console.log("UPDATE ERROR - ", error)
+        }
       }
-
-    })
-  })).actions((self) => ({
+    }),
+  }))
+  .actions((self) => ({
     afterCreate: () => {
       self.checkUpdates()
-    }
+    },
   }))
 
-export interface AppStore extends Instance<typeof AppStore> { }
-export interface AppStoreSnapshotOut extends SnapshotOut<typeof AppStore> { }
-export interface AppStoreSnapshotIn extends SnapshotIn<typeof AppStore> { }
+export interface AppStore extends Instance<typeof AppStore> {}
+export interface AppStoreSnapshotOut extends SnapshotOut<typeof AppStore> {}
+export interface AppStoreSnapshotIn extends SnapshotIn<typeof AppStore> {}
 export const createAppStoreDefault = () => types.optional(AppStore, {})
