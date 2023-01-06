@@ -73,26 +73,16 @@ export const AppStore = types
         self.error = error
       }
     }),
-    checkUpdates: flow(function* () {
-      if (!__DEV__) {
-        try {
-          const update = yield* toGenerator(Updates.checkForUpdateAsync())
-
-          if (update.isAvailable) {
-            self.hasUpdates = true
-            yield Updates.fetchUpdateAsync()
-            yield Updates.reloadAsync()
-          }
-        } catch (error) {
-          console.log("UPDATE ERROR - ", error)
-        }
+    updateApp: flow(function* () {
+      try {
+        yield Updates.fetchUpdateAsync()
+        setTimeout(() => {
+          Updates.reloadAsync()
+        }, 3000)
+      } catch (error) {
+        console.log("UPDATE ERROR - ", error)
       }
     }),
-  }))
-  .actions((self) => ({
-    afterCreate: () => {
-      self.checkUpdates()
-    },
   }))
 
 export interface AppStore extends Instance<typeof AppStore> {}

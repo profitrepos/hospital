@@ -1,10 +1,18 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { View, ViewStyle } from "react-native"
 import { initialWindowMetrics, SafeAreaProvider } from "react-native-safe-area-context"
+import { useStores } from "../store"
 import { spacing } from "../theme"
 import { Text, Screen, Preloader } from "./ui"
 
 export const LoadingUpdates = () => {
+  const { app } = useStores()
+  const { updateApp } = app
+
+  useEffect(() => {
+    updateApp()
+  }, [])
+
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <Screen>

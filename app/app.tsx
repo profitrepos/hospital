@@ -3,7 +3,7 @@ import "./utils/ignoreWarnings"
 import { useFonts } from "expo-font"
 import React from "react"
 import { initialWindowMetrics, SafeAreaProvider } from "react-native-safe-area-context"
-import { useInitialRootStore, useStores } from "./store"
+import { useInitialRootStore } from "./store"
 import { AppNavigator, useNavigationPersistence } from "./navigators"
 import { ErrorBoundary } from "./screens/ErrorScreen/ErrorBoundary"
 import { customFontsToLoad } from "./theme"
@@ -14,6 +14,7 @@ import { AsyncStorage } from "./utils/async-storage"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
 import { ViewStyle } from "react-native"
 import { LoadingUpdates } from "./components"
+import { useCheckForUpdates } from "./store/helpers/useCheckForUpdates"
 
 setupReactotron({
   clearOnLoad: true,
@@ -41,14 +42,13 @@ function App(props: AppProps) {
     setTimeout(hideSplashScreen, 500)
   })
 
-  const { app } = useStores()
-  const { hasUpdates } = app
-
-  if (!rehydrated || !isNavigationStateRestored || !areFontsLoaded) return null
+  const hasUpdates = useCheckForUpdates(hideSplashScreen)
 
   if (hasUpdates) {
     return <LoadingUpdates />
   }
+
+  if (!rehydrated || !isNavigationStateRestored || !areFontsLoaded) return null
 
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
