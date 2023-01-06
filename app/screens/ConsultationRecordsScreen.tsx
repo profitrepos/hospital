@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite"
 import { ScrollView, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { ScreenTitle, Text } from "../components/ui"
-import { MedicalCardTabsParamList } from "../navigators"
+import { MedicalCardTabsParamList, navigateToDictionary } from "../navigators"
 import { ScreenWithActionSheet } from "../components"
 import { Consultation, useStores } from "../store"
 import { COLORS, spacing } from "../theme"
@@ -15,7 +15,6 @@ interface ConsultationItemProps {
 }
 
 const ConsultationItem: FC<ConsultationItemProps> = ({ consultation, onPress }) => {
-
   const handlePress = () => {
     onPress(consultation)
   }
@@ -38,9 +37,11 @@ export const ConsultationRecordsScreen: FC<
 > = observer(function ConsultationRecordsScreen({ navigation }) {
   const { records } = useStores()
   const { loading, consultations } = records
+  const { setActiveConsultation } = consultations
 
   const onPress = (consultation: Consultation) => {
-    console.log('consultation ---> ', consultation)
+    navigation.navigate(navigateToDictionary.consultationDetails)
+    setActiveConsultation(consultation.uid) //Иванова Лидия Ивановна
   }
 
   return (
@@ -54,7 +55,13 @@ export const ConsultationRecordsScreen: FC<
             showsVerticalScrollIndicator={false}
           >
             {consultations.filteredItems.map((consultation) => {
-              return <ConsultationItem onPress={onPress} consultation={consultation} key={consultation.uid} />
+              return (
+                <ConsultationItem
+                  onPress={onPress}
+                  consultation={consultation}
+                  key={consultation.uid}
+                />
+              )
             })}
           </ScrollView>
         </View>
@@ -66,7 +73,7 @@ export const ConsultationRecordsScreen: FC<
 const $root: ViewStyle = {
   paddingVertical: spacing.medium,
   paddingHorizontal: spacing.extraSmall,
-  flex: 1
+  flex: 1,
 }
 const $flex: ViewStyle = {
   flex: 1,

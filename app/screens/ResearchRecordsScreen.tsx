@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite"
 import { ScrollView, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { ScreenTitle, Text } from "../components/ui"
-import { MedicalCardTabsParamList } from "../navigators"
+import { MedicalCardTabsParamList, navigateToDictionary } from "../navigators"
 import { ScreenWithActionSheet } from "../components"
 import { Research, useStores } from "../store"
 import { COLORS, spacing } from "../theme"
@@ -15,7 +15,6 @@ interface ResearchItemProps {
 }
 
 const ResearchItem: FC<ResearchItemProps> = ({ research, onPress }) => {
-
   const handlePress = () => {
     onPress(research)
   }
@@ -38,9 +37,11 @@ export const ResearchRecordsScreen: FC<
 > = observer(function ResearchRecordsScreen({ navigation }) {
   const { records } = useStores()
   const { loading, research } = records
+  const { setActiveResearch } = research
 
   const onPress = (research: Research) => {
-    console.log('substantiation ---> ', research)
+    navigation.navigate(navigateToDictionary.researchDetails)
+    setActiveResearch(research.uid)
   }
 
   return (
@@ -63,11 +64,10 @@ export const ResearchRecordsScreen: FC<
   )
 })
 
-
 const $root: ViewStyle = {
   paddingVertical: spacing.medium,
   paddingHorizontal: spacing.extraSmall,
-  flex: 1
+  flex: 1,
 }
 const $flex: ViewStyle = {
   flex: 1,

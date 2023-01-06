@@ -27,6 +27,14 @@ import {
   ConsultationsAssignedScreen,
   RegimesAndDietsScreen,
   ProceduresScreen,
+  AnalysisDetailsScreen,
+  ConsultationDetailsScreen,
+  DiagnosisDetailsScreen,
+  EpicrisisDetailsScreen,
+  ExtractDetailsScreen,
+  ResearchDetailsScreen,
+  InitialInspectionDetailsScreen,
+  SubstantiationDetailsScreen,
 } from "../screens"
 import { COLORS } from "../theme"
 import { getActiveRouteName, navigationRef } from "./navigationUtilities"
@@ -53,6 +61,14 @@ export type MedicalCardTabsParamList = {
   ConsultationsAssigned: undefined
   RegimesAndDietsAssigned: undefined
   ProceduresAssigned: undefined
+  AnalysisRecordsDetails: undefined
+  ConsultationRecordsDetails: undefined
+  DiagnosisRecordsDetails: undefined
+  EpicrisisRecordsDetails: undefined
+  ExtractRecordsDetails: undefined
+  InitialInspectionRecordsDetails: undefined
+  ResearchRecordsDetails: undefined
+  SubstantiationRecordsDetails: undefined
 }
 
 const Tab = createBottomTabNavigator<MedicalCardTabsParamList>()
@@ -235,6 +251,46 @@ export const MedicalCardNavigator = observer(() => {
       <Tab.Screen
         name="ProceduresAssigned"
         component={ProceduresScreen}
+        options={hiddenTabOptions}
+      />
+      <Tab.Screen
+        name="AnalysisRecordsDetails"
+        component={AnalysisDetailsScreen}
+        options={hiddenTabOptions}
+      />
+      <Tab.Screen
+        name="ConsultationRecordsDetails"
+        component={ConsultationDetailsScreen}
+        options={hiddenTabOptions}
+      />
+      <Tab.Screen
+        name="DiagnosisRecordsDetails"
+        component={DiagnosisDetailsScreen}
+        options={hiddenTabOptions}
+      />
+      <Tab.Screen
+        name="EpicrisisRecordsDetails"
+        component={EpicrisisDetailsScreen}
+        options={hiddenTabOptions}
+      />
+      <Tab.Screen
+        name="ExtractRecordsDetails"
+        component={ExtractDetailsScreen}
+        options={hiddenTabOptions}
+      />
+      <Tab.Screen
+        name="InitialInspectionRecordsDetails"
+        component={InitialInspectionDetailsScreen}
+        options={hiddenTabOptions}
+      />
+      <Tab.Screen
+        name="ResearchRecordsDetails"
+        component={ResearchDetailsScreen}
+        options={hiddenTabOptions}
+      />
+      <Tab.Screen
+        name="SubstantiationRecordsDetails"
+        component={SubstantiationDetailsScreen}
         options={hiddenTabOptions}
       />
     </Tab.Navigator>

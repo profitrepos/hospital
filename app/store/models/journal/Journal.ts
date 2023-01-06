@@ -18,7 +18,7 @@ export const JournalsStore = types
     activeJournal: types.safeReference(JournalModel),
   })
   .actions((self) => ({
-    setActiveJournal: (uid: string) => {
+    setActiveJournal: (uid: string | undefined) => {
       self.activeJournal = uid as any
     },
   }))

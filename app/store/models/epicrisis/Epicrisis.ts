@@ -16,7 +16,13 @@ export const EpicrisesStore = types
   .model("EpicrisesStore")
   .props({
     items: types.optional(types.array(EpicrisisModel), []),
+    activeEpicrisis: types.safeReference(EpicrisisModel),
   })
+  .actions((self) => ({
+    setActiveEpicrisis: (uid: string | undefined) => {
+      self.activeEpicrisis = uid as any
+    },
+  }))
   .views((self) => ({
     get filteredItems(): Epicrisis[] {
       const { records } = getRootStore(self)

@@ -28,6 +28,7 @@ const UserInfoStore = types
         if (error) {
           self.error = error
         } else {
+          //TODO: если одна организация устанавливать как активную
           self.organizations = cast(data)
         }
       } catch (error) {

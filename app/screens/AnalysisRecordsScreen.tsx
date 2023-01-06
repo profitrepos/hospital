@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite"
 import { ScrollView, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { ScreenTitle, Text } from "../components/ui"
-import { MedicalCardTabsParamList } from "../navigators"
+import { MedicalCardTabsParamList, navigateToDictionary } from "../navigators"
 import { ScreenWithActionSheet } from "../components"
 import { Analysis, useStores } from "../store"
 import { COLORS, spacing } from "../theme"
@@ -15,7 +15,6 @@ interface AnalysisItemProps {
 }
 
 const AnalysisItem: FC<AnalysisItemProps> = ({ analysis, onPress }) => {
-
   const handlePress = () => {
     onPress(analysis)
   }
@@ -38,9 +37,11 @@ export const AnalysisRecordsScreen: FC<
 > = observer(function AnalysisRecordsScreen({ navigation }) {
   const { records } = useStores()
   const { analyzes, loading } = records
+  const { setActiveAnalysis } = analyzes
 
-  const onPress = (analyzis: Analysis) => {
-    console.log('analysis ---> ', analyzis)
+  const onPress = (analysis: Analysis) => {
+    setActiveAnalysis(analysis.uid)
+    navigation.navigate(navigateToDictionary.analysisDetails)
   }
 
   return (
@@ -66,7 +67,7 @@ export const AnalysisRecordsScreen: FC<
 const $root: ViewStyle = {
   paddingVertical: spacing.medium,
   paddingHorizontal: spacing.extraSmall,
-  flex: 1
+  flex: 1,
 }
 const $flex: ViewStyle = {
   flex: 1,

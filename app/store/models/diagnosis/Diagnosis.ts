@@ -19,7 +19,13 @@ export const DiagnosesStore = types
   .model("DiagnosesStore")
   .props({
     items: types.optional(types.array(DiagnosisModel), []),
+    activeDiagnosis: types.safeReference(DiagnosisModel),
   })
+  .actions((self) => ({
+    setActiveDiagnosis: (uid: string | undefined) => {
+      self.activeDiagnosis = uid as any
+    },
+  }))
   .views((self) => ({
     get filteredItems(): Diagnosis[] {
       const { records } = getRootStore(self)

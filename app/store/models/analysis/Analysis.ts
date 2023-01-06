@@ -18,7 +18,13 @@ export const AnalyzesStore = types
   .model("AnalyzesStore")
   .props({
     items: types.optional(types.array(AnalysisModel), []),
+    activeAnalysis: types.safeReference(AnalysisModel),
   })
+  .actions((self) => ({
+    setActiveAnalysis: (uid: string | undefined) => {
+      self.activeAnalysis = uid as any
+    },
+  }))
   .views((self) => ({
     get filteredItems(): Analysis[] {
       const { records } = getRootStore(self)

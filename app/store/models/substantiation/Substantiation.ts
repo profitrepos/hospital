@@ -15,7 +15,13 @@ export const SubstantiationsStore = types
   .model("SubstantiationsStore")
   .props({
     items: types.optional(types.array(SubstantiationModel), []),
+    activeSubstantiation: types.safeReference(SubstantiationModel),
   })
+  .actions((self) => ({
+    setActiveSubstantiation: (uid: string | undefined) => {
+      self.activeSubstantiation = uid as any
+    },
+  }))
   .views((self) => ({
     get filteredItems(): Substantiation[] {
       const { records } = getRootStore(self)

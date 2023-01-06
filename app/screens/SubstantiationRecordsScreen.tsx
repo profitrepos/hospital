@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite"
 import { ScrollView, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { ScreenTitle, Text } from "../components/ui"
-import { MedicalCardTabsParamList } from "../navigators"
+import { MedicalCardTabsParamList, navigateToDictionary } from "../navigators"
 import { ScreenWithActionSheet } from "../components"
 import { Substantiation, useStores } from "../store"
 import { COLORS, spacing } from "../theme"
@@ -15,7 +15,6 @@ interface SubstantiationProps {
 }
 
 const SubstantiationItem: FC<SubstantiationProps> = ({ substantiation, onPress }) => {
-
   const handlePress = () => {
     onPress(substantiation)
   }
@@ -33,15 +32,16 @@ const SubstantiationItem: FC<SubstantiationProps> = ({ substantiation, onPress }
   )
 }
 
-
 export const SubstantiationRecordsScreen: FC<
   StackScreenProps<MedicalCardTabsParamList, "SubstantiationRecords">
 > = observer(function SubstantiationRecordsScreen({ navigation }) {
   const { records } = useStores()
   const { loading, substantiations } = records
+  const { setActiveSubstantiation } = substantiations
 
   const onPress = (substantiation: Substantiation) => {
-    console.log('substantiation ---> ', substantiation)
+    setActiveSubstantiation(substantiation.uid)
+    navigation.navigate(navigateToDictionary.substantiationDetails)
   }
 
   return (
@@ -55,7 +55,13 @@ export const SubstantiationRecordsScreen: FC<
             showsVerticalScrollIndicator={false}
           >
             {substantiations.filteredItems.map((substantiation) => {
-              return <SubstantiationItem onPress={onPress} substantiation={substantiation} key={substantiation.uid} />
+              return (
+                <SubstantiationItem
+                  onPress={onPress}
+                  substantiation={substantiation}
+                  key={substantiation.uid}
+                />
+              )
             })}
           </ScrollView>
         </View>
@@ -67,7 +73,7 @@ export const SubstantiationRecordsScreen: FC<
 const $root: ViewStyle = {
   paddingVertical: spacing.medium,
   paddingHorizontal: spacing.extraSmall,
-  flex: 1
+  flex: 1,
 }
 const $flex: ViewStyle = {
   flex: 1,

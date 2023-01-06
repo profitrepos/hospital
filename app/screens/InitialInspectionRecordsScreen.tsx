@@ -3,12 +3,11 @@ import { observer } from "mobx-react-lite"
 import { ScrollView, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { ScreenTitle, Text } from "../components/ui"
-import { MedicalCardTabsParamList } from "../navigators"
+import { MedicalCardTabsParamList, navigateToDictionary } from "../navigators"
 import { ScreenWithActionSheet } from "../components"
 import { InitialInspection, useStores } from "../store"
 import { COLORS, spacing } from "../theme"
 import Icon from "react-native-vector-icons/MaterialIcons"
-
 
 interface InitialInspectionItemProps {
   initialInspection: InitialInspection
@@ -16,7 +15,6 @@ interface InitialInspectionItemProps {
 }
 
 const InitialInspectionItem: FC<InitialInspectionItemProps> = ({ initialInspection, onPress }) => {
-
   const handlePress = () => {
     onPress(initialInspection)
   }
@@ -34,15 +32,16 @@ const InitialInspectionItem: FC<InitialInspectionItemProps> = ({ initialInspecti
   )
 }
 
-
 export const InitialInspectionRecordsScreen: FC<
   StackScreenProps<MedicalCardTabsParamList, "InitialInspectionRecords">
 > = observer(function InitialInspectionRecordsScreen({ navigation }) {
   const { records } = useStores()
   const { loading, initialInspections } = records
+  const { setActiveInitialInspection } = initialInspections
 
   const onPress = (initialInspection: InitialInspection) => {
-    console.log('analysis ---> ', initialInspection)
+    setActiveInitialInspection(initialInspection.uid)
+    navigation.navigate(navigateToDictionary.initialInspectionDetails)
   }
 
   return (
@@ -56,7 +55,13 @@ export const InitialInspectionRecordsScreen: FC<
             showsVerticalScrollIndicator={false}
           >
             {initialInspections.filteredItems.map((initialInspection) => {
-              return <InitialInspectionItem onPress={onPress} initialInspection={initialInspection} key={initialInspection.uid} />
+              return (
+                <InitialInspectionItem
+                  onPress={onPress}
+                  initialInspection={initialInspection}
+                  key={initialInspection.uid}
+                />
+              )
             })}
           </ScrollView>
         </View>
@@ -65,11 +70,10 @@ export const InitialInspectionRecordsScreen: FC<
   )
 })
 
-
 const $root: ViewStyle = {
   paddingVertical: spacing.medium,
   paddingHorizontal: spacing.extraSmall,
-  flex: 1
+  flex: 1,
 }
 const $flex: ViewStyle = {
   flex: 1,

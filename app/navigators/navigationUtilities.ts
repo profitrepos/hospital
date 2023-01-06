@@ -158,4 +158,12 @@ export const navigateToDictionary = {
   medicinesAndMixtures: "MedicinesAndMixturesAssigned",
   procedures: "ProceduresAssigned",
   researhAssigned: "ResearhAssigned",
-}
+  analysisDetails: "AnalysisRecordsDetails",
+  consultationDetails: "ConsultationRecordsDetails",
+  diagnosisDetails: "DiagnosisRecordsDetails",
+  epicrisisDetails: "EpicrisisRecordsDetails",
+  extractDetails: "ExtractRecordsDetails",
+  initialInspectionDetails: "InitialInspectionRecordsDetails",
+  researchDetails: "ResearchRecordsDetails",
+  substantiationDetails: "SubstantiationRecordsDetails",
+} as const

@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, ReactNode, useMemo, useRef } from "react"
+import React, { FC, ReactNode, useMemo, useRef } from "react"
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet"
 import { BackButton, Preloader, Screen, ScreenTitle } from "./ui"
 import { TextStyle, View, ViewStyle } from "react-native"
@@ -8,7 +8,6 @@ import { useStores } from "../store"
 
 //TODO: сделать экраны с детальным просмотром
 //TODO: пушы
-//TODO: обновления
 
 interface ScreenWithActionSheetProps {
   children?: ReactNode
@@ -49,8 +48,9 @@ export const ScreenWithActionSheet: FC<ScreenWithActionSheetProps> = ({
     if (currentPatient && currentMedCard) {
       const [lastName, firstName, patronymic] = currentPatient.patient.split(" ")
 
-      return `${lastName ? lastName : ""} ${firstName ? `${firstName[0]}.` : ""} ${patronymic ? `${patronymic[0]}.` : ""
-        } ${currentMedCard.cardNumber}`
+      return `${lastName ? lastName : ""} ${firstName ? `${firstName[0]}.` : ""} ${
+        patronymic ? `${patronymic[0]}.` : ""
+      } ${currentMedCard.cardNumber}`
     }
     return ""
   }, [currentPatient, currentMedCard])

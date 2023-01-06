@@ -15,7 +15,13 @@ export const InitialInspectionsStore = types
   .model("InitialInspectionsStore")
   .props({
     items: types.optional(types.array(InitialInspectionModel), []),
+    activeInitialInspection: types.safeReference(InitialInspectionModel),
   })
+  .actions((self) => ({
+    setActiveInitialInspection: (uid: string | undefined) => {
+      self.activeInitialInspection = uid as any
+    },
+  }))
   .views((self) => ({
     get filteredItems(): InitialInspection[] {
       const { records } = getRootStore(self)

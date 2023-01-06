@@ -18,7 +18,13 @@ export const ResearchStore = types
   .model("ResearchStore")
   .props({
     items: types.optional(types.array(ResearchModel), []),
+    activeResearch: types.safeReference(ResearchModel),
   })
+  .actions((self) => ({
+    setActiveResearch: (uid: string | undefined) => {
+      self.activeResearch = uid as any
+    },
+  }))
   .views((self) => ({
     get filteredItems(): Research[] {
       const { records } = getRootStore(self)

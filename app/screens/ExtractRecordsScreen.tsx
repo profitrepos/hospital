@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite"
 import { ScrollView, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { ScreenTitle, Text } from "../components/ui"
-import { MedicalCardTabsParamList } from "../navigators"
+import { MedicalCardTabsParamList, navigateToDictionary } from "../navigators"
 import { ScreenWithActionSheet } from "../components"
 import { Extract, useStores } from "../store"
 import { COLORS, spacing } from "../theme"
@@ -15,7 +15,6 @@ interface ExtractItemProps {
 }
 
 const ExtractItem: FC<ExtractItemProps> = ({ extract, onPress }) => {
-
   const handlePress = () => {
     onPress(extract)
   }
@@ -38,9 +37,11 @@ export const ExtractRecordsScreen: FC<
 > = observer(function ExtractRecordsScreen({ navigation }) {
   const { records } = useStores()
   const { loading, extracts } = records
+  const { setActiveExtract } = extracts
 
   const onPress = (extract: Extract) => {
-    console.log('extract ---> ', extract)
+    navigation.navigate(navigateToDictionary.extractDetails)
+    setActiveExtract(extract.uid)
   }
 
   return (
@@ -66,7 +67,7 @@ export const ExtractRecordsScreen: FC<
 const $root: ViewStyle = {
   paddingVertical: spacing.medium,
   paddingHorizontal: spacing.extraSmall,
-  flex: 1
+  flex: 1,
 }
 const $flex: ViewStyle = {
   flex: 1,

@@ -15,7 +15,13 @@ export const ExtractsStore = types
   .model("ExtractsStore")
   .props({
     items: types.optional(types.array(ExtractModel), []),
+    activeExtract: types.safeReference(ExtractModel),
   })
+  .actions((self) => ({
+    setActiveExtract: (uid: string | undefined) => {
+      self.activeExtract = uid as any
+    },
+  }))
   .views((self) => ({
     get filteredItems(): Extract[] {
       const { records } = getRootStore(self)

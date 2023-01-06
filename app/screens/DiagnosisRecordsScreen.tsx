@@ -3,12 +3,11 @@ import { observer } from "mobx-react-lite"
 import { ScrollView, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { ScreenTitle, Text } from "../components/ui"
-import { MedicalCardTabsParamList } from "../navigators"
+import { MedicalCardTabsParamList, navigateToDictionary } from "../navigators"
 import { ScreenWithActionSheet } from "../components"
 import { Diagnosis, useStores } from "../store"
 import { COLORS, spacing } from "../theme"
 import Icon from "react-native-vector-icons/MaterialIcons"
-
 
 interface DiagnosisItemProps {
   diagnosis: Diagnosis
@@ -16,7 +15,6 @@ interface DiagnosisItemProps {
 }
 
 const DiagnosisItem: FC<DiagnosisItemProps> = ({ diagnosis, onPress }) => {
-
   const handlePress = () => {
     onPress(diagnosis)
   }
@@ -39,11 +37,12 @@ export const DiagnosisRecordsScreen: FC<
 > = observer(function DiagnosisRecordsScreen({ navigation }) {
   const { records } = useStores()
   const { loading, diagnosis } = records
+  const { setActiveDiagnosis } = diagnosis
 
   const onPress = (diagnosis: Diagnosis) => {
-    console.log('analysis ---> ', diagnosis)
+    navigation.navigate(navigateToDictionary.diagnosisDetails)
+    setActiveDiagnosis(diagnosis.uid)
   }
-
 
   return (
     <ScreenWithActionSheet loading={loading} showPatientInfo>
@@ -68,7 +67,7 @@ export const DiagnosisRecordsScreen: FC<
 const $root: ViewStyle = {
   paddingVertical: spacing.medium,
   paddingHorizontal: spacing.extraSmall,
-  flex: 1
+  flex: 1,
 }
 const $flex: ViewStyle = {
   flex: 1,

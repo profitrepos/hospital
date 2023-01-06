@@ -18,7 +18,13 @@ export const ConsultationsStore = types
   .model("ConsultationsStore")
   .props({
     items: types.optional(types.array(ConsultationModel), []),
+    activeConsultation: types.safeReference(ConsultationModel),
   })
+  .actions((self) => ({
+    setActiveConsultation: (uid: string | undefined) => {
+      self.activeConsultation = uid as any
+    },
+  }))
   .views((self) => ({
     get filteredItems(): Consultation[] {
       const { records } = getRootStore(self)

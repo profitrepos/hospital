@@ -5,7 +5,7 @@ const ru = {
     back: "Назад",
     exit: "Выход",
     search: "Найти",
-    updates: "Загружаются последние обновления..."
+    updates: "Загружаются последние обновления...",
   },
   mainTabs: {
     department: "Отделение",
@@ -130,20 +130,38 @@ const ru = {
   analysisRecordsScreen: {
     title: "Анализы",
   },
+  analysisDetailsScreen: {
+    title: "Анализ от {{date}}",
+  },
   consultationRecordsScreen: {
     title: "Консультации",
+  },
+  consultationDetailsScreen: {
+    title: "Консультация от {{date}}",
   },
   diagnosisRecordsScreen: {
     title: "Диагнозы",
   },
+  diagnosisDetailsScreen: {
+    title: "Диагноз от {{date}}",
+  },
   epicrisisRecordsScreen: {
     title: "Эпикризы",
+  },
+  epicrisisDetailsScreen: {
+    title: "Эпикриз от {{date}}",
   },
   extractRecordsScreen: {
     title: "Выписки",
   },
+  extractDetailsScreen: {
+    title: "Выписка от {{date}}",
+  },
   initialInspectionRecordsScreen: {
     title: "Первичные осмотры",
+  },
+  initialInspectionDetailsScreen: {
+    title: "Первичный осмотр от {{date}}",
   },
   operationProtocolRecordsScreen: {
     title: "Протоколы операций",
@@ -151,8 +169,14 @@ const ru = {
   researchRecordsScreen: {
     title: "Исследования",
   },
+  researchDetailsScreen: {
+    title: "Исследование от {{date}}",
+  },
   substantiationRecordsScreen: {
     title: "Обоснования диагнозов",
+  },
+  substantiationDetailsScreen: {
+    title: "Обоснование диагноза от {{date}}",
   },
   assignmentsScreen: {
     title: "Назначения",
