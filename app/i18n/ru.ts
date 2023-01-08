@@ -8,7 +8,14 @@ const ru = {
     updates: "Загружаются последние обновления...",
   },
   details: {
-    author: "Автор"
+    author: "Автор",
+    code: "Код",
+    status: "Статус",
+  },
+  indicators: {
+    indicator: "Показатель",
+    unit: "ед.изм.",
+    result: "Результат",
   },
   mainTabs: {
     department: "Отделение",
@@ -135,6 +142,7 @@ const ru = {
   },
   analysisDetailsScreen: {
     title: "Анализ от {{date}}",
+    name: "Наименование анализа по тарификатору",
   },
   consultationRecordsScreen: {
     title: "Консультации",
