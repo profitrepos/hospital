@@ -2,7 +2,7 @@ import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { ScreenTitle } from "../../components/ui"
+import { ScreenTitle, Text } from "../../components/ui"
 import { ScreenWithActionSheet } from "../../components"
 import { useStores } from "../../store"
 import { spacing } from "../../theme"
@@ -15,9 +15,6 @@ export const ConsultationDetailsScreen: FC<
   const { consultations } = records
   const { activeConsultation } = consultations
 
-  console.log('activeConsultation ---- ', activeConsultation);
-  
-
   return (
     <ScreenWithActionSheet showBackBtn showPatientInfo>
       <View style={$root}>
@@ -28,6 +25,30 @@ export const ConsultationDetailsScreen: FC<
               date: activeConsultation?.date,
             }}
           />
+          <View style={$info}>
+            <Text preset="bold" tx="details.author" />
+            <Text preset="default" text={activeConsultation?.author} />
+          </View>
+          <View style={$info}>
+            <Text preset="bold" tx="details.code" />
+            <Text preset="default" text={activeConsultation?.code} />
+          </View>
+          <View style={$info}>
+            <Text preset="bold" tx="consultationDetailsScreen.name" />
+            <Text preset="default" text={activeConsultation?.name} />
+          </View>
+          <View style={$info}>
+            <Text preset="bold" tx="details.status" />
+            <Text preset="default" text={activeConsultation?.status} />
+          </View>
+          <View style={$info}>
+            <Text preset="bold" tx="details.description" />
+            <Text preset="default" text={activeConsultation?.description} />
+          </View>
+          <View style={$info}>
+            <Text preset="bold" tx="details.conclusion" />
+            <Text preset="default" text={activeConsultation?.conclusion} />
+          </View>
         </View>
       </View>
     </ScreenWithActionSheet>
@@ -40,4 +61,7 @@ const $root: ViewStyle = {
 const $detailContainer: ViewStyle = {
   paddingVertical: spacing.medium,
   paddingHorizontal: spacing.extraSmall,
+}
+const $info: ViewStyle = {
+  marginBottom: spacing.medium,
 }

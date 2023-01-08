@@ -2,7 +2,7 @@ import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { ScreenTitle } from "../../components/ui"
+import { ScreenTitle, Text } from "../../components/ui"
 import { ScreenWithActionSheet } from "../../components"
 import { useStores } from "../../store"
 import { spacing } from "../../theme"
@@ -15,8 +15,7 @@ export const ResearchDetailsScreen: FC<
   const { research } = records
   const { activeResearch } = research
 
-  console.log('activeResearch --- ', activeResearch);
-  
+  console.log("activeResearch --- ", activeResearch)
 
   return (
     <ScreenWithActionSheet showBackBtn showPatientInfo>
@@ -28,6 +27,30 @@ export const ResearchDetailsScreen: FC<
               date: activeResearch?.date,
             }}
           />
+          <View style={$info}>
+            <Text preset="bold" tx="details.author" />
+            <Text preset="default" text={activeResearch?.author} />
+          </View>
+          <View style={$info}>
+            <Text preset="bold" tx="details.code" />
+            <Text preset="default" text={activeResearch?.code} />
+          </View>
+          <View style={$info}>
+            <Text preset="bold" tx="consultationDetailsScreen.name" />
+            <Text preset="default" text={activeResearch?.name} />
+          </View>
+          <View style={$info}>
+            <Text preset="bold" tx="details.status" />
+            <Text preset="default" text={activeResearch?.status} />
+          </View>
+          <View style={$info}>
+            <Text preset="bold" tx="details.description" />
+            <Text preset="default" text={activeResearch?.description} />
+          </View>
+          <View style={$info}>
+            <Text preset="bold" tx="details.conclusion" />
+            <Text preset="default" text={activeResearch?.conclusion} />
+          </View>
         </View>
       </View>
     </ScreenWithActionSheet>
@@ -40,4 +63,7 @@ const $root: ViewStyle = {
 const $detailContainer: ViewStyle = {
   paddingVertical: spacing.medium,
   paddingHorizontal: spacing.extraSmall,
+}
+const $info: ViewStyle = {
+  marginBottom: spacing.medium,
 }

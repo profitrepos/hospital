@@ -15,8 +15,6 @@ export const EpicrisisDetailsScreen: FC<
   const { epicrises } = records
   const { activeEpicrisis } = epicrises
 
-  console.log('activeEpicrisis ---> ', activeEpicrisis);
-
   return (
     <ScreenWithActionSheet showBackBtn showPatientInfo>
       <View style={$root}>

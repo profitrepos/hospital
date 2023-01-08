@@ -15,9 +15,6 @@ export const ExtractDetailsScreen: FC<
   const { extracts } = records
   const { activeExtract } = extracts
 
-  console.log('activeExtract ----> ', activeExtract);
-  
-
   return (
     <ScreenWithActionSheet showBackBtn showPatientInfo>
       <View style={$root}>

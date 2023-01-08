@@ -14,6 +14,7 @@ const ru = {
     kind: "Вид",
     type: "Тип",
     description: "Описание",
+    conclusion: "Заключение",
   },
   indicators: {
     indicator: "Показатель",
@@ -152,6 +153,7 @@ const ru = {
   },
   consultationDetailsScreen: {
     title: "Консультация от {{date}}",
+    name: "Наименование консультации",
   },
   diagnosisRecordsScreen: {
     title: "Диагнозы",
@@ -183,6 +185,7 @@ const ru = {
   },
   operationProtocolDetailsScreen: {
     title: "Протокол операции от {{date}}",
+    protocol: "Описание операции",
   },
   researchRecordsScreen: {
     title: "Исследования",

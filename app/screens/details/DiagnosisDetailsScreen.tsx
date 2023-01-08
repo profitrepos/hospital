@@ -15,8 +15,6 @@ export const DiagnosisDetailsScreen: FC<
   const { diagnosis } = records
   const { activeDiagnosis } = diagnosis
 
-  console.log("activeDiagnosis --- ", activeDiagnosis)
-
   return (
     <ScreenWithActionSheet showBackBtn showPatientInfo>
       <View style={$root}>

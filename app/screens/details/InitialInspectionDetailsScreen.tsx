@@ -15,9 +15,6 @@ export const InitialInspectionDetailsScreen: FC<
   const { initialInspections } = records
   const { activeInitialInspection } = initialInspections
 
-  console.log('activeInitialInspection ---> ', activeInitialInspection);
-  
-
   return (
     <ScreenWithActionSheet showBackBtn showPatientInfo>
       <View style={$root}>
@@ -28,7 +25,10 @@ export const InitialInspectionDetailsScreen: FC<
               date: activeInitialInspection?.date,
             }}
           />
-          <ChaptersDetails chapters={activeInitialInspection?.chapters} author={activeInitialInspection?.author} />
+          <ChaptersDetails
+            chapters={activeInitialInspection?.chapters}
+            author={activeInitialInspection?.author}
+          />
         </View>
       </View>
     </ScreenWithActionSheet>

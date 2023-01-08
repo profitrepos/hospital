@@ -15,7 +15,7 @@ const tableHead: TxKeyPath[] = ["indicators.indicator", "indicators.result", "in
 export const IndicatorsDetails: FC<IndicatorsDetailsProps> = ({ indicators }) => {
   const normalizedIndicators = useMemo(() => {
     return indicators.map((i) => {
-      const { result, unit, indicator } = i
+      const { result = "-", unit = "-", indicator = "-" } = i
 
       return [indicator, result, unit]
     })

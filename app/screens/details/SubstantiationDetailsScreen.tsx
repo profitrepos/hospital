@@ -15,9 +15,6 @@ export const SubstantiationDetailsScreen: FC<
   const { substantiations } = records
   const { activeSubstantiation } = substantiations
 
-  console.log('activeSubstantiation ---> ', activeSubstantiation);
-  
-
   return (
     <ScreenWithActionSheet showBackBtn showPatientInfo>
       <View style={$root}>
@@ -28,7 +25,10 @@ export const SubstantiationDetailsScreen: FC<
               date: activeSubstantiation?.date,
             }}
           />
-          <ChaptersDetails chapters={activeSubstantiation?.chapters} author={activeSubstantiation?.author} />
+          <ChaptersDetails
+            chapters={activeSubstantiation?.chapters}
+            author={activeSubstantiation?.author}
+          />
         </View>
       </View>
     </ScreenWithActionSheet>
