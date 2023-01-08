@@ -1,6 +1,6 @@
 import React, { FC, useMemo } from "react"
 import { observer } from "mobx-react-lite"
-import { TextStyle, View, ViewStyle } from "react-native"
+import { TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { ScreenTitle, Text } from "../components/ui"
 import { MedicalCardTabsParamList } from "../navigators"
@@ -16,10 +16,10 @@ interface RegimeProps {
 
 const RegimeItem: FC<RegimeProps> = ({ title, type }) => {
   return (
-    <View style={$regime}>
+    <TouchableOpacity style={$regime} onPress={() => console.log("REGIME...")} activeOpacity={0.6}>
       <Text text={`${type}: ${title}`} style={$regimeTitle} />
       <Icon name="chevron-right" style={$arrow} />
-    </View>
+    </TouchableOpacity>
   )
 }
 
