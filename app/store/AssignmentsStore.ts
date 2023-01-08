@@ -21,8 +21,19 @@ export const AssignmentsStore = types
     error: types.optional(types.string, ""),
   })
   .actions((self) => ({
+    clearStore: () => {
+      self.analyzesAssigned = cast({})
+      self.consultationsAssigned = cast({})
+      self.medicinesAndMixtures = cast({})
+      self.procedures = cast({})
+      self.regimesAndDiets = cast({})
+      self.researhAssigned = cast({})
+    },
+  }))
+  .actions((self) => ({
     load: flow(function* (orgId: string, cardId: string) {
       try {
+        self.clearStore()
         self.error = ""
         self.loading = true
 

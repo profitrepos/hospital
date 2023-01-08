@@ -1,24 +1,29 @@
 import React, { FC, useMemo } from "react"
 import { observer } from "mobx-react-lite"
-import { TextStyle, View, ViewStyle } from "react-native"
+import { TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { ScreenTitle, Text } from "../components/ui"
-import { MedicalCardTabsParamList } from "../navigators"
+import { MedicalCardTabsParamList, navigateToDictionary } from "../navigators"
 import { AssignmentsList, ScreenWithActionSheet } from "../components"
 import { ConsultationAssigned, useStores } from "../store"
 import { COLORS, spacing } from "../theme"
 import Icon from "react-native-vector-icons/MaterialIcons"
 
 interface ConsultationsAssignedProps {
-  title: string
+  consultation: ConsultationAssigned
+  onPress: (item: ConsultationAssigned) => void
 }
 
-const ConsultationsAssigned: FC<ConsultationsAssignedProps> = ({ title }) => {
+const ConsultationsAssigned: FC<ConsultationsAssignedProps> = ({ consultation, onPress }) => {
+  const handlePress = () => {
+    onPress(consultation)
+  }
+
   return (
-    <View style={$consultation}>
-      <Text text={title} style={$consultationTitle} />
+    <TouchableOpacity onPress={handlePress} style={$consultation} activeOpacity={0.6}>
+      <Text text={consultation.description} style={$consultationTitle} />
       <Icon name="chevron-right" style={$arrow} />
-    </View>
+    </TouchableOpacity>
   )
 }
 
@@ -27,11 +32,17 @@ export const ConsultationsAssignedScreen: FC<
 > = observer(function ConsultationsAssignedScreen({ navigation }) {
   const { assignments } = useStores()
   const { loading, consultationsAssigned } = assignments
+  const { setActiveConsultation } = consultationsAssigned
 
   const dates = useMemo(
     () => [...consultationsAssigned.map.keys()].sort((a, b) => Number(a) - Number(b)),
     [consultationsAssigned],
   )
+
+  const onPress = (item: ConsultationAssigned) => {
+    setActiveConsultation(item)
+    navigation.navigate(navigateToDictionary.consultationAssignedDetails)
+  }
 
   return (
     <ScreenWithActionSheet contentContainerStyle={$flex} loading={loading} showPatientInfo>
@@ -41,7 +52,7 @@ export const ConsultationsAssignedScreen: FC<
           dates={dates}
           map={consultationsAssigned.map}
           renderItem={(elem, index) => (
-            <ConsultationsAssigned title={elem.description} key={index} />
+            <ConsultationsAssigned onPress={onPress} consultation={elem} key={index} />
           )}
         />
       </View>

@@ -15,6 +15,11 @@ const ru = {
     type: "Тип",
     description: "Описание",
     conclusion: "Заключение",
+    assigned: "Отметка назначения",
+    assignedBy: "Назначил",
+    executed: "Отметка выполнения",
+    executedBy: "Выполнил",
+    comment: "Комментарий",
   },
   indicators: {
     indicator: "Показатель",
@@ -216,10 +221,16 @@ const ru = {
   analyzesAssignedScreen: {
     title: "Анализы",
   },
+  analysisAssignedDetailsScreen: {
+    title: "Анализ",
+  },
   researhAssignedScreen: {
     title: "Исследования",
   },
   consultationsAssignedScreen: {
+    title: "Консультация",
+  },
+  consultationAssignedDetailsScreen: {
     title: "Консультация",
   },
   regimesAndDietsScreen: {
