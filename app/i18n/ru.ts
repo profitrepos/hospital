@@ -11,6 +11,9 @@ const ru = {
     author: "Автор",
     code: "Код",
     status: "Статус",
+    kind: "Вид",
+    type: "Тип",
+    description: "Описание",
   },
   indicators: {
     indicator: "Показатель",
@@ -155,6 +158,7 @@ const ru = {
   },
   diagnosisDetailsScreen: {
     title: "Диагноз от {{date}}",
+    substantiation: "Обоснование диагноза",
   },
   epicrisisRecordsScreen: {
     title: "Эпикризы",
