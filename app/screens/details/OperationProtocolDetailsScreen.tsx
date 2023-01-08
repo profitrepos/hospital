@@ -8,23 +8,21 @@ import { useStores } from "../../store"
 import { spacing } from "../../theme"
 import { MedicalCardTabsParamList } from "../../navigators"
 
-export const DiagnosisDetailsScreen: FC<
-  StackScreenProps<MedicalCardTabsParamList, "DiagnosisRecordsDetails">
-> = observer(function DiagnosisDetailsScreen({ navigation }) {
+export const OperationProtocolDetailsScreen: FC<
+  StackScreenProps<MedicalCardTabsParamList, "OperationProtocolRecordsDetails">
+> = observer(function OperationProtocolDetailsScreen({ navigation }) {
   const { records } = useStores()
-  const { diagnosis } = records
-  const { activeDiagnosis } = diagnosis
-
-  console.log('activeDiagnosis --- ', activeDiagnosis);
+  const { operationProtocols } = records
+  const { activeOperationProtocol } = operationProtocols
 
   return (
     <ScreenWithActionSheet showBackBtn showPatientInfo>
       <View style={$root}>
         <View style={$detailContainer}>
           <ScreenTitle
-            text="diagnosisDetailsScreen.title"
+            text="operationProtocolDetailsScreen.title"
             txOptions={{
-              date: activeDiagnosis?.date,
+              date: activeOperationProtocol?.date,
             }}
           />
         </View>

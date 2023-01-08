@@ -35,6 +35,7 @@ import {
   ResearchDetailsScreen,
   InitialInspectionDetailsScreen,
   SubstantiationDetailsScreen,
+  OperationProtocolDetailsScreen,
 } from "../screens"
 import { COLORS } from "../theme"
 import { getActiveRouteName, navigationRef } from "./navigationUtilities"
@@ -69,6 +70,7 @@ export type MedicalCardTabsParamList = {
   InitialInspectionRecordsDetails: undefined
   ResearchRecordsDetails: undefined
   SubstantiationRecordsDetails: undefined
+  OperationProtocolRecordsDetails: undefined
 }
 
 const Tab = createBottomTabNavigator<MedicalCardTabsParamList>()
@@ -291,6 +293,11 @@ export const MedicalCardNavigator = observer(() => {
       <Tab.Screen
         name="SubstantiationRecordsDetails"
         component={SubstantiationDetailsScreen}
+        options={hiddenTabOptions}
+      />
+      <Tab.Screen
+        name="OperationProtocolRecordsDetails"
+        component={OperationProtocolDetailsScreen}
         options={hiddenTabOptions}
       />
     </Tab.Navigator>

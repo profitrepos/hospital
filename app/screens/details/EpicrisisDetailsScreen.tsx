@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { ScreenTitle } from "../../components/ui"
-import { ScreenWithActionSheet } from "../../components"
+import { ChaptersDetails, ScreenWithActionSheet } from "../../components"
 import { useStores } from "../../store"
 import { spacing } from "../../theme"
 import { MedicalCardTabsParamList } from "../../navigators"
@@ -15,6 +15,8 @@ export const EpicrisisDetailsScreen: FC<
   const { epicrises } = records
   const { activeEpicrisis } = epicrises
 
+  console.log('activeEpicrisis ---> ', activeEpicrisis);
+
   return (
     <ScreenWithActionSheet showBackBtn showPatientInfo>
       <View style={$root}>
@@ -25,6 +27,7 @@ export const EpicrisisDetailsScreen: FC<
               date: activeEpicrisis?.date,
             }}
           />
+          <ChaptersDetails chapters={activeEpicrisis?.chapters} author={activeEpicrisis?.author} />
         </View>
       </View>
     </ScreenWithActionSheet>

@@ -6,11 +6,18 @@ import { Text } from "./ui"
 
 interface ChaptersDetailsProps {
   chapters: Chapter[]
+  author?: string
 }
 
-export const ChaptersDetails: FC<ChaptersDetailsProps> = ({ chapters }) => {
+export const ChaptersDetails: FC<ChaptersDetailsProps> = ({ chapters, author }) => {
   return (
     <View style={$container}>
+      {
+        author && <View style={$chapter}>
+        <Text preset="bold" tx="details.author" style={$header} />
+        <Text preset="default" text={author} style={$text} />
+      </View>
+      }
       {chapters &&
         chapters.map((chapter) => {
           return (

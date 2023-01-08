@@ -15,6 +15,9 @@ export const ConsultationDetailsScreen: FC<
   const { consultations } = records
   const { activeConsultation } = consultations
 
+  console.log('activeConsultation ---- ', activeConsultation);
+  
+
   return (
     <ScreenWithActionSheet showBackBtn showPatientInfo>
       <View style={$root}>

@@ -7,6 +7,9 @@ const ru = {
     search: "Найти",
     updates: "Загружаются последние обновления...",
   },
+  details: {
+    author: "Автор"
+  },
   mainTabs: {
     department: "Отделение",
     patients: "Мои",
@@ -165,6 +168,9 @@ const ru = {
   },
   operationProtocolRecordsScreen: {
     title: "Протоколы операций",
+  },
+  operationProtocolDetailsScreen: {
+    title: "Протокол операции от {{date}}",
   },
   researchRecordsScreen: {
     title: "Исследования",

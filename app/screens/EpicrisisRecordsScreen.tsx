@@ -25,7 +25,7 @@ const EpicrisisItem: FC<EpicrisisItemProps> = ({ epicrisis, onPress }) => {
       <View style={$item}>
         <View style={$values}>
           <Text preset="subheading" style={$name} text={epicrisis.kind} />
-          <Text preset="helper" style={$info} text={epicrisis.date} />
+          <Text preset="helper" style={$info} text={`${epicrisis.date} - ${epicrisis.kind}`} />
         </View>
         <Icon name="chevron-right" style={$arrow} />
       </View>

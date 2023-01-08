@@ -15,7 +15,13 @@ export const OperationProtocolsStore = types
   .model("OperationProtocolsStore")
   .props({
     items: types.optional(types.array(OperationProtocolModel), []),
+    activeOperationProtocol: types.safeReference(OperationProtocolModel)
   })
+  .actions((self) => ({
+    setActiveOperationProtocol: (uid: string | undefined) => {
+      self.activeOperationProtocol = uid as any
+    },
+  }))
   .views((self) => ({
     get filteredItems(): OperationProtocol[] {
       const { records } = getRootStore(self)

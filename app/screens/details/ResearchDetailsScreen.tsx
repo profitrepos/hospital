@@ -15,6 +15,9 @@ export const ResearchDetailsScreen: FC<
   const { research } = records
   const { activeResearch } = research
 
+  console.log('activeResearch --- ', activeResearch);
+  
+
   return (
     <ScreenWithActionSheet showBackBtn showPatientInfo>
       <View style={$root}>

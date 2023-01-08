@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite"
 import { ScrollView, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { ScreenTitle, Text } from "../components/ui"
-import { MedicalCardTabsParamList } from "../navigators"
+import { MedicalCardTabsParamList, navigateToDictionary } from "../navigators"
 import { ScreenWithActionSheet } from "../components"
 import { OperationProtocol, useStores } from "../store"
 import { COLORS, spacing } from "../theme"
@@ -38,9 +38,11 @@ export const OperationProtocolRecordsScreen: FC<
 > = observer(function OperationProtocolRecordsScreen({ navigation }) {
   const { records } = useStores()
   const { loading, operationProtocols } = records
+  const { setActiveOperationProtocol } = operationProtocols
 
   const onPress = (operationProtocol: OperationProtocol) => {
-    console.log('operationProtocol ---> ', operationProtocol)
+    setActiveOperationProtocol(operationProtocol.uid)
+    navigation.navigate(navigateToDictionary.operationProtocolDetails)
   }
 
   return (

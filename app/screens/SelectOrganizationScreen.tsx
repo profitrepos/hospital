@@ -48,9 +48,8 @@ export const SelectOrganizationScreen: FC<
     <Screen style={$root} preset="fixed" filled>
       <View style={$container}>
         <View style={$header}>
-          <Avatar />
+          <ScreenTitle text="selectOrganizationScreen.title" />
         </View>
-        <ScreenTitle text="selectOrganizationScreen.title" />
       </View>
       <View style={[$list, $container]}>
         <OrganizationList
@@ -69,7 +68,7 @@ const $root: ViewStyle = {
 }
 const $header: ViewStyle = {
   flexDirection: "row",
-  justifyContent: "flex-end",
+  justifyContent: "center",
   alignItems: "center",
   marginTop: spacing.medium,
   marginBottom: spacing.extraSmall,

@@ -1,21 +1,35 @@
 import { useNavigation } from "@react-navigation/native"
 import React from "react"
 import { TextStyle, View, ViewStyle, TouchableOpacity } from "react-native"
-import { spacing } from "../../theme"
+import { useStores } from "../../store"
 import { Text } from "./Text"
 
 export const Avatar = () => {
   const navigation = useNavigation()
+  const { userInfo } = useStores()
+  const { activeOrg } = userInfo
 
   const onPress = () => {
     navigation.navigate("Settings" as never)
+  }
+
+  const getInitials = () => {
+    if (activeOrg) {
+      const [name, lastName] = activeOrg.employeeName.split(' ')
+
+      return `${name[0]}${lastName[0]}`
+    }
+  }
+
+  if (!activeOrg) {
+    return null
   }
 
   return (
     <View style={$container}>
       <TouchableOpacity activeOpacity={1} style={$avatar} onPress={onPress}>
         <View style={$avatar}>
-          <Text text="AB" style={$text} preset="label" />
+          <Text text={getInitials()} style={$text} preset="label" />
         </View>
       </TouchableOpacity>
     </View>
