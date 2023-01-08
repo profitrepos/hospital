@@ -3,21 +3,25 @@ import { observer } from "mobx-react-lite"
 import { TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { ScreenTitle, Text } from "../components/ui"
-import { MedicalCardTabsParamList } from "../navigators"
+import { MedicalCardTabsParamList, navigateToDictionary } from "../navigators"
 import { AssignmentsList, ScreenWithActionSheet } from "../components"
-import { Regime, RegimeAndDiet, useStores } from "../store"
+import { Diet, Regime, RegimeAndDiet, useStores } from "../store"
 import { COLORS, spacing } from "../theme"
 import Icon from "react-native-vector-icons/MaterialIcons"
 
 interface RegimeProps {
-  title: string
-  type: string
+  regimeOrDiet: Regime | Diet
+  onPress: (regimeOrDiet: Regime | Diet) => void
 }
 
-const RegimeItem: FC<RegimeProps> = ({ title, type }) => {
+const RegimeItem: FC<RegimeProps> = ({ regimeOrDiet, onPress }) => {
+  const handlePress = () => {
+    onPress(regimeOrDiet)
+  }
+
   return (
-    <TouchableOpacity style={$regime} onPress={() => console.log("REGIME...")} activeOpacity={0.6}>
-      <Text text={`${type}: ${title}`} style={$regimeTitle} />
+    <TouchableOpacity style={$regime} onPress={handlePress} activeOpacity={0.6}>
+      <Text text={`${regimeOrDiet.type}: ${regimeOrDiet.description}`} style={$regimeTitle} />
       <Icon name="chevron-right" style={$arrow} />
     </TouchableOpacity>
   )
@@ -28,11 +32,17 @@ export const RegimesAndDietsScreen: FC<
 > = observer(function RegimesAndDietsScreen({ navigation }) {
   const { assignments } = useStores()
   const { loading, regimesAndDiets } = assignments
+  const { setActiveRegimeOrDiet } = regimesAndDiets
 
   const dates = useMemo(
     () => [...regimesAndDiets.map.keys()].sort((a, b) => Number(a) - Number(b)),
     [regimesAndDiets],
   )
+
+  const onPress = (regimeOrDiet: Regime | Diet) => {
+    setActiveRegimeOrDiet(regimeOrDiet)
+    navigation.navigate(navigateToDictionary.regimeOrDietAssignedDetails)
+  }
 
   return (
     <ScreenWithActionSheet contentContainerStyle={$flex} loading={loading} showPatientInfo>
@@ -42,7 +52,7 @@ export const RegimesAndDietsScreen: FC<
           dates={dates}
           map={regimesAndDiets.map}
           renderItem={(elem, index) => (
-            <RegimeItem type={elem.type} title={elem.description} key={index} />
+            <RegimeItem regimeOrDiet={elem} onPress={onPress} key={index} />
           )}
         />
       </View>

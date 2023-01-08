@@ -1,24 +1,29 @@
 import React, { FC, useMemo } from "react"
 import { observer } from "mobx-react-lite"
-import { TextStyle, View, ViewStyle } from "react-native"
+import { TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { ScreenTitle, Text } from "../components/ui"
-import { MedicalCardTabsParamList } from "../navigators"
+import { MedicalCardTabsParamList, navigateToDictionary } from "../navigators"
 import { AssignmentsList, ScreenWithActionSheet } from "../components"
 import { ResearchAssigned, useStores } from "../store"
 import { COLORS, spacing } from "../theme"
 import Icon from "react-native-vector-icons/MaterialIcons"
 
 interface ResearchProps {
-  title: string
+  research: ResearchAssigned
+  onPress: (research: ResearchAssigned) => void
 }
 
-const ResearchItem: FC<ResearchProps> = ({ title }) => {
+const ResearchItem: FC<ResearchProps> = ({ research, onPress }) => {
+  const handlePress = () => {
+    onPress(research)
+  }
+
   return (
-    <View style={$research}>
-      <Text text={title} style={$researchTitle} />
+    <TouchableOpacity onPress={handlePress} style={$research} activeOpacity={0.6}>
+      <Text text={research.description} style={$researchTitle} />
       <Icon name="chevron-right" style={$arrow} />
-    </View>
+    </TouchableOpacity>
   )
 }
 
@@ -27,11 +32,17 @@ export const ResearhAssignedScreen: FC<
 > = observer(function ResearhAssignedScreen({ navigation }) {
   const { assignments } = useStores()
   const { loading, researhAssigned } = assignments
+  const { setActiveResearchAssigned } = researhAssigned
 
   const dates = useMemo(
     () => [...researhAssigned.map.keys()].sort((a, b) => Number(a) - Number(b)),
     [researhAssigned],
   )
+
+  const onPress = (research: ResearchAssigned) => {
+    setActiveResearchAssigned(research)
+    navigation.navigate(navigateToDictionary.researchAssignedDetails)
+  }
 
   return (
     <ScreenWithActionSheet contentContainerStyle={$flex} loading={loading} showPatientInfo>
@@ -40,7 +51,9 @@ export const ResearhAssignedScreen: FC<
         <AssignmentsList<ResearchAssigned>
           dates={dates}
           map={researhAssigned.map}
-          renderItem={(elem, index) => <ResearchItem title={elem.description} key={index} />}
+          renderItem={(elem, index) => (
+            <ResearchItem onPress={onPress} research={elem} key={index} />
+          )}
         />
       </View>
     </ScreenWithActionSheet>

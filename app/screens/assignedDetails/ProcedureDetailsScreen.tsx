@@ -5,43 +5,30 @@ import { View, ViewStyle } from "react-native"
 import { ScreenWithActionSheet } from "../../components"
 import { ScreenTitle, Text } from "../../components/ui"
 import { MedicalCardTabsParamList } from "../../navigators"
-import { Medicine, Mixture, useStores } from "../../store"
+import { useStores } from "../../store"
 import { spacing } from "../../theme"
 
 const keys = ["code", "assigned", "assignedBy", "executed", "executedBy", "comment"] as const
 
-export const MedicineOrMixtureDetailsScreen: FC<
-  StackScreenProps<MedicalCardTabsParamList, "MedicineOrMixtureAssignedDetails">
-> = observer(function MedicineOrMixtureDetailsScreen() {
+export const ProcedureDetailsScreen: FC<
+  StackScreenProps<MedicalCardTabsParamList, "ProcedureAssignedDetails">
+> = observer(function ProcedureDetailsScreen() {
   const { assignments } = useStores()
-  const { medicinesAndMixtures } = assignments
-  const { activeMedicineOrMixture } = medicinesAndMixtures
-
-  const isMedicine = (item: Medicine | Mixture): item is Medicine => {
-    if (item) {
-      return item.type === "Медикаменты"
-    }
-    return false
-  }
+  const { procedures } = assignments
+  const { activeProcedure } = procedures
 
   return (
     <ScreenWithActionSheet showBackBtn showPatientInfo>
       <View style={$root}>
         <View style={$detailContainer}>
-          <ScreenTitle
-            text={
-              isMedicine(activeMedicineOrMixture)
-                ? "medicineOrMixtureDetailsScreen.medicine"
-                : "medicineOrMixtureDetailsScreen.mixture"
-            }
-          />
-          {activeMedicineOrMixture && (
+          <ScreenTitle text="procedureDetailsScreen.title" />
+          {activeProcedure && (
             <Fragment>
               {keys.map((key) => {
                 return (
                   <View style={$info} key={key}>
                     <Text preset="bold" tx={`details.${key}`} />
-                    <Text preset="default" text={activeMedicineOrMixture[key]} />
+                    <Text preset="default" text={activeProcedure[key]} />
                   </View>
                 )
               })}

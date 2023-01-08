@@ -231,6 +231,9 @@ const ru = {
   researhAssignedScreen: {
     title: "Исследования",
   },
+  researchAssignedDetailsScreen: {
+    title: "Исследование",
+  },
   consultationsAssignedScreen: {
     title: "Консультация",
   },
@@ -240,11 +243,18 @@ const ru = {
   regimesAndDietsScreen: {
     title: "Режимы и деты",
   },
+  regimeOrDietDetailsScreen: {
+    diet: "Диета",
+    regime: "Режим",
+  },
   dietsScreen: {
     title: "Диета",
   },
   proceduresScreen: {
     title: "Процедуры",
+  },
+  procedureDetailsScreen: {
+    title: "Процедура",
   },
 }
 

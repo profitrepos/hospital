@@ -5,21 +5,21 @@ import { View, ViewStyle } from "react-native"
 import { ScreenWithActionSheet } from "../../components"
 import { ScreenTitle, Text } from "../../components/ui"
 import { MedicalCardTabsParamList } from "../../navigators"
-import { Medicine, Mixture, useStores } from "../../store"
+import { Diet, Regime, useStores } from "../../store"
 import { spacing } from "../../theme"
 
 const keys = ["code", "assigned", "assignedBy", "executed", "executedBy", "comment"] as const
 
-export const MedicineOrMixtureDetailsScreen: FC<
-  StackScreenProps<MedicalCardTabsParamList, "MedicineOrMixtureAssignedDetails">
-> = observer(function MedicineOrMixtureDetailsScreen() {
+export const RegimeOrDietDetailsScreen: FC<
+  StackScreenProps<MedicalCardTabsParamList, "RegimeOrDietAssignedDetails">
+> = observer(function RegimeOrDietDetailsScreen() {
   const { assignments } = useStores()
-  const { medicinesAndMixtures } = assignments
-  const { activeMedicineOrMixture } = medicinesAndMixtures
+  const { regimesAndDiets } = assignments
+  const { activeRegimeOrDiet } = regimesAndDiets
 
-  const isMedicine = (item: Medicine | Mixture): item is Medicine => {
-    if (item) {
-      return item.type === "Медикаменты"
+  const isDiet = (regimeOrDiet: Regime | Diet): regimeOrDiet is Diet => {
+    if (regimeOrDiet) {
+      return regimeOrDiet.type === "Диета"
     }
     return false
   }
@@ -30,18 +30,18 @@ export const MedicineOrMixtureDetailsScreen: FC<
         <View style={$detailContainer}>
           <ScreenTitle
             text={
-              isMedicine(activeMedicineOrMixture)
-                ? "medicineOrMixtureDetailsScreen.medicine"
-                : "medicineOrMixtureDetailsScreen.mixture"
+              isDiet(activeRegimeOrDiet)
+                ? "regimeOrDietDetailsScreen.diet"
+                : "regimeOrDietDetailsScreen.regime"
             }
           />
-          {activeMedicineOrMixture && (
+          {activeRegimeOrDiet && (
             <Fragment>
               {keys.map((key) => {
                 return (
                   <View style={$info} key={key}>
                     <Text preset="bold" tx={`details.${key}`} />
-                    <Text preset="default" text={activeMedicineOrMixture[key]} />
+                    <Text preset="default" text={activeRegimeOrDiet[key]} />
                   </View>
                 )
               })}

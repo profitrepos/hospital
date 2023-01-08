@@ -1,24 +1,29 @@
 import React, { FC, useMemo } from "react"
 import { observer } from "mobx-react-lite"
-import { TextStyle, View, ViewStyle } from "react-native"
+import { TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { ScreenTitle, Text } from "../components/ui"
-import { MedicalCardTabsParamList } from "../navigators"
+import { MedicalCardTabsParamList, navigateToDictionary } from "../navigators"
 import { AssignmentsList, ScreenWithActionSheet } from "../components"
 import { Procedure, useStores } from "../store"
 import { COLORS, spacing } from "../theme"
 import Icon from "react-native-vector-icons/MaterialIcons"
 
 interface ProcedureProps {
-  title: string
+  procedure: Procedure
+  onPress: (procedure: Procedure) => void
 }
 
-const ProcedureItem: FC<ProcedureProps> = ({ title }) => {
+const ProcedureItem: FC<ProcedureProps> = ({ procedure, onPress }) => {
+  const handlePress = () => {
+    onPress(procedure)
+  }
+
   return (
-    <View style={$procedure}>
-      <Text text={title} style={$procedureTitle} />
+    <TouchableOpacity style={$procedure} onPress={handlePress} activeOpacity={0.6}>
+      <Text text={procedure.description} style={$procedureTitle} />
       <Icon name="chevron-right" style={$arrow} />
-    </View>
+    </TouchableOpacity>
   )
 }
 
@@ -27,11 +32,17 @@ export const ProceduresScreen: FC<
 > = observer(function ProceduresScreen({ navigation }) {
   const { assignments } = useStores()
   const { loading, procedures } = assignments
+  const { setActiveProcedure } = procedures
 
   const dates = useMemo(
     () => [...procedures.map.keys()].sort((a, b) => Number(a) - Number(b)),
     [procedures],
   )
+
+  const onPress = (procedure: Procedure) => {
+    setActiveProcedure(procedure)
+    navigation.navigate(navigateToDictionary.procedureDetails)
+  }
 
   return (
     <ScreenWithActionSheet contentContainerStyle={$flex} loading={loading} showPatientInfo>
@@ -40,7 +51,9 @@ export const ProceduresScreen: FC<
         <AssignmentsList<Procedure>
           dates={dates}
           map={procedures.map}
-          renderItem={(elem, index) => <ProcedureItem title={elem.description} key={index} />}
+          renderItem={(elem, index) => (
+            <ProcedureItem onPress={onPress} procedure={elem} key={index} />
+          )}
         />
       </View>
     </ScreenWithActionSheet>
