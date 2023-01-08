@@ -1,21 +1,26 @@
 import React, { FC, memo, useMemo } from "react"
 import { observer } from "mobx-react-lite"
-import { TextStyle, View, ViewStyle } from "react-native"
+import { TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { ScreenTitle, Text } from "../components/ui"
-import { MedicalCardTabsParamList } from "../navigators"
+import { MedicalCardTabsParamList, navigateToDictionary } from "../navigators"
 import { AssignmentsList, ScreenWithActionSheet } from "../components"
-import { MedicinesAndMixtures, useStores } from "../store"
+import { Medicine, MedicinesAndMixtures, Mixture, useStores } from "../store"
 import { COLORS, spacing } from "../theme"
 import Icon from "react-native-vector-icons/MaterialIcons"
 
 interface MedicineItemProps {
   medicine: MedicinesAndMixtures
+  onPress: (medicine: MedicinesAndMixtures) => void
 }
 
-const MedicineItem: FC<MedicineItemProps> = memo(({ medicine }) => {
+const MedicineItem: FC<MedicineItemProps> = memo(({ medicine, onPress }) => {
+  const handlePress = () => {
+    onPress(medicine)
+  }
+
   return (
-    <View style={$medicine}>
+    <TouchableOpacity style={$medicine} onPress={handlePress}>
       <View style={$medicineInfo}>
         <Text preset="subheading" text={medicine.description} style={$medicineDescr} />
         <Text preset="helper" text={medicine.comment} style={$medicineComment} />
@@ -24,7 +29,7 @@ const MedicineItem: FC<MedicineItemProps> = memo(({ medicine }) => {
         )}
       </View>
       <Icon name="chevron-right" style={$arrow} />
-    </View>
+    </TouchableOpacity>
   )
 })
 
@@ -33,11 +38,17 @@ export const MedicinesAndMixturesScreen: FC<
 > = observer(function MedicinesAndMixturesScreen({ navigation }) {
   const { assignments } = useStores()
   const { loading, medicinesAndMixtures } = assignments
+  const { setActiveMedicineOrMixture } = medicinesAndMixtures
 
   const dates = useMemo(
     () => [...medicinesAndMixtures.map.keys()].sort((a, b) => Number(a) - Number(b)),
     [medicinesAndMixtures],
   )
+
+  const onPress = (medicineOrMixture: Medicine | Mixture) => {
+    navigation.navigate(navigateToDictionary.medicineOrMixtureDetails)
+    setActiveMedicineOrMixture(medicineOrMixture)
+  }
 
   return (
     <ScreenWithActionSheet
@@ -51,7 +62,9 @@ export const MedicinesAndMixturesScreen: FC<
         <AssignmentsList<MedicinesAndMixtures>
           dates={dates}
           map={medicinesAndMixtures.map}
-          renderItem={(elem, index) => <MedicineItem medicine={elem} key={index} />}
+          renderItem={(elem, index) => (
+            <MedicineItem onPress={onPress} medicine={elem} key={index} />
+          )}
         />
       </View>
     </ScreenWithActionSheet>

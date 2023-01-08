@@ -5,9 +5,17 @@ export const MedicineAndMixtureModel = AssignmentModel.named("Medicine").props({
   type: types.union(types.literal("Медикаменты"), types.literal("Смеси")),
 })
 
-export const MedicinesAndMixturesStore = types.model("MedicinesAndMixturesStore").props({
-  map: types.map(types.array(MedicineAndMixtureModel)),
-})
+export const MedicinesAndMixturesStore = types
+  .model("MedicinesAndMixturesStore")
+  .props({
+    map: types.map(types.array(MedicineAndMixtureModel)),
+    activeMedicineOrMixture: types.maybeNull(MedicineAndMixtureModel),
+  })
+  .actions((self) => ({
+    setActiveMedicineOrMixture: (medicineOrMixture: Mixture | Medicine) => {
+      self.activeMedicineOrMixture = { ...medicineOrMixture }
+    },
+  }))
 
 export interface MedicinesAndMixtures extends Instance<typeof MedicineAndMixtureModel> {}
 export interface Medicine extends MedicinesAndMixtures {

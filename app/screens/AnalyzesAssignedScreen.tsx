@@ -1,24 +1,29 @@
 import React, { FC, useMemo } from "react"
 import { observer } from "mobx-react-lite"
-import { TextStyle, View, ViewStyle } from "react-native"
+import { TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { ScreenTitle, Text } from "../components/ui"
-import { MedicalCardTabsParamList } from "../navigators"
+import { MedicalCardTabsParamList, navigateToDictionary } from "../navigators"
 import { AssignmentsList, ScreenWithActionSheet } from "../components"
 import { AnalysisAssigned, useStores } from "../store"
 import { COLORS, spacing } from "../theme"
 import Icon from "react-native-vector-icons/MaterialIcons"
 
 interface AnalysisProps {
-  title: string
+  analysis: AnalysisAssigned
+  onPress: (analysis: AnalysisAssigned) => void
 }
 
-const Analysis: FC<AnalysisProps> = ({ title }) => {
+const Analysis: FC<AnalysisProps> = ({ analysis, onPress }) => {
+  const handlePress = () => {
+    onPress(analysis)
+  }
+
   return (
-    <View style={$analysis}>
-      <Text text={title} style={$analysisTitle} />
+    <TouchableOpacity onPress={handlePress} style={$analysis}>
+      <Text text={analysis.description} style={$analysisTitle} />
       <Icon name="chevron-right" style={$arrow} />
-    </View>
+    </TouchableOpacity>
   )
 }
 
@@ -28,10 +33,17 @@ export const AnalyzesAssignedScreen: FC<
   const { assignments } = useStores()
   const { loading, analyzesAssigned } = assignments
 
+  const { setActiveAnalysis } = analyzesAssigned
+
   const dates = useMemo(
     () => [...analyzesAssigned.map.keys()].sort((a, b) => Number(a) - Number(b)),
     [analyzesAssigned],
   )
+
+  const onPress = (analysis: AnalysisAssigned) => {
+    navigation.navigate(navigateToDictionary.analysisAssignedDetails)
+    setActiveAnalysis(analysis)
+  }
 
   return (
     <ScreenWithActionSheet contentContainerStyle={$flex} loading={loading} showPatientInfo>
@@ -40,7 +52,7 @@ export const AnalyzesAssignedScreen: FC<
         <AssignmentsList<AnalysisAssigned>
           dates={dates}
           map={analyzesAssigned.map}
-          renderItem={(elem, index) => <Analysis title={elem.description} key={index} />}
+          renderItem={(elem, index) => <Analysis onPress={onPress} analysis={elem} key={index} />}
         />
       </View>
     </ScreenWithActionSheet>

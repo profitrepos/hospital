@@ -38,6 +38,7 @@ import {
   OperationProtocolDetailsScreen,
   AnalysisAssignedDetailsScreen,
   ConsultationAssignedDetailsScreen,
+  MedicineOrMixtureDetailsScreen,
 } from "../screens"
 import { COLORS } from "../theme"
 import { getActiveRouteName, navigationRef } from "./navigationUtilities"
@@ -75,6 +76,7 @@ export type MedicalCardTabsParamList = {
   OperationProtocolRecordsDetails: undefined
   AnalysisAssignedDetails: undefined
   ConsultationAssignedDetails: undefined
+  MedicineOrMixtureDetails: undefined
 }
 
 const Tab = createBottomTabNavigator<MedicalCardTabsParamList>()
@@ -312,6 +314,11 @@ export const MedicalCardNavigator = observer(() => {
       <Tab.Screen
         name="ConsultationAssignedDetails"
         component={ConsultationAssignedDetailsScreen}
+        options={hiddenTabOptions}
+      />
+      <Tab.Screen
+        name="MedicineOrMixtureDetails"
+        component={MedicineOrMixtureDetailsScreen}
         options={hiddenTabOptions}
       />
     </Tab.Navigator>

@@ -218,6 +218,10 @@ const ru = {
   medicinesAndMixturesScreen: {
     title: "Медикаменты и смеси",
   },
+  medicineOrMixtureDetailsScreen: {
+    medicine: "Медикамент",
+    mixture: "Смесь",
+  },
   analyzesAssignedScreen: {
     title: "Анализы",
   },

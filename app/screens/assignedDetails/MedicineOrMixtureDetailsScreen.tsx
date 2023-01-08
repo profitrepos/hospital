@@ -5,30 +5,43 @@ import { View, ViewStyle } from "react-native"
 import { ScreenWithActionSheet } from "../../components"
 import { ScreenTitle, Text } from "../../components/ui"
 import { MedicalCardTabsParamList } from "../../navigators"
-import { useStores } from "../../store"
+import { Medicine, Mixture, useStores } from "../../store"
 import { spacing } from "../../theme"
 
 const keys = ["code", "assigned", "assignedBy", "executed", "executedBy", "comment"] as const
 
-export const AnalysisAssignedDetailsScreen: FC<
-  StackScreenProps<MedicalCardTabsParamList, "AnalysisAssignedDetails">
-> = observer(function AnalysisAssignedDetailsScreen() {
+export const MedicineOrMixtureDetailsScreen: FC<
+  StackScreenProps<MedicalCardTabsParamList, "MedicineOrMixtureDetails">
+> = observer(function MedicineOrMixtureDetailsScreen() {
   const { assignments } = useStores()
-  const { analyzesAssigned } = assignments
-  const { activeAnalysis } = analyzesAssigned
+  const { medicinesAndMixtures } = assignments
+  const { activeMedicineOrMixture } = medicinesAndMixtures
+
+  const isMedicine = (item: Medicine | Mixture): item is Medicine => {
+    if (item) {
+      return item.type === "Медикаменты"
+    }
+    return false
+  }
 
   return (
     <ScreenWithActionSheet showBackBtn showPatientInfo>
       <View style={$root}>
         <View style={$detailContainer}>
-          <ScreenTitle text="analysisAssignedDetailsScreen.title" />
-          {activeAnalysis && (
+          <ScreenTitle
+            text={
+              isMedicine(activeMedicineOrMixture)
+                ? "medicineOrMixtureDetailsScreen.medicine"
+                : "medicineOrMixtureDetailsScreen.mixture"
+            }
+          />
+          {activeMedicineOrMixture && (
             <Fragment>
               {keys.map((key) => {
                 return (
                   <View style={$info} key={key}>
                     <Text preset="bold" tx={`details.${key}`} />
-                    <Text preset="default" text={activeAnalysis[key]} />
+                    <Text preset="default" text={activeMedicineOrMixture[key]} />
                   </View>
                 )
               })}
