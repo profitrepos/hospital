@@ -45,7 +45,7 @@ export const ResearchRecordsScreen: FC<
   }
 
   return (
-    <ScreenWithActionSheet loading={loading} showPatientInfo>
+    <ScreenWithActionSheet loading={loading} showBackBtn showPatientInfo>
       <View style={$root}>
         <ScreenTitle text="researchRecordsScreen.title" />
         <View style={$list}>

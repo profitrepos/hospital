@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite"
 import { ScrollView, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { ScreenTitle, Text } from "../components/ui"
-import { MedicalCardTabsParamList } from "../navigators"
+import { MedicalCardTabsParamList, navigateToDictionary } from "../navigators"
 import { ScreenWithActionSheet } from "../components"
 import { Epicrisis, useStores } from "../store"
 import { COLORS, spacing } from "../theme"
@@ -15,7 +15,6 @@ interface EpicrisisItemProps {
 }
 
 const EpicrisisItem: FC<EpicrisisItemProps> = ({ epicrisis, onPress }) => {
-
   const handlePress = () => {
     onPress(epicrisis)
   }
@@ -38,13 +37,15 @@ export const EpicrisisRecordsScreen: FC<
 > = observer(function EpicrisisRecordsScreen({ navigation }) {
   const { records } = useStores()
   const { loading, epicrises } = records
+  const { setActiveEpicrisis } = epicrises
 
   const onPress = (epicrisis: Epicrisis) => {
-    console.log('epicrisis ---> ', epicrisis)
+    navigation.navigate(navigateToDictionary.epicrisisDetails)
+    setActiveEpicrisis(epicrisis.uid)
   }
 
   return (
-    <ScreenWithActionSheet loading={loading} showPatientInfo>
+    <ScreenWithActionSheet loading={loading} showBackBtn showPatientInfo>
       <View style={$root}>
         <ScreenTitle text="epicrisisRecordsScreen.title" />
         <View style={$list}>
@@ -63,11 +64,10 @@ export const EpicrisisRecordsScreen: FC<
   )
 })
 
-
 const $root: ViewStyle = {
   paddingVertical: spacing.medium,
   paddingHorizontal: spacing.extraSmall,
-  flex: 1
+  flex: 1,
 }
 const $flex: ViewStyle = {
   flex: 1,

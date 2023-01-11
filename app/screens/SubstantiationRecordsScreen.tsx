@@ -45,7 +45,7 @@ export const SubstantiationRecordsScreen: FC<
   }
 
   return (
-    <ScreenWithActionSheet loading={loading} showPatientInfo>
+    <ScreenWithActionSheet loading={loading} showBackBtn showPatientInfo>
       <View style={$root}>
         <ScreenTitle text="substantiationRecordsScreen.title" />
         <View style={$list}>

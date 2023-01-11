@@ -142,6 +142,7 @@ export function resetRoot(params = { index: 0, routes: [] }) {
   }
 }
 
+//TODO: удалить не нужные (оставить только для записей)
 export const navigateToDictionary = {
   analyzes: "AnalysisRecords",
   consultations: "ConsultationRecords",

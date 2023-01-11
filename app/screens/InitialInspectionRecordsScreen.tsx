@@ -45,7 +45,7 @@ export const InitialInspectionRecordsScreen: FC<
   }
 
   return (
-    <ScreenWithActionSheet loading={loading} showPatientInfo>
+    <ScreenWithActionSheet loading={loading} showBackBtn showPatientInfo>
       <View style={$root}>
         <ScreenTitle text="initialInspectionRecordsScreen.title" />
         <View style={$list}>

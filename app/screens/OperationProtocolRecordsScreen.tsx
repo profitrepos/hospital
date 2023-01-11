@@ -15,7 +15,6 @@ interface OperationProtocolItemProps {
 }
 
 const OperationProtocolItem: FC<OperationProtocolItemProps> = ({ operationProtocol, onPress }) => {
-
   const handlePress = () => {
     onPress(operationProtocol)
   }
@@ -46,7 +45,7 @@ export const OperationProtocolRecordsScreen: FC<
   }
 
   return (
-    <ScreenWithActionSheet loading={loading} showPatientInfo>
+    <ScreenWithActionSheet loading={loading} showBackBtn showPatientInfo>
       <View style={$root}>
         <ScreenTitle text="operationProtocolRecordsScreen.title" />
         <View style={$list}>
@@ -56,7 +55,13 @@ export const OperationProtocolRecordsScreen: FC<
             showsVerticalScrollIndicator={false}
           >
             {operationProtocols.filteredItems.map((operationProtocol) => {
-              return <OperationProtocolItem onPress={onPress} operationProtocol={operationProtocol} key={operationProtocol.uid} />
+              return (
+                <OperationProtocolItem
+                  onPress={onPress}
+                  operationProtocol={operationProtocol}
+                  key={operationProtocol.uid}
+                />
+              )
             })}
           </ScrollView>
         </View>
@@ -68,7 +73,7 @@ export const OperationProtocolRecordsScreen: FC<
 const $root: ViewStyle = {
   paddingVertical: spacing.medium,
   paddingHorizontal: spacing.extraSmall,
-  flex: 1
+  flex: 1,
 }
 const $flex: ViewStyle = {
   flex: 1,

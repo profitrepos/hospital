@@ -45,7 +45,7 @@ export const ConsultationRecordsScreen: FC<
   }
 
   return (
-    <ScreenWithActionSheet loading={loading} showPatientInfo>
+    <ScreenWithActionSheet loading={loading} showBackBtn showPatientInfo>
       <View style={$root}>
         <ScreenTitle text="consultationRecordsScreen.title" />
         <View style={$list}>

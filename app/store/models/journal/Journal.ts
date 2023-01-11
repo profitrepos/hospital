@@ -25,8 +25,9 @@ export const JournalsStore = types
   .views((self) => ({
     get list() {
       return self.items.reduce<JournalListItem[]>((prev, journal) => {
-        const { uid, doc, date } = journal
-        return [...prev, { uid, doc, date }]
+        const { uid, chapters, date } = journal
+        const description = chapters[0]?.text
+        return [...prev, { uid, description, date }]
       }, [])
     },
   }))

@@ -25,8 +25,8 @@ const Journal: FC<JournalProps> = memo(({ item, onPress }) => {
     <TouchableOpacity onPress={handlePress} activeOpacity={0.6}>
       <View style={$item}>
         <View style={$values}>
-          <Text preset="subheading" style={$name} text={item.doc} />
-          <Text preset="helper" style={$info} text={item.date} />
+          <Text preset="subheading" style={$name} text={item.date} />
+          <Text preset="helper" style={$info} text={item.description} numberOfLines={1} />
         </View>
         <Icon name="chevron-right" style={$arrow} />
       </View>

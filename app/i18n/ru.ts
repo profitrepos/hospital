@@ -114,6 +114,7 @@ const ru = {
     diagnosis: "Диагноз",
     department: "Отделение госпитализации",
     hospitalization: "Госпитализация",
+    archive: "Архивные истории болезней\n{{lastName}} ({{count}})",
   },
   journalsScreen: {
     title: "Дневники",

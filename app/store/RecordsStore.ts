@@ -92,11 +92,28 @@ const RecordsStore = types
     },
   }))
   .actions((self) => ({
+    clearStore: () => {
+      self.analyzes = cast({})
+      self.consultations = cast({})
+      self.diagnosis = cast({})
+      self.epicrises = cast({})
+      self.extracts = cast({})
+      self.initialInspections = cast({})
+      self.journals = cast({})
+      self.operationProtocols = cast({})
+      self.patients = cast({})
+      self.research = cast({})
+      self.substantiations = cast({})
+      self.recordMedCards = cast({})
+    },
+  }))
+  .actions((self) => ({
     load: flow(function* (orgId: string, cardId: string) {
       try {
         self.clearError()
         self.resetCategoryFilter()
         self.resetDateFilter()
+        self.clearStore()
         self.loading = true
 
         const { error, data } = yield* toGenerator(getMedicalRecords(orgId, cardId))

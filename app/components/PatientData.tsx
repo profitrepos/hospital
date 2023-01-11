@@ -3,6 +3,7 @@ import { TextStyle, View, ViewStyle } from "react-native"
 import { TxKeyPath } from "../i18n"
 import { Patient, RecordMedCard } from "../store"
 import { COLORS, spacing } from "../theme"
+import { dateDistanceFromNow } from "../utils/formatDate"
 import { Text } from "./ui"
 
 interface PatientDataProps {
@@ -42,20 +43,27 @@ const Row: FC<RowProps> = ({ text, txKey, hidden }) => {
     </View>
   )
 }
+//TODO: сделать архивные медкарты
 
 export const PatientData: FC<PatientDataProps> = ({ patient, style, medCard }) => {
   const compareDate = { ...patient, ...medCard }
 
   return (
     <View style={[$container, style]}>
-      {keys.map((key) => (
-        <Row
-          key={key}
-          txKey={`patientDataScreen.${key}`}
-          text={compareDate[key]}
-          hidden={compareDate[key].length === 0}
-        />
-      ))}
+      {keys.map((key) => {
+        return (
+          <Row
+            key={key}
+            txKey={`patientDataScreen.${key}`}
+            text={
+              key === "admissionDate"
+                ? `${compareDate[key]} (${dateDistanceFromNow(compareDate.timestamp * 1000)})`
+                : compareDate[key]
+            }
+            hidden={compareDate[key].length === 0}
+          />
+        )
+      })}
     </View>
   )
 }

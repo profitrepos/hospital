@@ -48,7 +48,7 @@ export const SearchList: FC<SearchListProps> = observer(() => {
 
   const patientHandler = (patient: PatientListItem, index?: number) => {
     setActivePatient(patient.uid)
-    setPatientIndex(index ? index : 0)
+    setPatientIndex(index)
   }
 
   const clearActivePatient = () => {

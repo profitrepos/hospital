@@ -24,6 +24,7 @@ const DiagnosisItem: FC<DiagnosisItemProps> = ({ diagnosis, onPress }) => {
       <View style={$item}>
         <View style={$values}>
           <Text preset="subheading" style={$name} text={diagnosis.code} />
+          <Text preset="helper" style={$info} text={diagnosis.type} />
           <Text preset="helper" style={$info} text={diagnosis.date} />
         </View>
         <Icon name="chevron-right" style={$arrow} />
@@ -45,7 +46,7 @@ export const DiagnosisRecordsScreen: FC<
   }
 
   return (
-    <ScreenWithActionSheet loading={loading} showPatientInfo>
+    <ScreenWithActionSheet loading={loading} showBackBtn showPatientInfo>
       <View style={$root}>
         <ScreenTitle text="diagnosisRecordsScreen.title" />
         <View style={$list}>

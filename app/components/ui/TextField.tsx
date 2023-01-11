@@ -84,11 +84,11 @@ export const TextField: React.FC<TextFieldProps> = ({
           <TouchableOpacity onPress={handleRightIcon} style={$rightIcon}>
             <RightIcon width={18} height={18} />
           </TouchableOpacity>
-        ) : (
+        ) : value.length > 0 ? (
           <TouchableOpacity onPress={onClear} style={$rightIcon}>
             <Icon name="close" style={$clearIcon} />
           </TouchableOpacity>
-        )}
+        ) : null}
       </View>
       {errorMessage ? (
         <Text style={$error} size="xs">

@@ -57,4 +57,6 @@ type RecordsMap<T> = {
 
 export interface RecordMenu extends RecordsMap<Omit<NormalizedRecords, "journals" | "patients">> {}
 
-export interface JournalListItem extends Pick<Journal, "doc" | "date" | "uid"> {}
+export interface JournalListItem extends Pick<Journal, "date" | "uid"> {
+  description: string
+}

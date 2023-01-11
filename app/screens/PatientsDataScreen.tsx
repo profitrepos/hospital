@@ -2,11 +2,16 @@ import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
 import { View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { ScreenTitle } from "../components/ui"
+import { Button, ScreenTitle } from "../components/ui"
 import { MedicalCardTabsParamList } from "../navigators"
 import { AppError, AppModal, PatientData, ScreenWithActionSheet } from "../components"
 import { useStores } from "../store"
 import { spacing } from "../theme"
+
+const getLastName = (FIO: string) => {
+  const [lastName] = FIO.split(" ")
+  return lastName
+}
 
 export const PatientsDataScreen: FC<StackScreenProps<MedicalCardTabsParamList, "PatientsData">> =
   observer(function PatientsDataScreen({ navigation }) {
@@ -30,6 +35,14 @@ export const PatientsDataScreen: FC<StackScreenProps<MedicalCardTabsParamList, "
           {currentPatient && currentMedCard && (
             <PatientData medCard={currentMedCard} patient={currentPatient} />
           )}
+          {currentPatient && (
+            <View style={$archive}>
+              <Button
+                tx="patientDataScreen.archive"
+                txOptions={{ lastName: getLastName(currentPatient.patient), count: 3 }}
+              />
+            </View>
+          )}
         </View>
       </ScreenWithActionSheet>
     )
@@ -44,4 +57,7 @@ const $root: ViewStyle = {
 }
 const $handle: ViewStyle = {
   paddingBottom: spacing.extraLarge,
+}
+const $archive: ViewStyle = {
+  padding: spacing.medium,
 }
